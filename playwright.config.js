@@ -1,10 +1,16 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig, cucumberReporter } from 'playwright-bdd';
+
+const testDir = defineBddConfig({
+  features: 'features/**/import_account.feature',
+  steps: 'steps/**/*.js',
+});
 
 
 
 export default defineConfig({
-  testDir: './tests',
+  //testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
