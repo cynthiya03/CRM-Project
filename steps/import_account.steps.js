@@ -1,3 +1,7 @@
+import { createBdd } from 'playwright-bdd';
+
+const { Given, When, Then } = createBdd();
+
 Given('User Logged into CRM and land on import account page', async ({}) => {
   // Step: Given User Logged into CRM and land on import account page
   // From: features\import_account.feature:7:5
