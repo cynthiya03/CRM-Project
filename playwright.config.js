@@ -11,10 +11,6 @@ const testDir = defineBddConfig({
   /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
 });
 
-});
-
-import { defineBddConfig } from 'playwright-bdd';
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
