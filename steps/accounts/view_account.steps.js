@@ -1,5 +1,5 @@
-const { createBdd } = require('playwright-bdd');
-const { Given, When, Then } = createBdd();
+import { Given, When, Then } from '../../src/fixtures/pageFixture.js';
+import { expect } from '@playwright/test';
 
 
 Given('User Land on view Account page', async ({}) => {
