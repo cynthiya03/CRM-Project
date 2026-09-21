@@ -2,6 +2,12 @@
 Feature: Testing account features in CRM application
   User will be able to navigate, create, view and import accounts in CRM application
 
+@userabletologin
+  Scenario: verify user can log in successfully
+    Given User open a the CRM application
+    When User enters username and password
+    Then User able to login successfully
+
 @verifyuserabletonavigatetohomepage @TC001
   Scenario: verify user able to navigate to home page
     Given User logged into the CRM application

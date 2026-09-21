@@ -1,10 +1,24 @@
-import { createBdd } from 'playwright-bdd';
+import { LoginPage } from '../../src/pages/LoginPage.js';
+import { Given, When, Then } from '../../src/fixtures/pageFixture.js';
+import { expect } from '@playwright/test';
 
-const { Given, When, Then } = createBdd();
+
+
+Given('User open a the CRM application', async ({ loginPage }) => {
+  await loginPage.openURL("https://suite8demo.suiteondemand.com/#/Login")
+});
+
+When('User enters username and password', async ({ loginPage }) => {
+  await loginPage.dologin('will' , 'will');
+});
+
+Then('User able to login successfully', async ({ page }) => {
+  // Replace this pattern with your CRM's actual home page URL.
+  await expect(page).toHaveURL("https://suite8demo.suiteondemand.com/#/home");
+});
 
 Given('User logged into the CRM application', async ({}) => {
-  // Step: Given User logged into the CRM application
-  // From: features\Account.feature:7:5
+  
 });
 
 When('User view the top navigation menu', async ({}) => {
