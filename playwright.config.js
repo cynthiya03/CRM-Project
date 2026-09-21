@@ -1,16 +1,14 @@
 
 import { defineConfig, devices } from '@playwright/test';
-import { defineBddConfig, cucumberReporter } from 'playwright-bdd';
+import { defineBddConfig } from 'playwright-bdd';
 
 const testDir = defineBddConfig({
   features: 'features/**/*.feature',
   steps: [
     'steps/**/*.js',
-  'src/fixtures/pageFixture.js',
+    'src/fixtures/pageFixture.js',
   ]
 });
-
-
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
