@@ -61,3 +61,13 @@ Then('The quote should not be saved and user is directed to the Quotes page', as
   // Step: Then The quote should not be saved and user is directed to the Quotes page
   // From: features/create_quote.feature:28:1
 });
+
+When('User doesnt enter any of the mandatory fields and clicks on the Save button', async ({}) => {
+  // Step: When User doesnt enter any of the mandatory fields and clicks on the Save button
+  // From: features/create_quote.feature:22:1
+});
+
+Then('User should be displayed a warning message saying {string}', async ({}, arg) => {
+  // Step: Then User should be displayed a warning message saying "Missing required field: Title"
+  // From: features/create_quote.feature:23:1
+});

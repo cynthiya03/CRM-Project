@@ -17,6 +17,11 @@ Given User is in the Create Quotes page
 When User clicks the calendar icon
 Then The Calendar should be displayed with Select Date,Close at the top right corner Today button at the top center 
 
+Scenario:Not allow User to save when mandatory fields are not entered
+Given User is in the Create Quotes page
+When User doesnt enter any of the mandatory fields and clicks on the Save button
+Then User should be displayed a warning message saying "Missing required field: Title"
+
 Scenario:Successfully save the quote by entering all the fields
 Given User is in the Create Quotes page
 When user enters all the mandatory and non mandatory fields and click on Save button
