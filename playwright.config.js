@@ -1,5 +1,12 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig, cucumberReporter } from 'playwright-bdd';
+
+const testDir = defineBddConfig({
+  features: 'features/**/contact.feature',
+  steps: 'steps/**/*.js'
+
+});
 
 import { defineBddConfig } from 'playwright-bdd';
 
@@ -19,7 +26,7 @@ const bddTestDir = defineBddConfig({
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: 'bddTestDir',
+  //testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
