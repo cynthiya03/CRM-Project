@@ -1,10 +1,19 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig } from 'playwright-bdd';
 
+const testDir = defineBddConfig({
+  features: 'features/**/*.feature', // Path to your .feature files
+  steps: 
+    'steps/**/*.js',  
+    
+
+  /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
+});
 
 
 export default defineConfig({
-  testDir: './tests',
+  //testDir,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
