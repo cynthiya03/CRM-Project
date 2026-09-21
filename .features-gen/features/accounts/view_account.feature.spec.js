@@ -1,5 +1,5 @@
 // Generated from: features\accounts\view_account.feature
-import { test } from "playwright-bdd";
+import { test } from "../../../src/fixtures/pageFixture.js";
 
 test.describe('Testing view account features in CRM application', () => {
 

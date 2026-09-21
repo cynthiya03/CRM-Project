@@ -14,9 +14,22 @@
     "@types/node": "^22.20.3",
     "allure": "^3.17.0",
     "allure-playwright": "^3.12.1",
+    "bdd": "^1.0.1",
+    "playwright": "^1.63.0",
     "playwright-bdd": "^9.2.1"
   },
   "dependencies": {
     "xlsx": "^0.18.5"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cynthiya03/CRM-Project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cynthiya03/CRM-Project/issues"
+  },
+  "homepage": "https://github.com/cynthiya03/CRM-Project#readme"
 }

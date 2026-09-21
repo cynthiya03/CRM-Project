@@ -8,3 +8,5 @@ export const test = base.extend({
   },
 });
 
+export const { Given, When, Then } = createBdd(test);
+
