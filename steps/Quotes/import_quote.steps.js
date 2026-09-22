@@ -18,7 +18,7 @@ When('the user clicks the Download Import File Template link in the import quote
   // From: features/Quotes/import_quote.feature:6:1
 });
 
-<<<<<<< HEAD
+
 When('the user clicks the Download Import File Template link in the import quotes page', async ({}) => {
   // Step: When the user clicks the Download Import File Template link in the import quotes page
   // From: features/Quotes/import_quote.feature:6:1
@@ -29,8 +29,7 @@ Then('the application should download a template file to the user\'s local machi
   // From: features/Quotes/import_quote.feature:7:1
 });
 
-=======
->>>>>>> f0ac7aa (corrected syntax)
+
 Given('User is in the Import quote page', async ({}) => {
   // Step: Given User is in the Import quote page
   // From: features/Quotes/import_quote.feature:10:1
@@ -70,16 +69,13 @@ When('no file has been selected in the Select file picker, the user clicks the N
   // Step: When no file has been selected in the Select file picker, the user clicks the Next button
   // From: features/Quotes/import_quote.feature:21:1
 });
-<<<<<<< HEAD
-});
 
-Then('the system should display a validation error message indicating a file is requiredAnd the user should remain on Step {int}', async ({}, arg) => {
+Then('the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one', async ({}) => {
   // Step: Then the system should display a validation error message indicating a file is requiredAnd the user should remain on Step 1
   // From: features/view_quotes.feature:48:1
 });
 
 Then('the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one', async ({}) => {
-=======
 
 Then('the application should download a template file to the user\'s local machine', async ({}) => {
   // Step: Then the application should download a template file to the user's local machine
@@ -87,8 +83,8 @@ Then('the application should download a template file to the user\'s local machi
 });
 
 Then('the system should display a validation error message indicating a file is requiredAnd the user shouldremain on Step one', async ({}) => {
->>>>>>> f0ac7aa (corrected syntax)
   // Step: Then the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one
   // From: features/Quotes/import_quote.feature:22:1
 });
 
+}
