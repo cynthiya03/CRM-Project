@@ -17,12 +17,12 @@ Given The form has a default reminder action Popup set to thirty minutes prior
 When the user clicks the X icon next to the Email invitees reminder
 Then Email invitees reminder block should be removed
 
-Scenario:Manage meeting reminders
+Scenario:Manage reminders for the add button
 Given The form has a default reminder action Popup set to thirty minutes prior
 When the user clicks the  Add reminder button
 Then a new reminder configurations row should appear on the page
 
-Scenario:Manage meeting reminders
+Scenario:Manage meeting for the remove button
 Given The form has a default reminder action Popup set to thirty minutes prior
 When the user clicks the - Remove reminder button
 Then the added reminder configurations row should be removed

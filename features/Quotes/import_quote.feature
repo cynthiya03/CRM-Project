@@ -7,7 +7,7 @@ When the user clicks the Download Import File Template link in the import quotes
 Then the application should download a template file to the user's local machine
 
 Scenario:Successfully upload a valid file and select record option
-Given User is in the Import page
+Given User is in the Import quote page
 When the user uploads a valid file using the Choose File picker and the user selects the Create new records only radio option and the user clicks the Next button
 Then the user should be advanced to next step of the import process
 
