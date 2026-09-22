@@ -1,6 +1,6 @@
 import { createBdd } from 'playwright-bdd';
 
-const { Given, When, Then, And } = createBdd();
+const { Given, When, Then } = createBdd();
 
 Given('user is logged in to CRM application', async ({}) => {
   // Step: Given user is logged in to CRM application
@@ -29,7 +29,7 @@ When('user navigates to the create document page and fills in the following fiel
   console.log('Document form data:', formData);
 });
 
-And('user clicks the save button', async ({}) => {
+When('user clicks the save button', async ({}) => {
   // Step: And user clicks the save button
   // From: features\Documents\create_document.feature:28:5
 });
@@ -44,7 +44,7 @@ Then('the dropdown should display "View Document" as an option', async ({}) => {
   // From: features\Documents\create_document.feature:32:5
 });
 
-And('user navigates to view document page and can view the mentioned fields below', async ({}, dataTable) => {
+When('user navigates to view document page and can view the mentioned fields below', async ({}, dataTable) => {
   // Step: And user navigates to view document page and can view the mentioned fields below
   // From: features\Documents\create_document.feature:36:5
   const fields = dataTable.rawTable.flat().map((value) => value.trim());
