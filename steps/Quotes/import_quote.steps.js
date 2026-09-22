@@ -12,8 +12,14 @@ When('the user clicks the Download Import File Template link in the import quote
   // From: features/Quotes/import_quote.feature:6:1
 });
 
-Then("the application should download a template file to the user's local machine", async ({}) => {
-  // Step: Then the application should download a template file to the user's local machine
+
+//When('the user clicks the Download Import File Template link in the import quotes page', async ({}) => {
+  // Step: When the user clicks the Download Import File Template link in the import quotes page
+  // From: features/Quotes/import_quote.feature:6:1
+//});
+
+Then('the application should download a template file to the users local machine', async ({}) => {
+  // Step: Then the application should download a template file to the users local machine
   // From: features/Quotes/import_quote.feature:7:1
 });
 
