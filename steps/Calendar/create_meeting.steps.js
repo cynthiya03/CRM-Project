@@ -85,7 +85,7 @@ When('The user scrolls down to the Create an invitee section and the user clicks
 });
 
 
-Then('Fields to create a new contact  First Name, Last Name and Email should appear along with Create & Addbutton and Cancel button', async ({}) => {
+Then('Fields to create a new contact  First Name, Last Name and Email should appear along with Create & Add button and Cancel button', async ({}) => {
   // Step: Then Fields to create a new contact  First Name, Last Name and Email should appear along with Create & Add button and Cancel button
   // From: features/create_meeting.feature:38:1
 });
@@ -105,5 +105,4 @@ Then('the system should discard all unsaved changes', async ({}) => {
   // From: features/create_meeting.feature:43:1
 
 });
-
 
