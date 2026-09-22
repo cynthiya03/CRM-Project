@@ -86,5 +86,3 @@ Then('the system should display a validation error message indicating a file is 
   // Step: Then the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one
   // From: features/Quotes/import_quote.feature:22:1
 });
-
-}
