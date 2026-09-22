@@ -12,8 +12,14 @@ When('the user clicks the Download Import File Template link in the import quote
   // From: features/Quotes/import_quote.feature:6:1
 });
 
-Then("the application should download a template file to the user's local machine", async ({}) => {
-  // Step: Then the application should download a template file to the user's local machine
+
+//When('the user clicks the Download Import File Template link in the import quotes page', async ({}) => {
+  // Step: When the user clicks the Download Import File Template link in the import quotes page
+  // From: features/Quotes/import_quote.feature:6:1
+//});
+
+Then('the application should download a template file to the users local machine', async ({}) => {
+  // Step: Then the application should download a template file to the users local machine
   // From: features/Quotes/import_quote.feature:7:1
 });
 
@@ -43,6 +49,17 @@ When('no file has been selected in the Select file picker, the user clicks the N
 });
 
 Then('the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one', async ({}) => {
+  // Step: Then the system should display a validation error message indicating a file is requiredAnd the user should remain on Step 1
+  // From: features/view_quotes.feature:48:1
+});
+
+
+Then('the application should download a template file to the user\'s local machine', async ({}) => {
+  // Step: Then the application should download a template file to the user's local machine
+  // From: features/Quotes/import_quote.feature:7:1
+});
+
+Then('the system should display a validation error message indicating a file is requiredAnd the user shouldremain on Step one', async ({}) => {
   // Step: Then the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one
   // From: features/Quotes/import_quote.feature:22:1
 });
