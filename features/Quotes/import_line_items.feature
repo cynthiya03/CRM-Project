@@ -4,7 +4,7 @@ Feature: Testing Upload Import file page in SuiteCRM
 
 Scenario:Download import file template
 Given User is in the Import Line Items page
-When the user clicks the Download Import File Template link
+When user clicks the Download Import File link
 Then the application should initiate a file download for the template file
 
 Scenario:Successfully upload file and proceed with default import mode
