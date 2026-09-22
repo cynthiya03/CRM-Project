@@ -4,8 +4,10 @@ import { defineBddConfig } from 'playwright-bdd';
 
 const testDir = defineBddConfig({
   features: 'features/**/*.feature', // Path to your .feature files
-  steps: 
-    'steps/**/*.js',  
+  steps: [
+    'steps/**/*.js',
+    'src/fixtures/pageFixture.js',
+  ],
     
 
   /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
@@ -92,4 +94,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
