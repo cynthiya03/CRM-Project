@@ -75,7 +75,6 @@ Then('the system should display a validation error message indicating a file is 
   // From: features/view_quotes.feature:48:1
 });
 
-Then('the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one', async ({}) => {
 
 Then('the application should download a template file to the user\'s local machine', async ({}) => {
   // Step: Then the application should download a template file to the user's local machine
