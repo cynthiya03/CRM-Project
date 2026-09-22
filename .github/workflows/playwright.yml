@@ -50,6 +50,3 @@ jobs:
           path: playwright-report/
           if-no-files-found: ignore
           retention-days: 7
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
