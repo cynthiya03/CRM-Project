@@ -7,12 +7,12 @@ Given The user is logged into the application And the user navigates to the Crea
 When the user fills in all necessary details
 Then call record should be successfully created
 
-Scenario:Add and remove configuration rows for reminders
+Scenario:Add reminder configuration row
 Given the reminders section displays default reminder actions
 When the user clicks the Add reminder button
 Then a new row for configuring a reminder should be appended to the list
 
-Scenario:Add and remove configuration rows for reminders
+Scenario:Remove reminder configuration row
 Given the reminders section displays default reminder actions
 When the user clicks the Remove reminder button
 Then the last added reminder configuration row should be removed from the view
@@ -21,5 +21,4 @@ Scenario:Cancel call creation process
 Given The user is logged into the application And the user navigates to the Create Calls page
 When the user enters data into the Subject fiel dAnd the user clicks the Cancel button
 Then the system should discard all unsaved entries And the user should be redirected back to the Calls dashboard view
-
 

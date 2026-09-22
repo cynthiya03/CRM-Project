@@ -12,17 +12,17 @@ Given The user navigates to the Create Meetings page
 When the user leaves the Subject, Start Date, and End Date fields empty And the user clicks the Save button
 Then The system should display a validation error message for mandatory fields and the meeting should not be created
 
-Scenario:Manage meeting reminders
+Scenario:Remove email invitee reminder
 Given The form has a default reminder action Popup set to thirty minutes prior
 When the user clicks the X icon next to the Email invitees reminder
 Then Email invitees reminder block should be removed
 
-Scenario:Manage meeting reminders
+Scenario:Add meeting reminder
 Given The form has a default reminder action Popup set to thirty minutes prior
 When the user clicks the  Add reminder button
 Then a new reminder configurations row should appear on the page
 
-Scenario:Manage meeting reminders
+Scenario:Remove added meeting reminder
 Given The form has a default reminder action Popup set to thirty minutes prior
 When the user clicks the - Remove reminder button
 Then the added reminder configurations row should be removed

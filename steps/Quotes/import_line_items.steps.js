@@ -8,6 +8,11 @@ Given('User is in the Import Line Items page', async ({}) => {
   // From: features/import_line_items.feature:6:1
 });
 
+When('the user clicks the Download Import File Template link', async ({}) => {
+  // Step: When the user clicks the Download Import File Template link
+  // From: features/import_line_items.feature:7:1
+});
+
 Then('the application should initiate a file download for the template file', async ({}) => {
   // Step: Then the application should initiate a file download for the template file
   // From: features/import_line_items.feature:8:1
