@@ -57,4 +57,4 @@ Then('New Email window should be opened', async ({}) => {
   // Step: Then New Email window should be opened
   // From: features/view_quotes.feature:28:1
 });
-});
+
