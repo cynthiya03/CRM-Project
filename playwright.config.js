@@ -18,10 +18,10 @@ const testDir = defineBddConfig({
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
-const bddTestDir = defineBddConfig({
-  features: 'features/**/*.feature', // Scans features folder and any subfolders
-  steps: 'steps/**/*.js',           // Scans steps folder and any subfolders
-});
+//const bddTestDir = defineBddConfig({
+  //features: 'features/**/*.feature', // Scans features folder and any subfolders
+ // steps: 'steps/**/*.js',           // Scans steps folder and any subfolders
+//});
 
 /**
  * @see https://playwright.dev/docs/test-configuration
