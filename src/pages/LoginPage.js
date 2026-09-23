@@ -1,9 +1,5 @@
-
-
 export class LoginPage{ 
-/**
-   * @param {import('@playwright/test').Page} page
-   */
+
 constructor(page) {
 this.page = page;
  this.username = page.getByRole('textbox', { name: 'Username' })
@@ -13,8 +9,8 @@ this.loginButton = page.getByRole('button', { name: 'Log In' })
 }
 
 
-async openURL(url){
-     await this.page.goto(url);
+async openURL(BASE_URL){
+    await this.page.goto(BASE_URL);
  }
 // // const username = process.env.CRM_USERNAME;
 //  // const password = process.env.CRM_PASSWORD;

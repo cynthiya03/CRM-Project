@@ -1,0 +1,22 @@
+[
+{
+    "username" : "will",
+    "password" : "will"
+},
+{
+    "username" : "invalid@opencart.com ",
+    "password" : " "
+},
+{
+    "username" : " ",
+    "password" : " "
+},
+{
+    "username" : "invalid@opencart.commandline",
+    "password" : "will "
+},
+{
+    "username" : " ",
+    "password" : "will "
+}
+]

@@ -8,4 +8,5 @@ export const test = base.extend({
   },
 });
 
-export const { Given, When, Then } = createBdd(test);
+export const { Given, When, Then, BeforeScenario } = createBdd(test);
+export { expect } from '@playwright/test';

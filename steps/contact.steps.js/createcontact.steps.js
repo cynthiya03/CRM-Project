@@ -156,4 +156,3 @@ Then('the user should be redirected to the Edit Contact page', async ({}) => {
   // Step: Then the user should be redirected to the Edit Contact page
   // From: features\contact.feature:100:5
 });
-

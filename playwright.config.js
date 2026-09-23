@@ -1,12 +1,19 @@
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'node:url';
 
+dotenv.config({
+  path: fileURLToPath(new URL('./config/QA.env', import.meta.url)),
+});
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
+
 
 const testDir = defineBddConfig({
   features: 'features/**/*.feature',
   steps: [
     'steps/**/*.js',
-    'src/fixtures/pageFixture.js',
+    'hooks/**/*.js',
+    
   ]
 });
 /**
@@ -44,10 +51,21 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+  {
+    name: 'setup',
+    testDir: './setup',
+    testMatch: /auth\.setup\.js/,
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: { cookies: [], origins: [] },
     },
+  },
+
+  {
+    name: 'chromium',
+    use: { ...devices['Desktop Chrome'] },
+  },
+],
 
     // {
     //   name: 'firefox',
@@ -78,7 +96,7 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
-  ],
+
 
   /* Run your local dev server before starting the tests */
   // webServer: {
