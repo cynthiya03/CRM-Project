@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export class LoginPage{ 
 
 constructor(page) {
@@ -21,3 +22,10 @@ async dologin(username, password) {
   }
 }
 
+=======
+export class LoginPage {
+  constructor(page) {
+    this.page = page;
+  }
+}
+>>>>>>> origin/main
