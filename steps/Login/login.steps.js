@@ -48,24 +48,25 @@ Then(
       return;
     }
 
-    if (testCase === 'TC002_invalid_password') {
-      await expect(page.locator('.alert.alert-danger.alert-dismissible.fade.message.shadow.show')
-       ,{ exact: true }).toBeVisible();
+    if (
+  testCase === 'TC002_invalid_password' ||
+  testCase === 'TC003_invalid_username'
+) {
+  const errorAlert = page.locator('.alert.alert-danger');
 
-      return;
-    }
+  await expect(errorAlert).toBeVisible();
+  await expect(errorAlert).toContainText(data.expected);
 
-    if (testCase === 'TC003_invalid_username') {
-      await expect(page.locator('.alert.alert-danger.alert-dismissible.fade.message.shadow.show')
-       ,{ exact: true }).toBeVisible();
-      return;
-    }
+  return;
+}
 
     if (
       testCase === 'TC004_empty_username' ||
       testCase === 'TC005_empty_password'
     ) {
-      await expect(page.getByText(data.expected, { exact: true })).toBeVisible();
+      const errorAlert1 = page.getByText('Missing required field', { exact: true })
+      await expect(errorAlert1).toBeVisible();
+      await expect(errorAlert1).toContainText(data.expected);
       return;
     }
     // checks login form visible after unsuccessful login attempt
