@@ -15,4 +15,3 @@ playwright-report/
 test-results/
 
 /.features-gen/
-/Data/login.xlsx

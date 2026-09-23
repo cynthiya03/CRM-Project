@@ -3,20 +3,6 @@ import { Given, When, Then } from '../../src/fixtures/pageFixture.js';
 import { expect } from '@playwright/test';
 
 
-
-Given('User open a the CRM application', async ({ loginPage }) => {
-  await loginPage.openURL("https://suite8demo.suiteondemand.com/#/Login")
-});
-
-When('User enters username and password', async ({ loginPage }) => {
-  await loginPage.dologin('will' , 'will');
-});
-
-Then('User able to login successfully', async ({ page }) => {
-  // Replace this pattern with your CRM's actual home page URL.
-  await expect(page).toHaveURL("https://suite8demo.suiteondemand.com/#/home");
-});
-
 Given('User logged into the CRM application', async ({}) => {
   
 });
