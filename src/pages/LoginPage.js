@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 export class LoginPage{ 
 
 constructor(page) {
@@ -21,11 +21,3 @@ async dologin(username, password) {
     await this.loginButton.click();
   }
 }
-
-=======
-export class LoginPage {
-  constructor(page) {
-    this.page = page;
-  }
-}
->>>>>>> origin/main
