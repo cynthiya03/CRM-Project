@@ -30,7 +30,14 @@ const testDir = defineBddConfig({
 
 /**
  * @see https://playwright.dev/docs/test-configuration
+ * 
+ * 
  */
+const browserProfiles = [
+  { name: 'chromium', device: 'Desktop Chrome' },
+  { name: 'firefox', device: 'Desktop Firefox' },
+  { name: 'webkit', device: 'Desktop Safari' },
+];
 export default defineConfig({
   testDir,
   /* Run tests in files in parallel */
@@ -53,39 +60,36 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
-  projects: [
+ projects: browserProfiles.flatMap(({ name, device }) => [
   {
-    name: 'setup',
+    name: `setup-${name}`,
     testDir: './setup',
-    testMatch: /auth\.setup\.js/,
+    testMatch: /auth\.setup\.js$/,
+    grep: /.*/,
+    grepInvert: [],
     use: {
-      ...devices['Desktop Chrome'],
+      ...devices[device],
       storageState: { cookies: [], origins: [] },
     },
   },
-
   {
-    name: 'chromium',
-    dependencies: ['setup'],
+    name,
+    dependencies: [`setup-${name}`],
     grepInvert: /@login\b/,
     use: {
-      ...devices['Desktop Chrome'],
-      storageState: 'playwright/.auth/userdata.json',
+      ...devices[device],
+      storageState: `playwright/.auth/${name}.json`,
     },
   },
-
   {
-    name: 'login-tests',
+    name: `login-${name}`,
     grep: /@login\b/,
     use: {
-      ...devices['Desktop Chrome'],
+      ...devices[device],
       storageState: { cookies: [], origins: [] },
     },
   },
-],
-
-    // {
-    //   name: 'firefox',
+]),
     //   use: { ...devices['Desktop Firefox'] },
     // },
 

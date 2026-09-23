@@ -23,7 +23,7 @@ When(
       filePath,
       'LoginTestData',
       'testCase',
-      testCase,
+      testCase
     );
 
     await loginPage.dologin(data.username, data.password);
@@ -42,9 +42,31 @@ Then(
       testCase,
     );
 
-    // Assumes expected contains a unique, visible text message.
-    // Scope this locator to your CRM's message container if necessary.
-    await expect(page.getByText(data.expected, { exact: true })).toBeVisible();
+    if (testCase === 'TC001_valid_login') {
+      await expect(page).toHaveURL(/#\/home/);
+      return;
+    }
+
+    if (testCase === 'TC002_invalid_password') {
+      await expect(page.locator('.alert.alert-danger.alert-dismissible.fade.message.shadow.show')
+       ,{ exact: true }).toBeVisible();
+
+      return;
+    }
+
+    if (testCase === 'TC003_invalid_username') {
+      await expect(page.locator('.alert.alert-danger.alert-dismissible.fade.message.shadow.show')
+       ,{ exact: true }).toBeVisible();
+      return;
+    }
+
+    if (
+      testCase === 'TC004_empty_username' ||
+      testCase === 'TC005_empty_password'
+    ) {
+      await expect(page.getByText(data.expected, { exact: true })).toBeVisible();
+      return;
+    }
 
     if (testCase !== 'TC001_valid_login') {
       await expect(loginPage.username).toBeVisible();

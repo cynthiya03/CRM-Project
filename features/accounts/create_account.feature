@@ -2,7 +2,7 @@
 Feature: Testing account features in CRM application
   User will be able to navigate, create, view and import accounts in CRM application
 
-@userabletologin
+@userabletologin @login
   Scenario: verify user can log in successfully
     Given User open a the CRM application
     When User enters username and password
