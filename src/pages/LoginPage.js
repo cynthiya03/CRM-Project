@@ -8,13 +8,10 @@ this.page = page;
 this.loginButton = page.getByRole('button', { name: 'Log In' })
 
 }
-
-
 async openURL(BASE_URL){
     await this.page.goto(BASE_URL);
  }
-// // const username = process.env.CRM_USERNAME;
-//  // const password = process.env.CRM_PASSWORD;
+
 async dologin(username, password) {
     await this.username.fill(username);
     await this.password.fill(password);

@@ -11,6 +11,7 @@ Given('User opens the CRM login page', async ({ page, loginPage }) => {
   await page.goto(process.env.BASE_URL);
   await expect(loginPage.username).toBeVisible();
   await expect(loginPage.password).toBeVisible();
+  await expect(loginPage.loginButton).toBeVisible();
 });
 
 When(
@@ -67,7 +68,7 @@ Then(
       await expect(page.getByText(data.expected, { exact: true })).toBeVisible();
       return;
     }
-
+    // checks login form visible after unsuccessful login attempt
     if (testCase !== 'TC001_valid_login') {
       await expect(loginPage.username).toBeVisible();
       await expect(loginPage.password).toBeVisible();

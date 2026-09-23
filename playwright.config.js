@@ -13,7 +13,7 @@ const testDir = defineBddConfig({
   features: 'features/**/*.feature', // Path to your .feature files
   steps: [
     'steps/**/*.js',
-    'src/fixtures/pageFixture.js',
+    
   ],
 
   /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
