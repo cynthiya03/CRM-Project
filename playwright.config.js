@@ -9,14 +9,7 @@ import { defineBddConfig } from 'playwright-bdd';
 
 
 const testDir = defineBddConfig({
-<<<<<<< HEAD
-  features: 'features/**/*.feature',
-  steps: [
-    'steps/**/*.js',
-    'hooks/**/*.js',
-    
-  ]
-=======
+
   features: 'features/**/*.feature', // Path to your .feature files
   steps: [
     'steps/**/*.js',
@@ -24,7 +17,7 @@ const testDir = defineBddConfig({
   ],
 
   /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
->>>>>>> origin/main
+
 });
 /**
  * Read environment variables from file.
@@ -33,14 +26,7 @@ const testDir = defineBddConfig({
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
-<<<<<<< HEAD
 
-=======
-//const bddTestDir = defineBddConfig({
-   //features: 'features/**/*.feature', // Scans features folder and any subfolders
-  // steps: 'steps/**/*.js',           // Scans steps folder and any subfolders
-//});
->>>>>>> origin/main
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -80,7 +66,21 @@ export default defineConfig({
 
   {
     name: 'chromium',
-    use: { ...devices['Desktop Chrome'] },
+    dependencies: ['setup'],
+    grepInvert: /@login\b/,
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: 'playwright/.auth/userdata.json',
+    },
+  },
+
+  {
+    name: 'login-tests',
+    grep: /@login\b/,
+    use: {
+      ...devices['Desktop Chrome'],
+      storageState: { cookies: [], origins: [] },
+    },
   },
 ],
 

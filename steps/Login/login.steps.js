@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { Given, When, Then } from '../../src/fixtures/pageFixture.js';
-import { readLoginData } from '../src/utils/loginData.js';
+import { ExcelHelper } from '../../src/utils/ExcelHelper.js';
 
 
 Given('User opens the CRM login page', async ({ page, loginPage }) => {
@@ -16,8 +16,16 @@ Given('User opens the CRM login page', async ({ page, loginPage }) => {
 When(
   'User submits login credentials from Excel for {string}',
   async ({ loginPage }, testCase) => {
-    const data = await readLoginData(testCase);
-    // Blank Excel cells become empty strings, not undefined.
+    const filePath =
+      process.env.LOGIN_DATA_FILE || 'Data/login.xlsx';
+
+    const data = ExcelHelper.getRow(
+      filePath,
+      'LoginTestData',
+      'testCase',
+      testCase,
+    );
+
     await loginPage.dologin(data.username, data.password);
   },
 );
@@ -25,7 +33,14 @@ When(
 Then(
   'User should see the Excel login result for {string}',
   async ({ page, loginPage }, testCase) => {
-    const data = await readLoginData(testCase);
+    const filePath =
+      process.env.LOGIN_DATA_FILE || 'Data/login.xlsx';
+    const data = ExcelHelper.getRow(
+      filePath,
+      'LoginTestData',
+      'testCase',
+      testCase,
+    );
 
     // Assumes expected contains a unique, visible text message.
     // Scope this locator to your CRM's message container if necessary.
