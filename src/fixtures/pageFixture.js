@@ -3,10 +3,10 @@ import { LoginPage } from '../pages/LoginPage.js';
 
 export const test = base.extend({
   loginPage: async ({ page }, use) => {
-    await use(new LoginPage(page));
+    const loginPage = new LoginPage(page);
+    await use(loginPage);
   },
-
-  // Keep any other existing fixtures here.
 });
 
-export const { Given, When, Then } = createBdd(test);
+export const { Given, When, Then, BeforeScenario } = createBdd(test);
+export { expect } from '@playwright/test';

@@ -1,10 +1,10 @@
-import { createBdd } from 'playwright-bdd';
+import { LoginPage } from '../../src/pages/LoginPage.js';
+import { Given, When, Then } from '../../src/fixtures/pageFixture.js';
+import { expect } from '@playwright/test';
 
-const { Given, When, Then } = createBdd();
 
 Given('User logged into the CRM application', async ({}) => {
-  // Step: Given User logged into the CRM application
-  // From: features\Account.feature:7:5
+  
 });
 
 When('User view the top navigation menu', async ({}) => {

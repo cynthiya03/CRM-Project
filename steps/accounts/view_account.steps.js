@@ -1,7 +1,6 @@
 import { Given, When, Then } from '../../src/fixtures/pageFixture.js';
 import { expect } from '@playwright/test';
 
-
 Given('User Land on view Account page', async ({}) => {
   // Step: Given User Land on view Account page
   // From: features\View_account.feature:7:5
