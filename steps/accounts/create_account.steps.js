@@ -238,3 +238,12 @@ Then('User should see a duplicate account validation message', async ({ page }) 
 	await expect(page.getByText(/already exists|duplicate|unique/i).first()).toBeVisible();
 });
 
+Given('Create Account screen is open', async ({}) => {
+  // Step: And Create Account screen is open
+  // From: features/accounts/create_account.feature:64:5
+});
+
+Given('the Create Account screen is open', async ({}) => {
+  // Step: Given the Create Account screen is open
+  // From: features/accounts/create_account.feature:88:5
+});
