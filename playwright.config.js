@@ -37,7 +37,7 @@ const testDir = defineBddConfig({
 const browserProfiles = [
   { name: 'chromium', device: 'Desktop Chrome' },
   { name: 'firefox', device: 'Desktop Firefox' },
-  { name: 'webkit', device: 'Desktop Safari' },
+ { name: 'webkit', device: 'Desktop Safari' },
 ];
 export default defineConfig({
   testDir,

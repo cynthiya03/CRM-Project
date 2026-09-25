@@ -2,46 +2,35 @@
 Feature: Testing account features in CRM application
   User will be able to navigate, create, view and import accounts in CRM application
 
-@verifyuserabletonavigatetohomepage @TC001
-  Scenario: verify user able to navigate to home page
-    Given User logged into the CRM application
-    When User view the top navigation menu
-    Then User should be redirected to Home page
 
-@AccounttabDisplay @TC002
-  Scenario: Verify Account tab is displayed
-    Given User Logged into CRM application
-    When user mouse hover the "Account" tab
-    Then User should see create Account
-
-@AccountfieldisDisplayed @TC003
+@AccountfieldisDisplayed @TC001
   Scenario: Verify create Account field is Displayed
-    Given User Logged into CRM
-    When user mouse hover the "Account" tab
-    Then User should see view Accounts
+    Given User Logged into CRM application
+    When user click the Accounts tab
+    Then User should see create Account field
 
-@VerifyViewAccountsfieldisDisplayed @TC004
+@AccountfieldisDisplayed @TC002
   Scenario: Verify View Accounts field is Displayed
-    Given User Logged into CRM
-    When user mouse hover the "Account" tab
+    Given User Logged into CRM application
+    When user click the Accounts tab
     Then User should see view Accounts field
 
-@VerifyimportAccountsfieldisDisplayed @TC005
+@AccountfieldisDisplayed @TC003
   Scenario: Verify import Accounts field is Displayed
-    Given User Logged into CRM
-    When user mouse hover the "Account" tab
+    Given User Logged into CRM application
+    When user click the Accounts tab
     Then User should see import Account
 
-@createaccountscreen @TC006
+@AccountfieldisDisplayed @TC004
   Scenario: Verify user able to land on create account screen
-    Given User signed in application and mouse hover "Account"
+    Given User Logged into CRM application
     When user click create Account field
     Then User should be redirected to Create Account page
+    
 
-@createaccount @TC007
+@createaccount @TC005
   Scenario: Display the account creation form
     Given User logged in application and click the Create Account screen
-    And Create Account screen is open
     When User inspect the form
     Then User should see the Overview tab
     And User should see More Information
