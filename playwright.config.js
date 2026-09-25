@@ -1,16 +1,25 @@
-// @ts-check
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'node:url';
+
+dotenv.config({
+  path: fileURLToPath(new URL('./config/QA.env', import.meta.url)),
+});
 import { defineConfig, devices } from '@playwright/test';
 import { defineBddConfig } from 'playwright-bdd';
 
+
 const testDir = defineBddConfig({
+
   features: 'features/**/*.feature', // Path to your .feature files
-  steps: 
-    'steps/**/*.js',  
+  steps: [
+    'steps/**/*.js',
+    'src/fixtures/pageFixture.js'
     
+  ],
 
   /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
-});
 
+});
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -18,16 +27,20 @@ const testDir = defineBddConfig({
 // import dotenv from 'dotenv';
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
-const bddTestDir = defineBddConfig({
-  features: 'features/**/*.feature', // Scans features folder and any subfolders
-  steps: 'steps/**/*.js',           // Scans steps folder and any subfolders
-});
+
 
 /**
  * @see https://playwright.dev/docs/test-configuration
+ * 
+ * 
  */
+const browserProfiles = [
+  { name: 'chromium', device: 'Desktop Chrome' },
+  { name: 'firefox', device: 'Desktop Firefox' },
+  { name: 'webkit', device: 'Desktop Safari' },
+];
 export default defineConfig({
-  //testDir,
+  testDir,
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -48,21 +61,43 @@ export default defineConfig({
   },
 
   /* Configure projects for major browsers */
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+ projects: browserProfiles.flatMap(({ name, device }) => [
+  {
+    name: `setup-${name}`,
+    testDir: './setup',
+    testMatch: /auth\.setup\.js$/,
+    grep: /.*/,
+    grepInvert: [],
+    use: {
+      ...devices[device],
+      storageState: { cookies: [], origins: [] },
     },
+  },
+  {
+    name,
+    dependencies: [`setup-${name}`],
+    grepInvert: /@login\b/,
+    use: {
+      ...devices[device],
+      storageState: `playwright/.auth/${name}.json`,
+    },
+  },
+  {
+    name: `login-${name}`,
+    grep: /@login\b/,
+    use: {
+      ...devices[device],
+      storageState: { cookies: [], origins: [] },
+    },
+  },
+]),
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
@@ -83,7 +118,7 @@ export default defineConfig({
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
-  ],
+
 
   /* Run your local dev server before starting the tests */
   // webServer: {
@@ -92,4 +127,3 @@ export default defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
