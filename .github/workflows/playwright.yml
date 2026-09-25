@@ -43,6 +43,8 @@ jobs:
       - name: Generate BDD tests
         run: npx bddgen
 
+      
+
       - name: Run Playwright tests
         run: npx playwright test --reporter=line,html
 
