@@ -41,8 +41,10 @@ Then('User should be redirected to Create Account page', async ({ homePage }) =>
 });
 
 // TC005 - @createaccountscreen
-Given('User logged in application and click the Create Account screen', async ({ homePage }) => {
+
+Given('User land on create Account page', async ({ homePage }) => {
 	});
+
 
 When('User inspect the form', async ({ createAccount }) => {
 	await createAccount.verifyVisible(createAccount.createAccountTitle);
@@ -88,48 +90,53 @@ Then('User should see shipping address sections', async ({ createAccount }) => {
 	await createAccount.verifyVisible(createAccount.ShippingStreet);
 });
 
+// @TC006 - @Verifymandatoryfieldsdisplayanasterisk
 
-
-
-
-
-Given('User land on create Account page', async ({ homePage }) => {
-	await homePage.Accountpage.click();
-	await homePage.create_accounts.click();
+When('User view the Name field label', async ({ createAccount }) => {
+	await createAccount.verifyVisible(createAccount.nameField);
 });
 
-When('User view the Name field label', async ({ page }) => {
-	await expect(page.getByText('Name', { exact: true }).first()).toBeVisible();
+Then('user should see asterisk {string} beside the Name label', async ({ createAccount }, message) => {
+	createAccount.verifyVisible(createAccount.namemandatory);
+});
+// completed- working
+
+// 007
+Given('name field is empty', async ({ createAccount }) => {
+	await (createAccount.nameField).fill('');
 });
 
-Then('user should see asterisk {string} beside the Name label', async ({ page }, message) => {
-	await expect(page.getByText(/Name\s*\*/i).first()).toBeVisible();
+When('User click Save', async ({ createAccount }) => {
+	await createAccount.clickSaveButton();
 });
 
-Given('name field is empty', async ({ page }) => {
-	await accountNameField(page).fill('');
+Then('User should see {string}', async ({ createAccount }) => {
+	await createAccount.verifyVisible(createAccount.errorMessage)
 });
 
-When('User click Save', async ({ page }) => {
-	await saveButton(page).click();
+Then('Name should be highlighted as invalid', async ({ createAccount }) => {
+	await expect(createAccount.nameField).toHaveCSS(
+  'border-color',
+  'rgb(220, 53, 69)'
+);
+});
+// Tc008
+When('User enter only spaces in Name', async ({ createAccount }) => {
+	await createAccount.nameField.fill('   ');
+  await (createAccount.saveButton).click();
 });
 
-Then('User should see {string}', async ({ page }, message) => {
-	await expect(page.getByText(message, { exact: false }).first()).toBeVisible();
+Then('User should see {string}', async ({ createAccount }) => {
+	await createAccount.verifyVisible(createAccount.errorMessage);
 });
 
-Then('Name should be highlighted as invalid', async ({ page }) => {
-	await expect(accountNameField(page)).toHaveAttribute('aria-invalid', 'true');
-});
+// TC009
 
-When('User enter only spaces in Name', async ({ page }) => {
-	await accountNameField(page).fill('   ');
-});
-
-When('User enter a unique account name', async ({ page }) => {
+When('User enter a unique account name', async ({ createAccount }) => {
 	const accountName = createAccountName();
-	await accountNameField(page).fill(accountName);
-	page.__accountName = accountName;
+	await createAccount.fillField(createAccount.nameField, accountName);
+	createAccount.page.__accountName = accountName;
+
 });
 
 When('Leave optional fields empty', async () => {});
@@ -238,12 +245,13 @@ Then('User should see a duplicate account validation message', async ({ page }) 
 	await expect(page.getByText(/already exists|duplicate|unique/i).first()).toBeVisible();
 });
 
+
 Given('Create Account screen is open', async ({}) => {
   // Step: And Create Account screen is open
-  // From: features/accounts/create_account.feature:64:5
+  // From: features\accounts\create_account.feature:64:5
 });
 
 Given('the Create Account screen is open', async ({}) => {
   // Step: Given the Create Account screen is open
-  // From: features/accounts/create_account.feature:88:5
+  // From: features\accounts\create_account.feature:88:5
 });

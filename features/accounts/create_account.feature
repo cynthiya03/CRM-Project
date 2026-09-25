@@ -30,7 +30,7 @@ Feature: Testing account features in CRM application
 
 @createaccount @TC005
   Scenario: Display the account creation form
-    Given User logged in application and click the Create Account screen
+    Given User land on create Account page
     When User inspect the form
     Then User should see the Overview tab
     And User should see More Information
@@ -42,15 +42,14 @@ Feature: Testing account features in CRM application
     And User should see email
     And User should see billing address sections
     And User should see shipping address sections
-
-@Verifymandatoryfieldsdisplayanasterisk @TC008
+@createaccount @TC006
   Scenario: Verify mandatory fields display an asterisk
     Given User land on create Account page
     When User view the Name field label
     Then user should see asterisk "*" beside the Name label
 
 
-@Preventsavingwithoutanaccountname @TC009
+@createaccount  @TC007
   Scenario: Prevent saving without an account name
     Given User land on create Account page
     And name field is empty
@@ -58,15 +57,15 @@ Feature: Testing account features in CRM application
     Then User should see "Missing required field: Name"
     And Name should be highlighted as invalid
 
-@Rejectanaccountnamecontainingonlyspaces @TC010
-  Scenario: Reject an account name containing only spaces
+@createaccount @TC008
+  Scenario: Prevent saving an account name with only spaces
     Given User land on create Account page
-    And Create Account screen is open
     When User enter only spaces in Name
     And User click Save
     Then User should see "Missing required field: Name"
-
-@Createanaccountwithminimumrequiredinformation @TC011
+    And Name should be highlighted as invalid
+  
+@Createanaccountwithminimumrequiredinformation @TC009
   Scenario: Create an account with minimum required information
     Given User land on create Account page
     When User enter a unique account name

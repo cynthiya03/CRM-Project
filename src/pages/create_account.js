@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './Basepage.js';
+import { randomUUID } from 'node:crypto';
 export class Account extends BasePage {
 
 constructor(page) {
@@ -11,6 +12,7 @@ this.overviewTab = page.getByRole('tab', { name: 'OVERVIEW' });
 this.moreInformationTab = page.getByRole('tab', { name: 'MORE INFORMATION' });
 this.othersTab = page.getByRole('tab', { name: 'OTHER' });
 this.nameField = page.locator('.form-control.form-control-sm').first();
+this.namemandatory = page.getByText('*', { exact: true })
 this.website = page.getByRole('textbox').nth(2);
 this.email = page.getByRole('textbox').nth(4);
 
@@ -28,9 +30,24 @@ this.ShippingCountry = page.locator('.dynamic-field.dynamic-field-mode-edit.dyna
 this.assignedTo = page.getByRole('combobox', { name: 'WillWestin' })
 this.officePhone = page.getByRole('textbox').nth(3);
 this.assigntobutton = page.getByRole('button', { name: /^Save$/i }).first();
+this.saveButton = page.getByText('Save', { exact: true }).first();
+this.errorMessage = page.getByText('Missing required field: Name', { exact: true }).first();
 }
 
 async verifyVisible(locator) {
     await expect(locator).toBeVisible();
   }
+
+  async fillField(locator, value) {
+  await locator.fill(value);
+}
+
+async fillNameField(Name) {
+const Name = `TestUser_${randomUUID()}`;
+await fillField(this.nameField, Name);
+}
+
+async clickSaveButton() {
+  await this.saveButton.click();
+}
 }
