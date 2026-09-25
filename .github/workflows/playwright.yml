@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BASE_URL: ${{ vars.BASE_URL }}
+      BASE_URL: https://suite8demo.suiteondemand.com
       TEST_EMAIL: ${{ secrets.TEST_USERNAME }}
       TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
 
