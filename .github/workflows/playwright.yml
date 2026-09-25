@@ -20,6 +20,11 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
 
+    env:
+      BASE_URL: ${{ vars.BASE_URL }}
+      TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+      TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -38,6 +43,8 @@ jobs:
 
       - name: Generate BDD tests
         run: npx bddgen
+
+      
 
       - name: Run Playwright tests
         run: npx playwright test --reporter=line,html
