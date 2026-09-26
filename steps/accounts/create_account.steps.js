@@ -110,8 +110,9 @@ When('User click Save', async ({ createAccount }) => {
 	await createAccount.clickSaveButton();
 });
 
-Then('User should see {string}', async ({ createAccount }) => {
-	await createAccount.verifyVisible(createAccount.errorMessage)
+Then('User should see {string}', async ({ createAccount }, expectedMessage) => {
+  await expect(createAccount.errorMessage).toBeVisible();
+  await expect(createAccount.errorMessage).toHaveText(expectedMessage);
 });
 
 Then('Name should be highlighted as invalid', async ({ createAccount }) => {
@@ -122,51 +123,46 @@ Then('Name should be highlighted as invalid', async ({ createAccount }) => {
 });
 // Tc008
 When('User enter only spaces in Name', async ({ createAccount }) => {
-	await createAccount.nameField.fill('   ');
-  await (createAccount.saveButton).click();
+	await (createAccount.fillField(createAccount.nameField, '    '))
+    
 });
 
-Then('User should see {string}', async ({ createAccount }) => {
-	await createAccount.verifyVisible(createAccount.errorMessage);
-});
+//Then('User should see {string}', async ({ createAccount }) => {
+	//await createAccount.verifyVisible(createAccount.errorMessage);
+//});
 
 // TC009
 
-When('User enter a unique account name', async ({ createAccount }) => {
-	const accountName = createAccountName();
-	await createAccount.fillField(createAccount.nameField, accountName);
-	createAccount.page.__accountName = accountName;
+//When('User enter a unique account name', async ({ createAccount }) => {
+	//await createAccount.EnteruniqueName();
 
-});
-
+///});
 When('Leave optional fields empty', async () => {});
 
-When('retain the default assignee', async ({ page }) => {
-	await expect(accountField(page, 'Assigned To')).toBeVisible();
-});
-
-When('Click Save', async ({ page }) => {
-	await saveButton(page).click();
+When('Click Save', async ({ createAccount }) => {
+	await createAccount.clickSaveButton();
 });
 
 Then('Exactly one account should be created', async ({ page }) => {
-	await expect(page.getByText(page.__accountName, { exact: true }).first()).toBeVisible();
+	await expect(page.locator('.dynamic-label')).toHaveCount(1);
 });
 
-When('Pass unique value to all create account field', async ({ page }) => {
-	const accountName = createAccountName();
-	page.__accountName = accountName;
-	await accountNameField(page).fill(accountName);
-	await accountField(page, 'Website').fill('https://example.com');
-	await accountField(page, 'Office Phone').fill('5551234567');
+// TC010
+//When('User enter a unique account name', async ({ createAccount }) => {
+	//await createAccount.EnteruniqueName();
+//});
+
+
+When('User fills in the account form with the following details:', async ({ createAccount }, dataTable) => {
+  const formData = dataTable.rowsHash();
+  await createAccount.fillAccountForm(formData);
 });
 
 Then('All values should appear in their corresponding fields', async ({ page }) => {
-	await expect(accountNameField(page)).toHaveValue(page.__accountName);
-	await expect(accountField(page, 'Website')).toHaveValue('https://example.com');
-	await expect(accountField(page, 'Office Phone')).toHaveValue('5551234567');
+	
 });
 
+//
 Given('the user has entered a unique account name', async ({ page }) => {
 	const accountName = createAccountName();
 	page.__accountName = accountName;

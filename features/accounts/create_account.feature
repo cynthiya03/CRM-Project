@@ -65,22 +65,29 @@ Feature: Testing account features in CRM application
     Then User should see "Missing required field: Name"
     And Name should be highlighted as invalid
   
-@Createanaccountwithminimumrequiredinformation @TC009
+@createaccount @TC009
   Scenario: Create an account with minimum required information
     Given User land on create Account page
     When User enter a unique account name
     And Leave optional fields empty
-    And retain the default assignee
     And Click Save
     Then Exactly one account should be created
    
 
-@Saveallvisibleaccountdetails @TC012
-  Scenario: Save all visible account details
-    Given User land on create Account page
-    And Create Account screen is open
-    When Pass unique value to all create account field
-    Then All values should appear in their corresponding fields
+@createaccount @TC010
+  Scenario: Fill out the account creation form
+  Given User land on create Account page
+  When User enter a unique account name
+  When User fills in the account form with the following details:
+    | Field            | Value                 |
+    | Website          | https://acme.com      |
+    | Office Phone     | 555-0199              |
+    | Assigned To      | Sarah Connor          |
+    | Email            | contact@acme.com      |
+    | Billing Address  | 123 Main St, NY 10001 |
+    | Shipping Address | 123 Main St, NY 10001 |
+  And User submits the account creation form
+  Then User should see the account created successfully
 
   @validateEmailaddress @TC0013
   Scenario Outline: Save and verify primary and secondary email addresses

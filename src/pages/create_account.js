@@ -42,12 +42,35 @@ async verifyVisible(locator) {
   await locator.fill(value);
 }
 
-async fillNameField(Name) {
-const Name = `TestUser_${randomUUID()}`;
-await fillField(this.nameField, Name);
+async EnteruniqueName() {
+const UName = `TestUser_${randomUUID()}`;
+await this.fillField(this.nameField, UName);
 }
 
 async clickSaveButton() {
   await this.saveButton.click();
 }
+
+
+async fillAccountForm(data) {
+    if (data['Website']) {
+      await this.website.fill(data['Website']);
+    }
+    if (data['Office Phone']) {
+      await this.officePhone.fill(data['Office Phone']);
+    }
+    if (data['Assigned To']) {
+      // Handles dropdown select or auto-complete input
+      await this.assigntobutton.selectOption({ label: data['Assigned To'] });
+    }
+    if (data['Email']) {
+      await this.email.fill(data['Email']);
+    }
+    if (data['Billing Address']) {
+      await this.BillingStreet.fill(data['Billing Address']);
+    }
+    if (data['Shipping Address']) {
+      await this.ShippingStreet.fill(data['Shipping Address']);
+    }
+  }
 }
