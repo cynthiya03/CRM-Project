@@ -156,3 +156,13 @@ Then('the user should be redirected to the Edit Contact page', async ({}) => {
   // Step: Then the user should be redirected to the Edit Contact page
   // From: features\contact.feature:100:5
 });
+
+When('the user clicks Save', async ({}) => {
+  // Step: When the user clicks Save
+  // From: features\contacts\create_contact.feature:40:5
+});
+
+Given('the user has entered {string} in the first email row', async ({}, arg) => {
+  // Step: And the user has entered "primary@example.com" in the first email row
+  // From: features\contacts\create_contact.feature:74:5
+});

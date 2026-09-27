@@ -1,7 +1,8 @@
 import { test as base, createBdd } from 'playwright-bdd';
 import { LoginPage } from '../pages/LoginPage.js';
 import { HomePage } from '../pages/homePage.js';
-import { Account } from '../pages/create_account.js';
+import { Account } from '../pages/Account/create_account.js';
+import {viewaccount} from '../pages/Account/view_account.js';
 
 
 export const test = base.extend({
@@ -14,11 +15,13 @@ export const test = base.extend({
     const homePage = new HomePage(page);
     await use(homePage);
   },
-
   createAccount: async ({ page }, use) => {
     const createAccount = new Account(page);
     await use(createAccount);
-  }
+  },
+  viewAccount: async ({ page }, use) => {
+    await use(new viewaccount(page));
+  },
 
   
 });

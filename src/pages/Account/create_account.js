@@ -1,6 +1,5 @@
 import { expect } from '@playwright/test';
-import { BasePage } from './Basepage.js';
-import { randomUUID } from 'node:crypto';
+import { BasePage } from '../Basepage.js';
 export class Account extends BasePage {
 
 constructor(page) {
@@ -11,7 +10,7 @@ this.createAccountTitle = page.getByText('Create', { exact: true }).first();
 this.overviewTab = page.getByRole('tab', { name: 'OVERVIEW' });
 this.moreInformationTab = page.getByRole('tab', { name: 'MORE INFORMATION' });
 this.othersTab = page.getByRole('tab', { name: 'OTHER' });
-this.nameField = page.locator('.form-control.form-control-sm').first();
+this.nameField = page.getByRole('textbox').nth(1);
 this.namemandatory = page.getByText('*', { exact: true })
 this.website = page.getByRole('textbox').nth(2);
 this.email = page.getByRole('textbox').nth(4);
@@ -32,6 +31,17 @@ this.officePhone = page.getByRole('textbox').nth(3);
 this.assigntobutton = page.getByRole('button', { name: /^Save$/i }).first();
 this.saveButton = page.getByText('Save', { exact: true }).first();
 this.errorMessage = page.getByText('Missing required field: Name', { exact: true }).first();
+this.backbutton = page.getByRole('button').nth(1);
+}
+
+accountNameText(accountName) {
+  return this.page.locator('scrm-varchar-detail').filter({
+    hasText: accountName,
+  });
+}
+
+async returnToAccountsList() {
+  await this.backbutton.click();
 }
 
 async verifyVisible(locator) {
@@ -43,9 +53,14 @@ async verifyVisible(locator) {
 }
 
 async EnteruniqueName() {
-const UName = `TestUser_${randomUUID()}`;
-await this.fillField(this.nameField, UName);
+await expect(this.nameField).toBeVisible({ timeout: 10000 });
+const number = Math.floor(1000 + Math.random() * 9000);
+this.createdAccountName = `TestUser_${number}`;
+await this.fillField(this.nameField, this.createdAccountName);
+
 }
+
+
 
 async clickSaveButton() {
   await this.saveButton.click();
@@ -60,12 +75,10 @@ async fillAccountForm(data) {
       await this.officePhone.fill(data['Office Phone']);
     }
     if (data['Assigned To']) {
-      // Handles dropdown select or auto-complete input
-      await this.assigntobutton.selectOption({ label: data['Assigned To'] });
+      await this.assignedTo.click();
+      await this.page.getByRole('option', { name: data['Assigned To'], exact: true }).click();
     }
-    if (data['Email']) {
-      await this.email.fill(data['Email']);
-    }
+    
     if (data['Billing Address']) {
       await this.BillingStreet.fill(data['Billing Address']);
     }
@@ -73,4 +86,17 @@ async fillAccountForm(data) {
       await this.ShippingStreet.fill(data['Shipping Address']);
     }
   }
+
+  async verifySavedAccount(accountName) {
+  const savedAccountName = this.page
+    .getByRole('tabpanel', { name: 'OVERVIEW' })
+    .getByText(accountName, { exact: true });
+
+  await expect(savedAccountName).toHaveCount(1);
+  await expect(savedAccountName).toBeVisible();
 }
+}
+
+
+
+

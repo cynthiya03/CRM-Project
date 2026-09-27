@@ -16,7 +16,7 @@ BeforeScenario(
 
 // run before @createaccount
 BeforeScenario(
-  { tags: '@createaccount' },
+  { tags: ' @createaccount or @createaccountform'},
   async ({ page }) => { 
     const createaccountsUrl = 'https://suite8demo.suiteondemand.com/#/accounts/edit?return_module=Accounts&return_action=DetailView';
 if (!process.env.ACCOUNTS_URL) {
