@@ -1,7 +1,13 @@
 import { createBdd } from "playwright-bdd";
+import { OpportunitiesPage } from "../../src/pages/opportunities.js";
+import {LoginPage } from "../../src/pages/LoginPage.js";
+
 const{ Given,When, Then } = createBdd();
 
-Given('User must have logged into the crm application', async ({}) => {
+Given('User must have logged into the crm application', async ({page}) => {
+  //const loginPage = new LoginPage(page);
+  //await loginPage.openURL(process.env.BASE_URL)
+  //await loginPage.dologin(data.username, data.password);
   // Step: Given User must have logged into the crm application
   // From: features/opportunities.feature:5:5
 });
