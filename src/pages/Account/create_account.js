@@ -66,7 +66,7 @@ async clickSaveButton() {
   await this.saveButton.click();
 }
 
-git branch --show-currentasync fillAccountForm(data) {
+async fillAccountForm(data) {
     if (data['Website']) {
       await this.website.fill(data['Website']);
     }
