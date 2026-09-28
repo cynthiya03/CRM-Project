@@ -20,8 +20,9 @@ export const test = base.extend({
     await use(createAccount);
   },
   viewAccount: async ({ page }, use) => {
-    await use(new viewaccount(page));
-  },
+    const viewAccount = new viewaccount(page);
+    await use(viewAccount);
+  }
 
   
 });

@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 
 export class BasePage {
   /**
@@ -6,13 +7,6 @@ export class BasePage {
   constructor(page) {
     this.page = page;
   }
-async openPage(url) {
-  if (!url) {
-    throw new Error('Page URL is missing. Check your environment file.');
-  }
-
-  await this.page.goto(url);
-}
 
 async verifyVisible(locator) {
     await expect(locator).toBeVisible();

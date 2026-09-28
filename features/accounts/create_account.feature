@@ -88,4 +88,27 @@ Feature: Testing account features in CRM application
   Then User should see the account created successfully
 
 
+@createaccount @saveBillingAddress  @TC011
+ Scenario: Save Billing address information
+    Given User land on create Account page
+    And User enter a unique account name
+    When the user enters the billing address details
+    And the user saves the account
+    Then the billing address values should match the entered values
+
+  @createaccount @saveshippingaddress @TC012
+    Scenario: Save Shipping address information
+    Given User land on create Account page
+    And User enter a unique account name
+    When the user enters the following shipping address:
+      | Field       | Value         |
+      | Street      | 987 Main Street |
+      | Postal Code | 02108         |
+      | City        | Tampa       |
+      | State       | Florida |
+      | Country     | United States |
+    And the user saves the shipping address information
+    Then the shipping address should match the entered values
+
+    
 

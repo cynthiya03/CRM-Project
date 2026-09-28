@@ -1,11 +1,7 @@
 import { Given, When, Then, BeforeScenario } from '../../src/fixtures/pageFixture.js';
 import { expect } from '@playwright/test';
 
-//const accountField = (page, label) => page.getByLabel(label, { exact: false }).first();
-//const accountNameField = (page) => page.locator('input[name="name"], input[placeholder*="Name"]').first();
-//const saveButton = (page) => page.getByRole('button', { name: /^Save$/i }).first();
 
-//const createAccountName = () => `Playwright Account ${Date.now()}`;
 
 // @TC001, @TC002, @TC003, @TC004 - @AccountfieldisDisplayed
 Given('User Logged into CRM application', async ({ page }) => {
@@ -174,3 +170,49 @@ Then('User should see the account created successfully', async ({ createAccount,
   );
 
 });
+
+// TC011 - Save and verify billing address details
+When('the user enters the billing address details', async ({ createAccount }) => {
+	await createAccount.enterBillingAddressDetails();
+});
+
+When('the user saves the account', async ({ createAccount }) => {
+	await createAccount.clickSaveButton();
+});
+
+
+Then('the billing address values should match the entered values', async ({ createAccount }) => {
+	await createAccount.verifyBillingAddress();
+});
+
+
+//TC012
+
+When(
+  'the user enters the following shipping address:',
+  async ({ createAccount }, dataTable) => {
+    const data = Object.fromEntries(
+      dataTable.hashes().map(({ Field, Value }) => [Field, Value]),
+    );
+
+    await createAccount.fillShippingAddress(data);
+  },
+);
+
+When('the user saves the shipping address information', async ({ createAccount }) => {
+	await createAccount.clickSaveButton();
+});
+
+Then(
+  'the shipping address should match the entered values',
+  async ({ createAccount }) => {
+    await createAccount.verifyShippingAddress();
+  },
+);
+
+
+
+// working
+
+
+

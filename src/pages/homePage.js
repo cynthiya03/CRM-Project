@@ -16,12 +16,12 @@ export class HomePage extends BasePage {
 
 
 async accountclick() {
-  await expect(this.Accountpage).toBeVisible();
+  await expect(this.Accountpage).toBeVisible({ timeout: 15000 });
   await this.Accountpage.click();
 }
 
   async verifyVisible(locator) {
-    await expect(locator).toBeVisible();
+    await expect(locator).toBeVisible({ timeout: 15000 });
   }
   
 }

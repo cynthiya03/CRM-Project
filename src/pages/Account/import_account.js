@@ -6,16 +6,10 @@ constructor(page) {
      super(page);
 this.page = page;
 }
-async open() {
-  const url = process.env.ACCOUNTS_LIST_URL;
 
-  if (!url) {
-    throw new Error('ACCOUNTS_LIST_URL is missing.');
+async verifyVisible(locator) {
+    await expect(locator).toBeVisible();
   }
-
-  await this.page.goto(url);
-}
-
 
 
 }

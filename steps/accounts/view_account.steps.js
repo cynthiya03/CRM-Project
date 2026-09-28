@@ -1,42 +1,40 @@
-import { Given, When, Then } from '../../src/fixtures/pageFixture.js';
+import { Given, When, Then, BeforeScenario } from '../../src/fixtures/pageFixture.js';
 import { expect } from '@playwright/test';
 
-Given('User Land on view Account page', async ({}) => {
-  // Step: Given User Land on view Account page
-  // From: features\View_account.feature:7:5
+Given('User Land on view Account page', async ({ page }) => {
+  const viewAccountUrl = process.env.viewAccount_URL;
+
+  if (!viewAccountUrl) {
+    throw new Error('viewAccount_URL is missing.');
+  }
+
+  await expect(page).toHaveURL(viewAccountUrl, { timeout: 15000 });
 });
 
-When('User view the account list', async ({}) => {
-  // Step: When User view the account list
-  // From: features\View_account.feature:8:5
+When('User view the account list', async ({ viewAccount }) => {
+  await viewAccount.verifyVisible(viewAccount.accountlistTitle);
 });
 
-Then('User should see Name column be displayed', async ({}) => {
-  // Step: Then User should see Name column be displayed
-  // From: features\View_account.feature:9:5
+Then('User should see Name column be displayed', async ({ viewAccount }) => {
+  await viewAccount.verifyVisible(viewAccount.name);
 });
 
-Then('City column should be displayed', async ({}) => {
-  // Step: And City column should be displayed
-  // From: features\View_account.feature:10:5
+Then('City column should be displayed', async ({ viewAccount }) => {
+  await viewAccount.verifyVisible(viewAccount.city);
 });
 
-Then('Billing Country column should be displayed', async ({}) => {
-  // Step: And Billing Country column should be displayed
-  // From: features\View_account.feature:11:5
+Then('Billing Country column should be displayed', async ({ viewAccount }) => {
+  await viewAccount.verifyVisible(viewAccount.billingCountry);
 });
 
-Then('Phone column should be displayed', async ({}) => {
-  // Step: And Phone column should be displayed
-  // From: features\View_account.feature:12:5
+Then('Phone column should be displayed', async ({ viewAccount }) => {
+  await viewAccount.verifyVisible(viewAccount.phone);
 });
 
-Then('User column should be displayed', async ({}) => {
-  // Step: And User column should be displayed
-  // From: features\View_account.feature:13:5
+Then('User column should be displayed', async ({ viewAccount }) => {
+  await viewAccount.verifyVisible(viewAccount.user);
 });
 
-Then('Email Address column should be displayed', async ({}) => {
-  // Step: And Email Address column should be displayed
-  // From: features\View_account.feature:14:5
+Then('Email Address column should be displayed', async ({ viewAccount }) => {
+  await viewAccount.verifyVisible(viewAccount.emailAddress);
 });
