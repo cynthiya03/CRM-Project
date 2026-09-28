@@ -1,4 +1,4 @@
-import { expect } from '@playwright/test';
+
 import { BasePage } from '../Basepage.js';
 export class viewaccount extends BasePage {
 
@@ -13,9 +13,5 @@ this.user = page.getByText('User', { exact: true }).first();
 this.emailAddress = page.getByText('Email Address', { exact: true }).first();
 this.accountlistTitle = page.getByText('ACCOUNTS', { exact: true }).first()
 }
-// AccountsListPage.js
-async verifyVisible(locator) {
-    await expect(locator).toBeVisible({ timeout: 15000 });
-  }
 
 }

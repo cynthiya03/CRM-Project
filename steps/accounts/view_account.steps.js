@@ -2,12 +2,6 @@ import { Given, When, Then, BeforeScenario } from '../../src/fixtures/pageFixtur
 import { expect } from '@playwright/test';
 
 Given('User Land on view Account page', async ({ page }) => {
-  const viewAccountUrl = process.env.viewAccount_URL;
-
-  if (!viewAccountUrl) {
-    throw new Error('viewAccount_URL is missing.');
-  }
-
   await expect(page).toHaveURL(viewAccountUrl, { timeout: 15000 });
 });
 

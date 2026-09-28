@@ -3,6 +3,7 @@ import { LoginPage } from '../pages/LoginPage.js';
 import { HomePage } from '../pages/homePage.js';
 import { Account } from '../pages/Account/create_account.js';
 import {viewaccount} from '../pages/Account/view_account.js';
+import { importaccount} from '../pages/Account/import_account.js';
 
 
 export const test = base.extend({
@@ -22,7 +23,12 @@ export const test = base.extend({
   viewAccount: async ({ page }, use) => {
     const viewAccount = new viewaccount(page);
     await use(viewAccount);
-  }
+  },
+   ImportAccount: async ({ page }, use) => {
+    const ImportAccount = new importaccount(page);
+    await use(ImportAccount);
+  },
+
 
   
 });

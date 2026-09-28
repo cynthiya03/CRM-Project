@@ -62,14 +62,11 @@ await this.fillField(this.nameField, this.createdAccountName);
 
 }
 
-
-
 async clickSaveButton() {
   await this.saveButton.click();
 }
 
-
-async fillAccountForm(data) {
+git branch --show-currentasync fillAccountForm(data) {
     if (data['Website']) {
       await this.website.fill(data['Website']);
     }
