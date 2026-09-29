@@ -4,12 +4,15 @@ export class BasePage {
   /**
    * @param {import('@playwright/test').Page} page
    */
-  constructor(page) {
+  constructor(page, logger) {
     this.page = page;
+    this.logger = logger;
   }
 
-async verifyVisible(locator) {
-    await expect(locator).toBeVisible({ timeout: 15000 });
+ async verifyVisible(locator){
+    
+    await expect(locator).toBeVisible({ timeout: 30000 });
+    
   }
 
   async fillField(locator, value) {

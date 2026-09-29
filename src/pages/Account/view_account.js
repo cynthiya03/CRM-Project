@@ -2,8 +2,8 @@
 import { BasePage } from '../Basepage.js';
 export class viewaccount extends BasePage {
 
-constructor(page) {
-super(page);
+constructor(page , logger) {
+super(page, logger);
 this.page = page;
 this.name = page.getByText('Name', { exact: true }).first();
 this.city = page.getByText('City', { exact: true }).first();

@@ -4,6 +4,8 @@ import { HomePage } from '../pages/homePage.js';
 import { Account } from '../pages/Account/create_account.js';
 import {viewaccount} from '../pages/Account/view_account.js';
 import { importaccount} from '../pages/Account/import_account.js';
+import { once } from 'node:events';
+import { createTestLogger } from '../utils/logger.js';
 
 
 export const test = base.extend({
@@ -20,8 +22,8 @@ export const test = base.extend({
     const createAccount = new Account(page);
     await use(createAccount);
   },
-  viewAccount: async ({ page }, use) => {
-    const viewAccount = new viewaccount(page);
+  viewAccount: async ({ page, logger}, use) => {
+    const viewAccount = new viewaccount(page, logger);
     await use(viewAccount);
   },
    ImportAccount: async ({ page }, use) => {
@@ -30,9 +32,28 @@ export const test = base.extend({
   },
 
 
-  
-});
+logger: async ({}, use, testInfo) => {
+  const logger = createTestLogger(testInfo);
 
+  logger.info('Scenario started');
+
+  try {
+    await use(logger);
+  } finally {
+    logger.info(`Scenario finished: ${testInfo.status}`);
+
+    // Wait for pending log messages to be written.
+    const finished = once(logger, 'finish');
+    logger.end();
+    await finished;
+
+    await testInfo.attach('Execution log', {
+      path: testInfo.outputPath('execution.log'),
+      contentType: 'text/plain',
+    });
+  }
+},
+});
 export const {
   Given,
   When,

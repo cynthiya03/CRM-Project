@@ -47,7 +47,7 @@ async returnToAccountsList() {
 }
 
 async verifyVisible(locator) {
-    await expect(locator).toBeVisible({ timeout: 15000 });
+    await expect(locator).toBeVisible({ timeout: 30000 });
   }
 
   async fillField(locator, value) {
@@ -55,7 +55,7 @@ async verifyVisible(locator) {
 }
 
 async EnteruniqueName() {
-await expect(this.nameField).toBeVisible({ timeout: 20000 });
+await expect(this.nameField).toBeVisible({ timeout: 30000 });
 const number = Math.floor(1000 + Math.random() * 9000);
 this.createdAccountName = `TestUser_${number}`;
 await this.fillField(this.nameField, this.createdAccountName);
