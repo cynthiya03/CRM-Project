@@ -10,7 +10,6 @@ export class BasePage {
   }
 
  async verifyVisible(locator){
-    
     await expect(locator).toBeVisible({ timeout: 30000 });
     
   }

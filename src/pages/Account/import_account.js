@@ -70,8 +70,6 @@ async verifyAccountFileSelected() {
      await expect(this.choosefile).toHaveValue(/AccountsData.csv$/);
 }
 
-
-//
 async selectCreateNewRecordsOnly() {
      await this.createNewRecordsOnly.check();
 }

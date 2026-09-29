@@ -5,7 +5,7 @@ import { expect } from '@playwright/test';
 
 // @TC001, @TC002, @TC003, @TC004 - @AccountfieldisDisplayed
 Given('User Logged into CRM application', async ({ page }) => {
-  //await page.goto(process.env.ACCOUNTS_URL);
+  
 });
 
 When('user click the Accounts tab', async ({ homePage }) => {
@@ -211,8 +211,6 @@ Then(
 );
 
 
-
-// working
 
 
 
