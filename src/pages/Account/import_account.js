@@ -12,13 +12,43 @@ constructor(page) {
   
      this.createNewRecordsOnly = page.frameLocator('iframe').locator('.radio').first()
      this.createAndUpdateRecords = page.frameLocator('iframe').locator('#import_update');
-     this.uploadimportNext1 = page.frameLocator('iframe').getByRole('button', { name: 'Next >' })
-     this.confirmimportNext2 =page.frameLocator('iframe').locator(`//input[@id='gonext']`)
-     this.importconfirmsuccessmsg = page.frameLocator('iframe').locator(`span:has-text("records were created")`)
-     this.fieldmappingNext3 = page.frameLocator('iframe').locator('#gonext');
-     this.importnow4 = page.frameLocator('iframe').locator('#importnow')
-     };
+     const frame = page.frameLocator('iframe');
 
+this.nextButton = frame.getByRole('button', {
+  name: 'Next >',
+  exact: true,
+});
+
+this.filePropertiesHeading = frame.getByRole('heading', {
+  name: 'Step 2: Confirm Import File Properties',
+  exact: true,
+});
+
+this.fieldMappingsHeading = frame.getByRole('heading', {
+  name: 'Step 3: Confirm Field Mappings',
+  exact: true,
+  level: 2,
+});
+
+this.possibleDuplicatesHeading = frame.getByRole('heading', {
+  name: 'Step 4: Check for Possible Duplicates',
+  exact: true,
+  level: 2,
+});
+
+this.importNowButton = frame.getByRole('button', {
+  name: 'Import Now',
+  exact: true,
+});
+
+// Your existing success-message locator; verify it matches the results page.
+this.importSuccessMessage = page
+  .frameLocator('iframe')
+  .getByText('records were created', { exact: false });
+
+
+    
+}
 async ImportAccountclick() {
   await expect(this.Accountpage).toBeVisible({ timeout: 15000 });
   await this.Accountpage.click();
@@ -32,7 +62,7 @@ async verifyImportPage() {
 
 async selectAccountImportFile() {
      await this.choosefile.setInputFiles(
-  'data/AccountsData.csv'
+  'Data/AccountsData.csv'
 );
 }
 
@@ -58,4 +88,8 @@ async verifyCreateAndUpdateRecordsNotSelected() {
     await locator.click({ timeout: 15000 });
   }
 
+  async clickNextAndVerify(button, expectedElement, timeout = 15000) {
+  await button.click({ timeout });
+  await expect(expectedElement).toBeVisible({ timeout });
+}
 }

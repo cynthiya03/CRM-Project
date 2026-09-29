@@ -25,9 +25,9 @@ Feature: Testing user able to import account features in CRM application
     Scenario: Verify user can import accounts from a file
       Given User land on import account page
       When the user selects the account import file
-      And the user clicks Next
-      And the user confirms the import file properties and clicks Next
-      And the user confirms the field mappings and clicks Next
-      And the user reviews the possible duplicate settings and starts the import
-      Then the user should see a confirmation that the records were created
+     And the user clicks Next
+    And the user confirms the import file properties and clicks Next
+    And the user confirms the field mappings and clicks Next
+    And the user reviews the possible duplicate settings and starts the import
+  Then the user should see a confirmation that the records were created
 

@@ -49,34 +49,49 @@ When('the user selects the account import file', async ({ ImportAccount }) => {
   await ImportAccount.verifyAccountFileSelected();
 });
 
-When('the user clicks Next', async ({ ImportAccount }) => {
-  await ImportAccount.doClick(ImportAccount.uploadimportNext1);
+ When('the user clicks Next', async ({ ImportAccount }) => {
+  await ImportAccount.clickNextAndVerify(
+    ImportAccount.nextButton,
+    ImportAccount.filePropertiesHeading
+  );
 });
 
+// Step 2 → Step 3
 When(
   'the user confirms the import file properties and clicks Next',
   async ({ ImportAccount }) => {
-    await ImportAccount.doClick(ImportAccount.confirmimportNext2);
+    await ImportAccount.clickNextAndVerify(
+      ImportAccount.nextButton,
+      ImportAccount.fieldMappingsHeading
+    );
   }
 );
 
+// Step 3 → Step 4
 When(
   'the user confirms the field mappings and clicks Next',
   async ({ ImportAccount }) => {
-    await ImportAccount.doClick(ImportAccount.fieldmappingNext3);
-});
-
-When(
-  'the user reviews the possible duplicate settings and starts the import',
-  async ({ ImportAccount }) => {
-   //await ImportAccount.doClick(ImportAccount.)
-  await ImportAccount.doClick(ImportAccount.importnow4);
+    await ImportAccount.clickNextAndVerify(
+      ImportAccount.nextButton,
+      ImportAccount.possibleDuplicatesHeading
+    );
   }
 );
 
+// Step 4 → Import results
+When(
+  'the user reviews the possible duplicate settings and starts the import',
+  async ({ ImportAccount }) => {
+    await ImportAccount.clickNextAndVerify(
+      ImportAccount.importNowButton,
+      ImportAccount.importSuccessMessage,
+      30000
+    );
+  }
+);
 Then(
   'the user should see a confirmation that the records were created',
   async ({ ImportAccount }) => {
-    await ImportAccount.verifyVisible(ImportAccount.importconfirmsuccessmsg)
+    await ImportAccount.verifyVisible(ImportAccount.importSuccessMessage)
 });
 
