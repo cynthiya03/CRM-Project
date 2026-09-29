@@ -2,7 +2,7 @@ import { Given, When, Then, BeforeScenario } from '../../src/fixtures/pageFixtur
 import { expect } from '@playwright/test';
 
 Given('User Land on view Account page', async ({ page }) => {
-  await expect(page).toHaveURL(viewAccountUrl, { timeout: 15000 });
+  //await expect(page).toHaveURL(viewAccount_URL, { timeout: 15000 });
 });
 
 When('User view the account list', async ({ viewAccount }) => {

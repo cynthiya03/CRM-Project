@@ -2,7 +2,7 @@ import {
   BeforeScenario,
   AfterScenario,
 } from '../src/fixtures/pageFixture.js';
-import { expect } from '@playwright/test';
+
 
 // Runs before every scenario in the tagged feature.
 BeforeScenario(
@@ -49,3 +49,11 @@ BeforeScenario({ tags:'@importAccount'}, async ({ page }) => {
   await page.goto(process.env.importAccount_URL);
   console.log('Current URL:', page.url());
 });
+
+AfterScenario(
+  { tags: '@TC017' },
+  async ({ page }) => {
+    await page.frameLocator('iframe').locator('#undo').click();
+    console.log('Cleanup after TC017');
+  }
+);
