@@ -7,10 +7,10 @@ const testDir = defineBddConfig({
   steps: [
     'steps/**/*.js',
     'src/fixtures/pageFixture.js',
+    'src/fixtures/quotesfixture.js',
   ],
-    
-
-  /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
+  //importTestFrom: 'src/fixtures/QuoteFixture.js',
+  /*missingSteps: 'skip-scenario' */
 });
 
 /**
@@ -29,6 +29,7 @@ const testDir = defineBddConfig({
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
+  testDir,
   //testDir,
   /* Run tests in files in parallel */
   fullyParallel: true,

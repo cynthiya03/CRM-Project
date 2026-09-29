@@ -16,7 +16,8 @@
     "allure-playwright": "^3.12.1",
     "bdd": "^1.0.1",
     "playwright": "^1.63.0",
-    "playwright-bdd": "^9.2.1"
+    "playwright-bdd": "^9.2.1",
+    "winston": "^3.19.0"
   },
   "dependencies": {
     "xlsx": "^0.18.5"
