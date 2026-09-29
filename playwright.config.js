@@ -55,6 +55,9 @@ export default defineConfig({
   use: {
      baseURL: process.env.BASE_URL,
      storageState: 'playwright/.auth/userdata.json', 
+     screenshot : 'only-on-failure',
+    video : 'retain-on-failure',
+    trace: 'on-first-retry',
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 

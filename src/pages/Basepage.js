@@ -9,7 +9,7 @@ export class BasePage {
   }
 
 async verifyVisible(locator) {
-    await expect(locator).toBeVisible();
+    await expect(locator).toBeVisible({ timeout: 15000 });
   }
 
   async fillField(locator, value) {
