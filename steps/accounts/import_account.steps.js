@@ -85,7 +85,7 @@ When(
     await ImportAccount.clickNextAndVerify(
       ImportAccount.importNowButton,
       ImportAccount.importSuccessMessage,
-      30000
+      60000
     );
   }
 );

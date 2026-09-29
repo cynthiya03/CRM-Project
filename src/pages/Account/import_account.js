@@ -87,7 +87,10 @@ async verifyCreateAndUpdateRecordsNotSelected() {
   }
 
   async clickNextAndVerify(button, expectedElement, timeout = 15000) {
+
   await button.click({ timeout });
+  await this.page.waitForTimeout(1000);
+  await this.page.waitForLoadState('networkidle', { timeout: 5000 }).catch(() => {});
   await expect(expectedElement).toBeVisible({ timeout });
 }
 }
