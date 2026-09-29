@@ -1,30 +1,38 @@
-import { createBdd } from 'playwright-bdd';
+import { Given, When, Then, expect } from '../../src/fixtures/pageFixture.js';
 
-const { Given, When, Then } = createBdd();
-
-Then('the dropdown should display "Create Document" as an option', async ({}) => {
-  // Step: Then the dropdown should display "Create Document" as an option
-  // From: features\Documents\create_document.feature:9:5
+When('user clicks on the Documents option in the menu bar', async ({ documentPage }) => {
+  await documentPage.openDocumentsMenu();
 });
 
-Then('user should be redirected to the create document page', async ({}) => {
-  // Step: Then user should be redirected to the create document page
-  // From: features\Documents\create_document.feature:13:5
+Then('the dropdown should display {string} as an option', async ({ documentPage }, option) => {
+  await documentPage.expectMenuOption(option);
+  await documentPage.page.waitForTimeout(15000);
+  await expect(documentPage.viewDocumentLink).toBeVisible();
 });
 
-When('user navigates to the create document page and fills in the following fields', async ({}, dataTable) => {
-  // Step: When user navigates to the create document page and fills in the following fields
-  // From: features\Documents\create_document.feature:16:5
-  const formData = dataTable.hashes();
-  console.log('Document form data:', formData);
+Then('user should be redirected to the create document page', async ({ documentPage }) => {
+  await documentPage.openCreateDocument();
 });
 
-When('user clicks the save button', async ({}) => {
-  // Step: And user clicks the save button
-  // From: features\Documents\create_document.feature:28:5
+When('user navigates to the create document page and fills in the following fields', async ({ documentPage }, dataTable) => {
+  await documentPage.openDocumentsMenu();
+  await documentPage.openCreateDocument();
+  await documentPage.fillDocument(dataTable.hashes());
 });
 
-Then('new document should be created successfully', async ({}) => {
-  // Step: Then new document should be created successfully
-  // From: features\Documents\create_document.feature:29:5
+When('user clicks the save button', async ({ documentPage }) => {
+  await documentPage.save();
+});
+
+Then('new document should be created successfully', async ({ documentPage }) => {
+  await documentPage.expectDocumentCreated('Sample Document');
+});
+
+When('user navigates to view document page and can view the mentioned fields below', async ({ documentPage }, dataTable) => {
+  await documentPage.openViewDocuments();
+  await documentPage.expectDocumentFields(dataTable.raw().flat());
+});
+
+Then('user should be redirected to the view document page and able to see existing document', async ({ page }) => {
+  await expect(page).toHaveURL(/documents/);
 });
