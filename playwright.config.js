@@ -37,7 +37,7 @@ const testDir = defineBddConfig({
 const browserProfiles = [
   { name: 'chromium', device: 'Desktop Chrome' },
   { name: 'firefox', device: 'Desktop Firefox' },
-  { name: 'webkit', device: 'Desktop Safari' },
+ { name: 'webkit', device: 'Desktop Safari' },
 ];
 export default defineConfig({
   testDir,
@@ -53,6 +53,11 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+     baseURL: process.env.BASE_URL,
+     storageState: 'playwright/.auth/userdata.json', 
+     screenshot : 'only-on-failure',
+    video : 'retain-on-failure',
+    trace: 'on-first-retry',
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 

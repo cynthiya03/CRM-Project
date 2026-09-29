@@ -1,4 +1,3 @@
-
 Feature: Testing Create Quote page in SuiteCRM
 
 @CreateQuote @TS001
@@ -31,4 +30,3 @@ Scenario:Cancel the quote
 Given User is in the Create Quotes page
 When user enters all the mandatory and non mandatory fields and click on Cancel button
 Then The quote should not be saved and user is directed to the Quotes page
-

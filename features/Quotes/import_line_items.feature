@@ -21,4 +21,3 @@ Scenario:Prevent processing when no file is selected
 Given User is in the Import Line Items page the file picker displays no file selected
 When the user clicks the Next button
 Then a validation message should be displayed alerting the user to select a file to upload
-
