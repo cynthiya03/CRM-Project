@@ -56,7 +56,10 @@ export default defineConfig({
       name,
       dependencies: [`setup-${name}`],
       use: {
-        ...devices[device],
+     ...devices[device], 
+    ...(name === 'webkit' 
+? { viewport: { width: 1920, height: 1080 } } 
+: {}), 
       },
     },
   ]),
