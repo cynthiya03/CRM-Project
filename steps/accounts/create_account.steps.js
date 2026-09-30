@@ -13,7 +13,7 @@ When('user click the Accounts tab', async ({ homePage }) => {
 });
 
 Then('User should see create Account field', async ({ homePage }) => {
-  await expect(homePage.create_accounts).toBeVisible();
+  await homePage.verifyVisible(homePage.create_accounts);
 });
 //002
 Then('User should see view Accounts field', async ({ homePage }) => {

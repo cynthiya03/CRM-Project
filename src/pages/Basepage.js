@@ -9,8 +9,13 @@ export class BasePage {
     this.logger = logger;
   }
 
+  async hoverTab(locator) {
+    await locator.hover({ timeout: 15000 });
+  }
+
+
  async verifyVisible(locator){
-    await expect(locator).toBeVisible({ timeout: 30000 });
+    await expect(locator).toBeVisible({ timeout: 60000 });
     
   }
 

@@ -4,11 +4,24 @@ import { HomePage } from '../pages/homePage.js';
 import { Account } from '../pages/Account/create_account.js';
 import {viewaccount} from '../pages/Account/view_account.js';
 import { importaccount} from '../pages/Account/import_account.js';
+import { ContactPage } from '../pages/contactpage.js';
 import { once } from 'node:events';
 import { createTestLogger } from '../utils/logger.js';
 
 
 export const test = base.extend({
+  storageState: async ({ browserName }, use, testInfo) => {
+  const startLoggedOut =
+    testInfo.tags.includes('@login') ||
+    testInfo.project.name.startsWith('setup-');
+
+  await use(
+    startLoggedOut
+      ? { cookies: [], origins: [] }
+      : `playwright/.auth/${browserName}.json`
+  );
+},
+
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     await use(loginPage);
@@ -29,6 +42,10 @@ export const test = base.extend({
    ImportAccount: async ({ page }, use) => {
     const ImportAccount = new importaccount(page);
     await use(ImportAccount);
+  },
+  contactPage: async ({ page }, use) => {
+    const contactPage = new ContactPage(page);
+    await use(contactPage);
   },
 
 
