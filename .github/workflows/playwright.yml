@@ -2,9 +2,8 @@ name: Playwright Tests
 
 on:
   push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+    branches:
+      - feature/create_account
   workflow_dispatch:
 
 permissions:
@@ -24,6 +23,11 @@ jobs:
       BASE_URL: ${{ secrets.BASE_URL }}
       TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
       TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+      ACCOUNTS_URL: ${{ vars.ACCOUNTS_URL }}
+      createAccount_URL: ${{ vars.createAccount_URL }}
+      viewAccount_URL: ${{ vars.viewAccount_URL}}
+      importAccount_URL: ${{ vars.importAccount_URL}}
+
 
     steps:
       - name: Check out repository

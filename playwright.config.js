@@ -1,129 +1,66 @@
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'node:url';
+import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig } from 'playwright-bdd';
 
 dotenv.config({
   path: fileURLToPath(new URL('./config/QA.env', import.meta.url)),
 });
-import { defineConfig, devices } from '@playwright/test';
-import { defineBddConfig } from 'playwright-bdd';
-
 
 const testDir = defineBddConfig({
-
-  features: 'features/**/*.feature', // Path to your .feature files
+  features: 'features/**/*.feature',
   steps: [
     'steps/**/*.js',
-    'src/fixtures/pageFixture.js'
-    
+    'src/fixtures/pageFixture.js',
   ],
-
-  /*missingSteps: 'skip-scenario' */    // Path to your .js step definition files
-
 });
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
 
-
-/**
- * @see https://playwright.dev/docs/test-configuration
- * 
- * 
- */
 const browserProfiles = [
   { name: 'chromium', device: 'Desktop Chrome' },
   { name: 'firefox', device: 'Desktop Firefox' },
   { name: 'webkit', device: 'Desktop Safari' },
 ];
+
 export default defineConfig({
   testDir,
-  /* Run tests in files in parallel */
-  fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
+  timeout: 90000,
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+  expect: {
+    timeout: 30000,
+  },
+
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+  reporter: 'html',
+
+  use: {
+    baseURL: process.env.BASE_URL,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
     trace: 'on-first-retry',
   },
 
-  /* Configure projects for major browsers */
- projects: browserProfiles.flatMap(({ name, device }) => [
-  {
-    name: `setup-${name}`,
-    testDir: './setup',
-    testMatch: /auth\.setup\.js$/,
-    grep: /.*/,
-    grepInvert: [],
-    use: {
-      ...devices[device],
-      storageState: { cookies: [], origins: [] },
+  projects: browserProfiles.flatMap(({ name, device }) => [
+    {
+      name: `setup-${name}`,
+      testDir: './setup',
+      testMatch: /auth\.setup\.js$/,
+      use: {
+        ...devices[device],
+        storageState: { cookies: [], origins: [] },
+      },
     },
-  },
-  {
-    name,
-    dependencies: [`setup-${name}`],
-    grepInvert: /@login\b/,
-    use: {
-      ...devices[device],
-      storageState: `playwright/.auth/${name}.json`,
+    {
+      name,
+      dependencies: [`setup-${name}`],
+      use: {
+     ...devices[device], 
+    ...(name === 'webkit' 
+? { viewport: { width: 1920, height: 1080 } } 
+: {}), 
+      },
     },
-  },
-  {
-    name: `login-${name}`,
-    grep: /@login\b/,
-    use: {
-      ...devices[device],
-      storageState: { cookies: [], origins: [] },
-    },
-  },
-]),
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
-
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
-
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  ]),
 });
