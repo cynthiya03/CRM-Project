@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BASE_URL: ${{secrets.BASE_URL }}
-      TEST_EMAIL: ${{secrets.TEST_EMAIL}}
+      BASE_URL: ${{ secrets.BASE_URL }}
+      TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
       TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
       ACCOUNTS_URL: ${{ vars.ACCOUNTS_URL }}
       createAccount_URL: ${{ vars.createAccount_URL }}
