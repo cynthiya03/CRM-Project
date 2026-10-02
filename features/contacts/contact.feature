@@ -22,7 +22,7 @@ Feature: Testing contacts features in CRM application
     Then the user should see More Information
     Then the user should see Other tabs
 
-    @createContact @TC54
+@createContact @TC54
   Scenario: Verify mandatory fields display an asterisk
     Given the Create Contact page is open
     When the user views the Last Name field label
@@ -47,11 +47,32 @@ Feature: Testing contacts features in CRM application
     Then exactly one contact should be created
 
   
-    @createContact @TC57
+@createContact @TC57
   Scenario: verify user able to select honorific
     Given the Create Contact page is open
     When the user select "Mrs." from dropdown
    Then the selected honorific should be "Mrs."
+
+
+@createContact @TC58
+  Scenario: user able to search and select account name
+    Given the Create Contact page is open
+    When the user search the account name start with "Ba"
+    Then user able to select "Bay Funding Co" from dropdown 
+
+@createContact @contactExcel @TC59
+Scenario Outline: Fill and verify contact fields
+  Given the Create Contact page is open
+  When the user fills contact details from Excel for "<lastName>"
+  Then all contact fields should match the Excel data
+
+  Examples:
+    | lastName   |
+    | Ninja_4827 |
+    | Ninja_6392 |
+    | Ninja_7154 |
+    | Ninja_8263 |
+    | Ninja_9571 |
 
   
 

@@ -1,10 +1,12 @@
 import { Given, When, Then, BeforeScenario } from '../../src/fixtures/pageFixture.js';
 import { expect } from '@playwright/test';
+import { ExcelHelper } from '../../src/utils/ExcelHelper.js';
 
 
 // TC51
 Given('User land on Homepage', async ({ }) => {
    //await page.waitForLoadState('domcontentloaded');
+   //await expect(page).toHaveURL(/#\/home(?:[/?]|$)/);
 });
 
 When('the user hovers over the Contact tab', async ({ homePage }) => {
@@ -109,4 +111,59 @@ When(
 Then('the selected honorific should be {string}', async ({ contactPage }, value) => {
   await expect(contactPage.salutation).toHaveValue(value);
 });
+
+//TC58
+
+When('the user search the account name start with {string}', async ({ contactPage }, searchText) => {
+  await contactPage.searchDropdown(contactPage.accountNameInput, searchText);
+});
+
+Then(
+  'user able to select {string} from dropdown',
+  async ({ page, contactPage }, accountName) => {
+    const option = page
+      .getByRole('listbox', { name: 'Option List' })
+      .getByRole('option', { name: accountName, exact: true });
+
+    await contactPage.selectDropdownResult(option);
+
+    await expect(
+      page.getByRole('combobox', {
+        name: accountName,
+        exact: true,
+      })
+    ).toBeVisible();
+  }
+);
+
+// TC59
+
+When(
+  'the user fills contact details from Excel for {string}',
+  async ({ contactPage }, lastName) => {
+    const data = ExcelHelper.getRow(
+      'Data/Contacts_Test_Data.xlsx',
+      'Contacts',
+      'unique lastname',
+      lastName
+    );
+
+    contactPage.expectedContact = data;
+
+    await contactPage.fillContactDetails(data);
+  }
+);
+
+Then(
+  'all contact fields should match the Excel data',
+  async ({ contactPage }) => {
+    if (!contactPage.expectedContact) {
+      throw new Error('Load contact data in the When step first.');
+    }
+
+    await contactPage.verifyContactDetails(
+      contactPage.expectedContact
+    );
+  }
+);
 
