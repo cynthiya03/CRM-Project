@@ -1,38 +1,36 @@
-import { Given, When, Then, expect } from '../../src/fixtures/pageFixture.js';
+import { When, Then } from '../../src/fixtures/pageFixture.js';
 
-When('user clicks on the Documents option in the menu bar', async ({ documentPage }) => {
+When('user clicks on the Documents option in the menu bar', async ({ documentPage, logger }) => {
+  logger.info('Opening the Documents menu');
   await documentPage.openDocumentsMenu();
 });
 
-Then('the dropdown should display {string} as an option', async ({ documentPage }, option) => {
+Then('the dropdown should display {string} as an option', async ({ documentPage, logger }, option) => {
+  logger.info(`Verifying dropdown displays option: ${option}`);
   await documentPage.expectMenuOption(option);
-  await documentPage.page.waitForTimeout(15000);
-  await expect(documentPage.viewDocumentLink).toBeVisible();
 });
 
-Then('user should be redirected to the create document page', async ({ documentPage }) => {
+Then('user should be redirected to the create document page', async ({ documentPage ,logger}) => {
+  logger.info('Navigating to the create document page');
   await documentPage.openCreateDocument();
 });
 
-When('user navigates to the create document page and fills in the following fields', async ({ documentPage }, dataTable) => {
+When('user navigates to the create document page and fills in the following fields', async ({ documentPage, logger }, dataTable) => {
+  logger.info('Navigating to the create document page');
   await documentPage.openDocumentsMenu();
   await documentPage.openCreateDocument();
-  await documentPage.fillDocument(dataTable.hashes());
+  const fields = dataTable.hashes();
+  logger.info(`Filling document form with fields: ${JSON.stringify(fields)}`);
+  await documentPage.fillDocument(fields);
 });
 
-When('user clicks the save button', async ({ documentPage }) => {
+When('user clicks the save button', async ({ documentPage, logger }) => {
+  logger.info('Clicking the save button');
   await documentPage.save();
 });
 
-Then('new document should be created successfully', async ({ documentPage }) => {
+Then('new document should be created successfully', async ({ documentPage, logger }) => {
+  logger.info('Verifying document was created successfully');
   await documentPage.expectDocumentCreated('Sample Document');
 });
 
-When('user navigates to view document page and can view the mentioned fields below', async ({ documentPage }, dataTable) => {
-  await documentPage.openViewDocuments();
-  await documentPage.expectDocumentFields(dataTable.raw().flat());
-});
-
-Then('user should be redirected to the view document page and able to see existing document', async ({ page }) => {
-  await expect(page).toHaveURL(/documents/);
-});

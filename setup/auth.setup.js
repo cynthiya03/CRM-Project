@@ -15,8 +15,15 @@ setup('Authenticate CRM user', async ({ page, browserName }) => {
   await page.goto(baseURL);
   await loginPage.dologin(username, password);
 
-  // Replace with your CRM's actual home URL pattern.
-  await expect(page).toHaveURL(/\/home\/?$/);
+  try {
+    // Replace with your CRM's actual home URL pattern.
+    await expect(page).toHaveURL(/\/home\/?$/, { timeout: 10000 });
+  } catch {
+    // Shared test account: another browser's login may have invalidated this session, retry once
+    await page.goto(baseURL);
+    await loginPage.dologin(username, password);
+    await expect(page).toHaveURL(/\/home\/?$/, { timeout: 10000 });
+  }
 
   await page.context().storageState({
     path: `playwright/.auth/${browserName}.json`,

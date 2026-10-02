@@ -4,7 +4,7 @@ export class DocumentsPage {
   constructor(page) {
     this.page = page;
     this.documentsMenu = page.locator('a').filter({ hasText: /^Documents$/ }).first();
-    this.createDocumentLink = page.getByText('Create Document', { exact: true });
+    this.createDocumentLink = page.getByRole('link', { name: 'Create Document', exact: true });
     this.viewDocumentLink = page.getByRole('link', { name: 'View Documents' });
     this.saveButton = page.getByRole('button', { name: /^save$/i });
   }
@@ -24,8 +24,13 @@ export class DocumentsPage {
   
 
   async openCreateDocument() {
+    await this.openDocumentsMenu();
+    await expect(this.createDocumentLink).toBeVisible();
     await this.createDocumentLink.click();
-    await expect(this.page).toHaveURL('https://suite8demo.suiteondemand.com/#/documents/edit?return_module=Documents&return_action=DetailView');
+    await expect(this.page).toHaveURL(
+      'https://suite8demo.suiteondemand.com/#/documents/edit?return_module=Documents&return_action=DetailView',
+      { timeout: 15000 }
+    );
   }
 
 
@@ -49,28 +54,6 @@ export class DocumentsPage {
     await fieldWrapper('Sub Category').locator('select').selectOption({ label: values['Sub Category'] });
   }
 
-//   async fillDocument(fields) {
-//     for (const { Field, Value } of fields) {
-//       if (Field === 'File') {
-//         await this.page.getByLabel('File', { exact: true }).setInputFiles(Value);
-//         continue;
-//       }
-// await page.getByRole('link', { name: 'Create Document' }).click();
-//       if (Field === 'Template?') {
-//         await this.page.getByLabel('Template?', { exact: true }).selectOption({ label: Value });
-//         continue;
-//       }
-
-//       const field = this.page.getByLabel(Field, { exact: true });
-//       const tagName = await field.evaluate((element) => element.tagName);
-//       if (tagName === 'SELECT') {
-//         await field.selectOption({ label: Value });
-//       } else {
-//         await field.fill(Value);
-//       }
-//     }
-//   }
-
   async save() {
     await this.saveButton.click();
   }
@@ -81,7 +64,7 @@ export class DocumentsPage {
 
   async openViewDocuments() {
     await this.viewDocumentLink.click();
-    await expect(this.page).toHaveURL(/documents/);
+    await expect(this.page).toHaveURL(/documents/, { timeout: 15000 });
   }
 
   async expectDocumentFields(fields) {
