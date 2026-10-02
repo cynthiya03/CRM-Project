@@ -1,8 +1,9 @@
 
-@view_accountScenario
+@ViewAccounttestscenario
 Feature: Testing view account features in CRM application
   User will be able to see details in listed accounts
-@ViewAccountpage @TC01
+
+@ViewAccountpage @TC013
   Scenario: Verify the account list column headings
     Given User Land on view Account page
     When User view the account list

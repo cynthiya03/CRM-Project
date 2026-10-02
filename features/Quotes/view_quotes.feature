@@ -26,5 +26,3 @@ Scenario:Use inline row shortcuts-New Email
 Given User is in the View Quotes page
 When the user clicks the compose email icon shortcut on the quote title row
 Then New Email window should be opened
-
-
