@@ -1,4 +1,4 @@
-import { BeforeScenario } from '../src/fixtures/pageFixture.js';
+import { BeforeScenario } from '../../src/fixtures/pageFixture.js';
 
 BeforeScenario(async ({ loginPage }) => {
 const username = process.env.TEST_USERNAME;
