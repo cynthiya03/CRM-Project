@@ -1,9 +1,13 @@
+import { ExcelHelper } from '../../src/utils/ExcelHelper.js';   // adjust path/name
+
+const QUOTE_FILE = 'QuoteData.xlsx';
+const QUOTE_SHEET = 'CreateQuote';
 import { Given, When, Then, BeforeScenario } from '../../src/fixtures/pageFixture.js';
 import { expect } from '@playwright/test';
 
 
 // 2. Pass your custom 'test' extension into createBdd so the steps can see 'createQuotePage'
-const { Given, When, Then } = createBdd(test);
+//const { Given, When, Then } = createBdd(test);
 
 
 Given('User is logged into the application and Quotes menu is visible', async ({createquotePage}) => {
@@ -23,7 +27,9 @@ Given('User is in the Create Quotes page', async ({createquotePage}) => {
 });
 
 When('User inspects the mandatory fields displayed in the overview section', async ({createquotePage}) => {
-  
+  await expect(createquotePage.mandatoryFieldTitle).toBeVisible();
+  await expect(createquotePage.mandatoryFieldValidUntil).toBeVisible();
+  await expect(createquotePage.mandatoryFieldQuoteStage).toBeVisible();
 });
 
 Then('Title,Valid Until,Quote Stage fields should be displayed as mandatory by displaying * asterisk  next to it.', async ({createquotePage}) => {
@@ -43,20 +49,26 @@ Then('The Calendar should be displayed with Select Date,Close at the top right c
   // From: features/create_quote.feature:18:1
 });
 
-When('user enters all the mandatory and non mandatory fields and click on Save button', async ({createquotePage, quoteData}) => {
-   const formData = quoteData.rowsHash();
-   await createquotePage.fillQuoteForm(quoteData);
-  await createquotePage.QuoteSaveButton();
+When('user enters all the mandatory and non mandatory fields and click on Save button', async ({createquotePage}) => {
+  async ({ createquotePage }) => {
+    const data = ExcelHelper.getRow(QUOTE_FILE, QUOTE_SHEET, 'TestCaseID', 'quote1');
+    await createquotePage.fillQuoteDetails(data);
+    await createquotePage.QuoteSaveButton();
+  }
+
 });
 
 Then('The Quote should be saved and the user has to be directed to the quotes page', async ({createquotePage}) => {
   await expect(createquotePage.pagetitledisplayedonsave).toBeVisible();
 });
 
-When('user enters all the mandatory and non mandatory fields and click on Cancel button', async ({createquotePage, quoteData}) => {
-  const formData = quoteData.rowsHash();
-   await createquotePage.fillQuoteForm(quoteData);
-  await createquotePage.QuoteCancelButton();
+When('user enters all the mandatory and non mandatory fields and click on Cancel button', async ({createquotePage}) => {
+async ({ createquotePage }) => {
+    const data = ExcelHelper.getRow(QUOTE_FILE, QUOTE_SHEET, 'TestCaseID', 'quote2');
+    await createquotePage.fillQuoteDetails(data);
+    await createquotePage.QuoteCancelButton();
+  }
+
 });
 
 Then('The quote should not be saved and user is directed to the Quotes page', async ({createquotePage}) => {
@@ -69,5 +81,5 @@ When('User doesnt enter any of the mandatory fields and clicks on the Save butto
 });
 
 Then('User should be displayed a warning message saying {string}', async ({createquotePage}, arg) => {
-  await expect(createquotePage.errorMessageDisplayed()).toBeVisible();
+  await expect(createquotePage.errorMessage).toBeVisible();
 });

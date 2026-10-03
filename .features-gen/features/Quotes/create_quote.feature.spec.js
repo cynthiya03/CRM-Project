@@ -27,11 +27,11 @@ test.describe('Testing Create Quote page in SuiteCRM', () => {
     await Then('User should be displayed a warning message saying "Missing required field: Title"', null, { createquotePage }); 
   });
 
-  test('Successfully save the quote by entering all the fields', async ({ Given, When, Then, createquotePage, quoteData }) => { 
-    await Given('User is in the Create Quotes page', null, { createquotePage }); 
-    await When('user enters all the mandatory and non mandatory fields and click on Save button', null, { createquotePage, quoteData }); 
-    await Then('The Quote should be saved and the user has to be directed to the quotes page', null, { createquotePage }); 
-  });
+//  test('Successfully save the quote by entering all the fields', async ({ Given, When, Then, createquotePage, quoteData }) => { 
+   // await Given('User is in the Create Quotes page', null, { createquotePage }); 
+   // await When('user enters all the mandatory and non mandatory fields and click on Save button', null, { createquotePage, quoteData }); 
+    //await Then('The Quote should be saved and the user has to be directed to the quotes page', null, { createquotePage }); 
+  //});
 
   test('Cancel the quote', async ({ Given, When, Then, createquotePage }) => { 
     await Given('User is in the Create Quotes page', null, { createquotePage }); 

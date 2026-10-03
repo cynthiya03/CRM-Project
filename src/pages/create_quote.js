@@ -1,8 +1,8 @@
-export class createquotePage{
+export class CreateQuotePage{
 
     constructor(page){
         this.page =page;
-        this.createQuoteSubMenu = page.locator(getByRole('link', { name: 'Create Quote' }));;
+        this.createQuoteSubMenu = page.getByRole('link', { name: 'Create Quote' });;
         this.titleofPage = page.locator('iframe').contentFrame().getByText('CREATE', { exact: true });
         this.overviewButton =page.locator('iframe').contentFrame().getByRole('button', { name: '− Overview' });
         this.overviewSection =page.locator('iframe').contentFrame().getByText('Overview');
@@ -11,7 +11,7 @@ export class createquotePage{
 
         this.titleField =page.locator('iframe').contentFrame().locator('#name');
         this.validUntilField =page.locator('iframe').contentFrame().locator('#expiration');
-        this.assignedToField =page.llocator('iframe').contentFrame().locator('#assigned_user_name');
+        this.assignedToField =page.locator('iframe').contentFrame().locator('#assigned_user_name');
         this.approvalStatusdropdown =page.locator('iframe').contentFrame().locator('#approval_status');
 
         this.opportunityNameField =page.locator('iframe').contentFrame().locator('#opportunity');
@@ -54,6 +54,11 @@ export class createquotePage{
         this.calendarIcon =page.locator('iframe').contentFrame().locator('#Fill-3');
 
         this.pagetitledisplayedonsave =page.locator('iframe').contentFrame().getByText('Quotes');
+
+        this.mandatoryFieldTitle =page.locator('iframe').contentFrame().getByText('Title:*');
+        this.mandatoryFieldValidUntil =page.locator('iframe').contentFrame().getByText('Valid Until:*');
+        this.mandatoryFieldQuoteStage =page.locator('iframe').contentFrame().getByText('Quote Stage:*');
+        this.errorMessage = page.locator('iframe').contentFrame().getByText('Missing required field: Title');
     }
 
         async clickOnCreateQuoteSubMenu(){
@@ -83,21 +88,31 @@ export class createquotePage{
             await this.addGroupButton.click();
         }
 
+    //async fillQuoteDetails(data = {}) {
     async fillQuoteDetails(data = {}) {
-        if (data.title) await this.titleField.fill(data.title);
-        if (data.validUntilField) await this.validUntilField.fill(data.validUntilField);
-        if (data.assignedToField) await this.assignedToField.fill(data.assignedToField);
-        if (data.opportunityNameField) await this.opportunityNameField.fill(data.opportunityNameField);
-        if (data.approvalIssuesField) await this.approvalIssuesField.fill(data.approvalIssuesField);
-        if (data.approvalStatus) await this.approvalStatusdropdown.selectOption({ label: data.approvalStatus });
-        if (data.quoteStage) await this.quoteStageDropdown.selectOption({ label: data.quoteStage });
-        if (data.invoiceStatus) await this.invoiceStatusDropdown.selectOption({ label: data.invoiceStatus });
-        if (data.paymentTerms) await this.paymentTermsDropdown.selectOption({ label: data.paymentTerms });
-    }
+    // Mandatory
+    if (data.title) await this.titleField.fill(data.title);
+    if (data.validUntil) await this.validUntilField.fill(data.validUntil);
+    if (data.quoteStage) await this.quoteStageDropdown.selectOption({ label: data.quoteStage });
 
-    async errorMessageDisplayed(){
-        await expect(this.page.locator('iframe').contentFrame().getByText('Missing required field: Title'), { exact: true }).toBeVisible();
-    }
+    // Non-mandatory
+    if (data.assignedTo) await this.assignedToField.fill(data.assignedTo);
+    if (data.opportunityName) await this.opportunityNameField.fill(data.opportunityName);
+    if (data.approvalIssues) await this.approvalIssuesField.fill(data.approvalIssues);
+    if (data.approvalStatus) await this.approvalStatusdropdown.selectOption({ label: data.approvalStatus });
+    if (data.invoiceStatus) await this.invoiceStatusDropdown.selectOption({ label: data.invoiceStatus });
+    if (data.paymentTerms) await this.paymentTermsDropdown.selectOption({ label: data.paymentTerms });
+
+    // Billing address
+    if (data.billingStreet) await this.billingAddressStreet.fill(data.billingStreet);
+    if (data.billingCity) await this.billingAddressCity.fill(data.billingCity);
+    if (data.billingState) await this.billingAddressState.fill(data.billingState);
+    if (data.billingPostalCode) await this.billingAddressPostalCode.fill(data.billingPostalCode);
+    if (data.billingCountry) await this.billingAddressCountry.fill(data.billingCountry);
+}
+    
+
+    
 
     }
 

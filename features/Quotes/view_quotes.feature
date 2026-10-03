@@ -1,7 +1,8 @@
+@viewquote 
 Feature: Testing Create Quote page in SuiteCRM
 
 
-@viewquote @TS002
+@TS002
 Scenario:Navigate to a specific quote details page
 Given User is in the View Quotes page
 When the user clicks on the quote title link 

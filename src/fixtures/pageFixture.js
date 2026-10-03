@@ -6,7 +6,10 @@ import {viewaccount} from '../pages/Account/view_account.js';
 import { importaccount} from '../pages/Account/import_account.js';
 import { once } from 'node:events';
 import { createTestLogger } from '../utils/logger.js';
-import {createquotePage} from '../pages/create_quote.js';
+import {CreateQuotePage} from '../pages/create_quote.js';
+import { ViewQuotePage } from '../pages/view_quote.js';
+import { ImportQuotePage } from '../pages/import_quote.js';
+
 
 
 export const test = base.extend({
@@ -33,9 +36,18 @@ export const test = base.extend({
     await use(ImportAccount);
   },
   createquotePage: async ({ page }, use) => {
-    const createquotePage = new createquotePage(page);
-    await use(createquotePage);
+    const createquotePage = new CreateQuotePage(page);
+    await use(CreateQuotePage);
   },
+  viewquotePage : async ({ page }, use) => {
+    const viewquotePage = new ViewQuotePage(page);
+    await use(ViewQuotePage);
+
+  },
+  importquotePage : async ({ page }, use) => {
+    const importquotePage = new ImportQuotePage(page);
+    await use(ImportQuotePage);
+  },  
 
 
 logger: async ({}, use, testInfo) => {
@@ -68,3 +80,4 @@ export const {
   AfterScenario,
 } = createBdd(test);
 export { expect } from '@playwright/test';
+

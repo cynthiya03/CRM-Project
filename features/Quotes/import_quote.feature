@@ -1,3 +1,4 @@
+@ImportQuote
 Feature: Testing Import Quote page in SuiteCRM
 
 @importquote 

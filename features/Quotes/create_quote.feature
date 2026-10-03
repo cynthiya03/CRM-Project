@@ -1,7 +1,8 @@
 
+@CreateQuote 
 Feature: Testing Create Quote page in SuiteCRM
 
-@CreateQuote @TS001
+@TS001
 Scenario:Verify Create Quotes page is displayed
 Given User is logged into the application and Quotes menu is visible
 When User clicks on the Create Quote sub-menu
