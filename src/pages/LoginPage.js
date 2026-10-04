@@ -1,18 +1,20 @@
-export class LoginPage {
-  constructor(page) {
-    this.page = page;
-  }
-  async openURL(url) {
-    await this.page.goto(url);
-  }
 
-  async dologin(username, password) {
-    // Adjust selectors to match your login form
-    await this.page.fill('input[name="user_name"], input[name="username"], input#username', username || '');
-    await this.page.fill('input[name="user_password"], input#password', password || '');
-    await Promise.all([
-      this.page.click('button:has-text("Login"), input[type="submit"]'),
-      this.page.waitForLoadState('networkidle'),
-    ]).catch(() => {});
+export class LoginPage{ 
+
+constructor(page) {
+this.page = page;
+ this.username = page.getByRole('textbox', { name: 'Username' })
+ this.password = page.getByRole('textbox', { name: 'Password' })
+this.loginButton = page.getByRole('button', { name: 'Log In' })
+
+}
+async openURL(BASE_URL){
+    await this.page.goto(BASE_URL);
+ }
+
+async dologin(username, password) {
+    await this.username.fill(username);
+    await this.password.fill(password);
+    await this.loginButton.click();
   }
 }
