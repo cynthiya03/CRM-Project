@@ -1,53 +1,97 @@
-import { createBdd } from 'playwright-bdd';
+import { Given, When, Then, BeforeScenario } from '../../src/fixtures/pageFixture.js';
 
-const { Given, When, Then } = createBdd();
 
-Given('User Logged into CRM and land on import account page', async ({}) => {
-  // Step: Given User Logged into CRM and land on import account page
-  // From: features\import_account.feature:7:5
+// TC014
+Given('User Logged into CRM', async ({  }) => {
+	});
+
+When('user click on import account page', async ({ ImportAccount }) => {
+	await ImportAccount.ImportAccountclick();
 });
 
-Given('user land on Account page', async ({}) => {
-  // Step: And user land on Account page
-  // From: features\import_account.feature:8:5
+Then('User should be redirected to import account page', async ({ ImportAccount }) => {
+	await ImportAccount.verifyVisible(ImportAccount.importTitle)
+})
+
+// TC015
+
+Given('User land on import account page', async ({}) => {
+  
 });
 
-When('user click import account page', async ({}) => {
-  // Step: When user click import account page
-  // From: features\import_account.feature:9:5
+When('user click choose file and able to import the file', async ({ ImportAccount }) => {
+	await ImportAccount.selectAccountImportFile();
 });
 
-Then('User should be redirected to import account page', async ({}) => {
-  // Step: Then User should be redirected to import account page
-  // From: features\import_account.feature:10:5
+Then('User should see account file selected on choose file option', async ({ ImportAccount }) => {
+	await ImportAccount.verifyAccountFileSelected();
 });
 
-Given('user land on import file page', async ({}) => {
-  // Step: And user land on import file page
-  // From: features\import_account.feature:15:5
+//TC016
+
+When('user select Create new records only option', async ({ ImportAccount }) => {
+	await ImportAccount.selectCreateNewRecordsOnly();
 });
 
-When('user click choose file and able to import the file', async ({}) => {
-  // Step: When user click choose file and able to import the file
-  // From: features\import_account.feature:16:5
+Then('User should see Create new records only should be selected', async ({ ImportAccount }) => {
+	await ImportAccount.verifyCreateNewRecordsOnlySelected();
 });
 
-Then('User should see account file selected on choose file option', async ({}) => {
-  // Step: Then User should see account file selected on choose file option
-  // From: features\import_account.feature:17:5
+Then('Create new records and update existing records should not be selected', async ({ ImportAccount}) => {
+	await ImportAccount.verifyCreateAndUpdateRecordsNotSelected();
 });
 
-When('user select Create new records only option', async ({}) => {
-  // Step: When user select Create new records only option
-  // From: features\import_account.feature:23:5
+// TC017
+
+
+When('the user selects the account import file', async ({ ImportAccount }) => {
+  await ImportAccount.selectAccountImportFile();
+  await ImportAccount.verifyAccountFileSelected();
 });
 
-Then('User should see Create new records only should be selected', async ({}) => {
-  // Step: Then User should see Create new records only should be selected
-  // From: features\import_account.feature:24:5
+ When('the user clicks Next', async ({ ImportAccount }) => {
+  await ImportAccount.clickNextAndVerify(
+    ImportAccount.nextButton,
+    ImportAccount.filePropertiesHeading
+  );
 });
 
-Then('Create new records and update existing records should not be selected', async ({}) => {
-  // Step: And Create new records and update existing records should not be selected
-  // From: features\import_account.feature:25:5
+// Step 2 → Step 3
+When(
+  'the user confirms the import file properties and clicks Next',
+  async ({ ImportAccount }) => {
+    await ImportAccount.clickNextAndVerify(
+      ImportAccount.nextButton,
+      ImportAccount.fieldMappingsHeading
+    );
+  }
+);
+
+// Step 3 → Step 4
+When(
+  'the user confirms the field mappings and clicks Next',
+  async ({ ImportAccount }) => {
+    await ImportAccount.clickNextAndVerify(
+      ImportAccount.nextButton,
+      ImportAccount.possibleDuplicatesHeading
+    );
+  }
+);
+
+// Step 4 → Import results
+When(
+  'the user reviews the possible duplicate settings and starts the import',
+  async ({ ImportAccount }) => {
+    await ImportAccount.clickNextAndVerify(
+      ImportAccount.importNowButton,
+      ImportAccount.importSuccessMessage,
+      60000
+    );
+  }
+);
+Then(
+  'the user should see a confirmation that the records were created',
+  async ({ ImportAccount }) => {
+    await ImportAccount.verifyVisible(ImportAccount.importSuccessMessage)
 });
+
