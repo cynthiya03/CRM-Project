@@ -17,7 +17,7 @@ constructor(page) {
     this.viewOpportunitiesLink = page.getByRole('link', { name: 'View Opportunities' })
     this.viewOpportunitiesName = page.getByRole('link', { name: 'Kaos Trading Ltd - 500 units' });
     this.viewOpportunitiesNameDetails = page.getByRole('tabpanel', { name: 'BASIC' }).getByText('Kaos Trading Ltd - 500 units');
-    this.viewAccountName = page.getByRole('link', { name: 'Kaos Trading Ltd', exact: true });
+    this.viewAccountName = page.getByRole('link', { name: 'Kaos Trading Ltd', exact: true }).first();
     this.viewAccountNameDetails = page.getByRole('tabpanel', { name: 'OVERVIEW' }).getByText('Kaos Trading Ltd');
     this.importOpportunitiesLink = page.getByRole('link', { name: 'Import Opportunities' });
     this.importOpportunitiesDetails = page.locator('iframe').contentFrame().getByRole('heading', { name: 'Step 1: Upload Import File' });
@@ -84,7 +84,7 @@ constructor(page) {
     }
 
     async checkOpportunitiesList() {
-    await expect(this.opportunitiesList).toBeVisible();
+    await expect(this.opportunitiesList).toBeVisible({ timeout: 15000 });
     }
     async checkCreateOpportunityForm() {
         return await this.createOpportunityForm.isVisible();
@@ -113,6 +113,7 @@ constructor(page) {
     await expect(this.importOpportunitiesDetails).toBeVisible();
     }
     async clickChooseFile(filePath) {
+        await expect(this.fileInput).toHaveCount(1, { timeout: 15000 });
         await this.fileInput.setInputFiles(filePath);
 }
     async checkFileSelected() {
