@@ -41,7 +41,10 @@ this.alternateAddressPostalCode = page.locator('.dynamic-field.dynamic-field-mod
 this.alternateAddressCity = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-alt_address_city > div > .d-flex > .flex-grow-1 > .form-control')
 this.alternateAddressState = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-alt_address_state > div > .d-flex > .flex-grow-1 > .form-control')
 this.alternateAddressCountry = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-alt_address_country > div > .d-flex > .flex-grow-1 > .form-control')
-
+this.bulkAction = page.locator('scrm-table-header').getByRole('button', { name: 'Bulk Action' })
+this.delete = page.locator('a').filter({ hasText: 'Delete' }).nth(1)
+this.proceed = page.getByRole('button', { name: 'Proceed' })
+this.deleteSuccess = page.getByText('Record(s) deleted')
 
 this.contactFields = {
   'firstname': this.firstNameField,
@@ -92,17 +95,17 @@ async filluniquelastName() {
     await this.createContactfield.click();
   }
 
-//   async openCreateContactFromVCard() {
-//     await this.contactFromVCardLink.click();
-//   }
+ async openCreateContactFromVCard() {
+     await this.contactFromVCardLink.click();
+   }
 
-//   async openImportContact() {
-//     await this.importContactLink.click();
-//   }
+   async openImportContact() {
+     await this.importContactLink.click();
+   }
 
-//   async openContactList() {
-//     await this.viewContactsLink.click();
-//   }
+   async openContactList() {
+     await this.viewContactsLink.click();
+   }
 
   async expectRequiredIndicator(expectedSymbol = '*') {
     await expect(this.requiredIndicator).toHaveText(expectedSymbol);
@@ -129,5 +132,12 @@ async fillContactDetails(data) {
 async verifyContactDetails(data) {
   await this.verifyFields(this.contactFields, data);
 }
+
+async openContactsList() {
+  await this.page.goto('#/contacts/index?return_module=Contacts&return_action=DetailView');
   
 }
+
+
+}
+

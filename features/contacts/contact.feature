@@ -74,10 +74,11 @@ Scenario Outline: Fill and verify contact fields
     | Ninja_8263 |
     | Ninja_9571 |
 
+
   
 
 
-    
+  
 
 
 

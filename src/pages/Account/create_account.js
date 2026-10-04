@@ -2,8 +2,8 @@ import { expect } from '@playwright/test';
 import { BasePage } from '../Basepage.js';
 export class Account extends BasePage {
 
-constructor(page) {
-     super(page);
+constructor(page, logger) {
+     super(page, logger);
 this.page = page;
 
 this.createAccountTitle = page.getByText('Create', { exact: true }).first();

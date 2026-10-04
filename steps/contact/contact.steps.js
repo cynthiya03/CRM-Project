@@ -5,8 +5,7 @@ import { ExcelHelper } from '../../src/utils/ExcelHelper.js';
 
 // TC51
 Given('User land on Homepage', async ({ }) => {
-   //await page.waitForLoadState('domcontentloaded');
-   //await expect(page).toHaveURL(/#\/home(?:[/?]|$)/);
+  
 });
 
 When('the user hovers over the Contact tab', async ({ homePage }) => {
@@ -166,4 +165,3 @@ Then(
     );
   }
 );
-
