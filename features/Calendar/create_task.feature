@@ -1,6 +1,5 @@
-Feature: Testing Create Task page in SuiteCRM
-
 @CreateTask
+Feature: Testing Create Task page in SuiteCRM
 
 Scenario:Successfully create a new task with minimal required data
 Given the user is logged into the applicationAnd the user navigates to the Create Task page

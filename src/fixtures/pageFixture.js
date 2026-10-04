@@ -9,6 +9,7 @@ import { createTestLogger } from '../utils/logger.js';
 import {CreateQuotePage} from '../pages/create_quote.js';
 import { ViewQuotePage } from '../pages/view_quote.js';
 import { ImportQuotePage } from '../pages/import_quote.js';
+import { CreateTaskPage } from '../pages/create_task.js';
 
 
 
@@ -47,6 +48,11 @@ export const test = base.extend({
   importquotePage : async ({ page }, use) => {
     const importquotePage = new ImportQuotePage(page);
     await use(ImportQuotePage);
+  },  
+
+  createtaskPage : async ({ page }, use) => {
+    const createtaskPage = new CreateTaskPage(page);
+    await use(CreateTaskPage);
   },  
 
 
