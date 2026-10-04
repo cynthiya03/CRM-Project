@@ -49,20 +49,14 @@ BeforeScenario({ tags:'@importAccount'}, async ({ page }) => {
   console.log('Current URL:', page.url());
 });
 
-BeforeScenario(
-  { tags: '@Contacts or @contact' },
-  async ({ page }) => {
-    await page.goto(process.env.BASE_URL || 'https://suite8demo.suiteondemand.com/#/home');
-    await page.waitForLoadState('domcontentloaded');
-    console.log('Current URL:', page.url());
-  }
-);
 
 BeforeScenario(
   { tags: '@createContact' },
   async ({ page }) => {
+    if (!process.env.createContact_URL) {
+    throw new Error('createContact_URL is missing.');
+  }
     await page.goto(process.env.createContact_URL);
-    await page.waitForLoadState('domcontentloaded');
     console.log('Current URL:', page.url());
   }
 );

@@ -2,8 +2,8 @@ import { expect } from '@playwright/test';
 import { BasePage } from '../Basepage.js';
 export class importaccount extends BasePage {
 
-constructor(page) {
-     super(page);
+constructor(page, logger) {
+     super(page, logger);
      this.page = page;
      this.Accountpage = page.getByText('Accounts', { exact: true }).first();
      this.importaccountlink = page.getByText('Import Accounts', { exact: true }).first();

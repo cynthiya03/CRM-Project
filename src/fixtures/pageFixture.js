@@ -31,7 +31,7 @@ export const test = base.extend({
     const homePage = new HomePage(page);
     await use(homePage);
   },
-  createAccount: async ({ page }, use) => {
+  createAccount: async ({ page,  logger }, use) => {
     const createAccount = new Account(page);
     await use(createAccount);
   },
@@ -39,11 +39,11 @@ export const test = base.extend({
     const viewAccount = new viewaccount(page, logger);
     await use(viewAccount);
   },
-   ImportAccount: async ({ page }, use) => {
+   ImportAccount: async ({ page, logger }, use) => {
     const ImportAccount = new importaccount(page);
     await use(ImportAccount);
   },
-  contactPage: async ({ page }, use) => {
+  contactPage: async ({ page, logger }, use) => {
     const contactPage = new ContactPage(page);
     await use(contactPage);
   },
