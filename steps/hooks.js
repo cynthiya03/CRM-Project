@@ -76,7 +76,7 @@ AfterScenario(
 );
 
 BeforeScenario(
-  { tags: '@createopportunity or @importopportunity' },
+  { tags: '@createopportunity or @importopportunity or @viewopportunity' },
   async ({ page }) => {
 
     if (!process.env.BASE_URL) {
@@ -84,7 +84,7 @@ BeforeScenario(
     }
 
     await page.goto(process.env.BASE_URL);
-    await page.waitForLoadState('domcontentloaded');
+    await page.waitForURL(/\/home\/?$/, { timeout: 30000 });
 
     console.log('Current URL:', page.url());
   }

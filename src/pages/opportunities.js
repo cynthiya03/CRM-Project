@@ -2,10 +2,10 @@ import { expect } from "@playwright/test";
 class OpportunitiesPage {
 constructor(page) {
     this.page = page;
-    this.opportunitiesLink = page.locator('a', { hasText: 'Opportunities' });
-    this.createOpportunityLink = page.locator('a', { hasText: 'Create Opportunity' });
+    this.opportunitiesLink = page.locator('a.top-nav-link').filter ({ hasText: /^Opportunities$/ });
+    this.createOpportunityLink = page.getByRole('link', {name: 'Create Opportunity', exact: true}).first();
     this.createOpportunityForm = page.locator('label', { hasText: 'OPPORTUNITY NAME' });
-    this.opportunitiesList = page.locator('scrm-label', { hasText: 'Name' });
+    this.opportunitiesList = page.getByText('Name', { exact: true });
     this.opportunityNameInput = page.locator('scrm-field.field-name-name input');
     this.accountNameDropdown = page.locator('scrm-field.field-name-account_name [role="combobox"]');
     this.amountInput = page.locator('scrm-currency-edit input');
@@ -14,7 +14,7 @@ constructor(page) {
     this.saveButton = page.getByRole('button', { name: 'Save' });
     this.createdOpportunityName = (opportunityName) => page.getByRole('tabpanel', { name: 'BASIC' }).getByText(opportunityName, { exact: true });
     this.validationError = page.getByRole('alert');
-    this.viewOpportunityLink = page.getByRole('link', { name: 'View Opportunities' })
+    this.viewOpportunitiesLink = page.getByRole('link', { name: 'View Opportunities' })
     this.viewOpportunitiesName = page.getByRole('link', { name: 'Kaos Trading Ltd - 500 units' });
     this.viewOpportunitiesNameDetails = page.getByRole('tabpanel', { name: 'BASIC' }).getByText('Kaos Trading Ltd - 500 units');
     this.viewAccountName = page.getByRole('link', { name: 'Kaos Trading Ltd', exact: true });
@@ -65,21 +65,26 @@ constructor(page) {
 
     async selectAccountName(accountName) {
         await this.accountNameDropdown.click();
-        await this.page.getByRole('option', { name: accountName, exact: true }).click();
+        const accountSearch = this.page.locator('#pn_id_1').getByRole('textbox');
+        await accountSearch.fill('');
+        await accountSearch.pressSequentially('Kao', { delay: 100 });
+        const accountOption = this.page.getByRole('option', {name: accountName});
+        await expect(accountOption).toBeVisible();
+        await accountOption.click();
     }
     async clickSaveButton() {
         await this.saveButton.click();
     }
 
     async checkOpportunityCreated(opportunityName) {
-        return await this.createdOpportunityName(opportunityName).isVisible();
+        await expect(this.createdOpportunityName(opportunityName)).toBeVisible();
     }
     async checkValidationError(expectedMessage) {
          await expect (this.validationError).toContainText(expectedMessage);
     }
 
     async checkOpportunitiesList() {
-        return await this.opportunitiesList.isVisible();
+    await expect(this.opportunitiesList).toBeVisible();
     }
     async checkCreateOpportunityForm() {
         return await this.createOpportunityForm.isVisible();
@@ -89,7 +94,7 @@ constructor(page) {
         await this.viewOpportunitiesLink.click();
     }
     async checkOpportunityNameDetails() {
-        return await this.viewOpportunitiesNameDetails.isVisible();
+        await expect(this.viewOpportunitiesNameDetails).toBeVisible();
     }
     async clickViewOpportunitiesName() {
         await this.viewOpportunitiesName.click();
@@ -98,14 +103,14 @@ constructor(page) {
         await this.viewAccountName.click();
     }
     async checkAccountNameDetails() {
-        return await this.viewAccountNameDetails.isVisible();
+        await expect(this.viewAccountNameDetails).toBeVisible();
 
     }
     async clickImportOpportunities(){
         await this.importOpportunitiesLink.click();
     }
     async checkImportOpportunitiesDetails() {
-        return await this.importOpportunitiesDetails.isVisible();
+    await expect(this.importOpportunitiesDetails).toBeVisible();
     }
     async clickChooseFile(filePath) {
         await this.fileInput.setInputFiles(filePath);

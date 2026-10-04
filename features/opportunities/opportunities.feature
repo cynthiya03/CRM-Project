@@ -18,7 +18,7 @@ Scenario:Create opportunities
 
 @createopportunity @TC203
 Scenario:Created opportunity successfully
-    Given User is on the opportunities page
+    Given User is on the create opportunities page
     When User enters valid details on the form including Opportunity name, account name , amount and selects one sales stage and closing date and click save button
     Then New Opportunity should be created successfully
 

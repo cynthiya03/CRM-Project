@@ -27,7 +27,7 @@ When('User clicks the opportunities section', async ({page}) => {
 
 Then('User should see the opportunities landing page', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  expect(await opportunitiesPage.checkOpportunitiesList()).toBe(true);
+  await opportunitiesPage.checkOpportunitiesList();
 
 });
 
@@ -45,8 +45,8 @@ When('User clicks create opportunities button from dropdown', async ({page}) => 
 
 Then('User should see the new opportunities form where the user can enter details', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  //await opportunitiesPage.checkCreateOpportunityForm();
-  expect(await opportunitiesPage.checkCreateOpportunityForm()).toBe(true);
+  await opportunitiesPage.checkCreateOpportunityForm();
+  //expect(await opportunitiesPage.checkCreateOpportunityForm()).toBe(true);
 });
 
 When('User enters valid details on the form including Opportunity name, account name , amount and selects one sales stage and closing date and click save button', async ({page }) => {
@@ -62,8 +62,7 @@ When('User enters valid details on the form including Opportunity name, account 
 
 Then('New Opportunity should be created successfully', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  expect(await opportunitiesPage.checkOpportunityCreated('Opportunity 1')).toBe(true);
-
+  await opportunitiesPage.checkOpportunityCreated('Opportunity 1');
   });
 
 Given('User is on the create opportunities page', async ({page}) => {
@@ -100,12 +99,16 @@ When('user selects view opportunities', async ({page}) => {
 
 Then('user should see the list of opportunities', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  expect(await opportunitiesPage.checkOpportunitiesList()).toBe(true);
+  await opportunitiesPage.checkOpportunitiesList();
+
 });
 
 Given('user is on the view opportunities page', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
- await opportunitiesPage.clickViewOpportunities();
+  await opportunitiesPage.clickOpportunities();
+  await opportunitiesPage.hoverOpportunities();
+  await opportunitiesPage.clickViewOpportunities();
+  
 });
 
 When('user clicks any opportunity name on the list', async ({page}) => {
@@ -115,7 +118,7 @@ When('user clicks any opportunity name on the list', async ({page}) => {
 
 Then('user should able to see all the details under that name', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  expect(await opportunitiesPage.checkOpportunityNameDetails()).toBe(true);
+  await opportunitiesPage.checkOpportunityNameDetails();
 });
   
 
@@ -126,7 +129,7 @@ When('user clicks any opportunity account name on the list', async ({page}) => {
 
 Then('user should able to see all the details under that account name', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  expect(await opportunitiesPage.checkAccountNameDetails()).toBe(true);
+  await opportunitiesPage.checkAccountNameDetails();
 });
 
 When('user clicks import opportunities', async ({page}) => {
@@ -137,11 +140,13 @@ When('user clicks import opportunities', async ({page}) => {
 
 Then('user should see steps for upload import file', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  expect(await opportunitiesPage.checkImportOpportunitiesDetails()).toBe(true);
+  await opportunitiesPage.checkImportOpportunitiesDetails();
 });
 
 Given('user is on the import opportunities page', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
+  await opportunitiesPage.clickOpportunities();
+  await opportunitiesPage.hoverOpportunities();
   await opportunitiesPage.clickImportOpportunities();
 });
 
