@@ -4,7 +4,7 @@ import { expect } from '@playwright/test';
 const { Given, When, Then } = createBdd();
 
 When('user hovers on the Menu option in the menu bar', async ({ page }) => {
-  await page.locator('a').filter({ hasText: 'More' }).hover();
+  await page.getByText('More', { exact: true }).first().hover();
 });
 
 Then('dropdown should display below options', async ({ page }, dataTable) => {

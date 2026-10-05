@@ -13,6 +13,16 @@ export class DocumentsPage {
     await this.documentsMenu.hover();
   }
 
+  // An app error banner can cover the nav and intercept clicks.
+  async dismissAlerts() {
+    const alert = this.page.getByRole('alert').first();
+    if (await alert.isVisible()) {
+      console.log('Dismissing alert:', (await alert.innerText()).trim());
+      await alert.getByRole('button').first().click({ timeout: 5000 }).catch(() => {});
+      await expect(alert).toBeHidden({ timeout: 15000 });
+    }
+  }
+
   async expectMenuOption(option) {
       const optionLocator = this.page.getByRole('link', {
         name: option,
@@ -24,6 +34,7 @@ export class DocumentsPage {
   
 
   async openCreateDocument() {
+    await this.dismissAlerts();
     await this.openDocumentsMenu();
     await expect(this.createDocumentLink).toBeVisible();
     await this.createDocumentLink.click();
