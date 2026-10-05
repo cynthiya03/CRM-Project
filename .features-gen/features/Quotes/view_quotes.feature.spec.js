@@ -1,7 +1,7 @@
 // Generated from: features/Quotes/view_quotes.feature
 import { test } from "../../../src/fixtures/pageFixture.js";
 
-test.describe('Testing Create Quote page in SuiteCRM', () => {
+test.describe('Testing View Quote page in SuiteCRM', () => {
 
   test('Navigate to a specific quote details page', { tag: ['@ViewQuote'] }, async ({ Given, When, Then, viewquotePage }) => { 
     await Given('User is in the View Quotes page', null, { viewquotePage }); 
@@ -36,6 +36,8 @@ test.describe('Testing Create Quote page in SuiteCRM', () => {
 });
 
 // == technical section ==
+
+test.beforeEach('BeforeEach Hooks', ({ $runScenarioHooks, page }) => $runScenarioHooks('before', { page }));
 
 test.use({
   $test: [({}, use) => use(test), { scope: 'test', box: true }],

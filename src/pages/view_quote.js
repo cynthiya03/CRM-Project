@@ -4,10 +4,12 @@ export class ViewQuotePage {
 
     constructor(page) {
         this.page = page;
-        this.quotesMenu = page.locator('a').filter({ hasText: /^Quotes$/ });
+    
+
+        //this.quotesMenu = page.locator('a').filter({ hasText: /^Quotes$/ });
         this.viewQuoteSubMenu = page.getByRole('link', { name: 'View Quotes' });
         this.titleofPage = page.getByText('QUOTES', { exact: true }).first();
-        this.quoteTitleLink = page.getByRole('link', { name: 'Auto Quote 001' }).first();   // a quote created by your Save scenario
+        this.quoteTitleLink = page.getByRole('table').getByRole('link', { name: 'Auto quote 0001' })  // a quote created by your Save scenario
         this.phonecalllogButton = page.getByRole('button', { name: 'Log Call' }).first();
         this.scheduleMeetingButton = page.getByRole('button', { name: 'Schedule Meeting' }).first();
         this.createTaskButton = page.getByRole('button', { name: 'Create Task' }).first();
@@ -19,8 +21,13 @@ export class ViewQuotePage {
         this.titleofPageonclickingonTaskButton = page.getByText('Create', { exact: true }).first();
         this.titleofPageonclickingonComposeEmailButton = page.locator('div').filter({ hasText: /^New Email$/ }).first();
     }
+     get quotesMenu() {
+        return this.page.locator('a').filter({ hasText: /^Quotes$/ });
+    }
+
 
     async openViewQuotesPage() {
+        await expect(this.quotesMenu).toBeVisible(); 
         await this.quotesMenu.hover();
         await this.viewQuoteSubMenu.click();
         await expect(this.titleofPage).toBeVisible();
