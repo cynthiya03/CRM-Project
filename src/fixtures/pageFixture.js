@@ -1,5 +1,6 @@
 import { test as base, createBdd } from 'playwright-bdd';
 import { LoginPage } from '../pages/LoginPage.js';
+import { DocumentsPage } from '../pages/DocumentsPage.js';
 import { HomePage } from '../pages/homePage.js';
 import { Account } from '../pages/Account/create_account.js';
 import {viewaccount} from '../pages/Account/view_account.js';
@@ -26,6 +27,10 @@ export const test = base.extend({
     const loginPage = new LoginPage(page);
     await use(loginPage);
   },
+  documentPage: async ({ page }, use) => {
+    const documentPage = new DocumentsPage(page);
+    await use(documentPage);
+  },
   
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);
@@ -47,29 +52,27 @@ export const test = base.extend({
     const contactPage = new ContactPage(page);
     await use(contactPage);
   },
+  logger: async ({}, use, testInfo) => {
+    const logger = createTestLogger(testInfo);
 
+    logger.info('Scenario started');
 
-logger: async ({}, use, testInfo) => {
-  const logger = createTestLogger(testInfo);
+    try {
+      await use(logger);
+    } finally {
+      logger.info(`Scenario finished: ${testInfo.status}`);
 
-  logger.info('Scenario started');
+      // Wait for pending log messages to be written.
+      const finished = once(logger, 'finish');
+      logger.end();
+      await finished;
 
-  try {
-    await use(logger);
-  } finally {
-    logger.info(`Scenario finished: ${testInfo.status}`);
-
-    // Wait for pending log messages to be written.
-    const finished = once(logger, 'finish');
-    logger.end();
-    await finished;
-
-    await testInfo.attach('Execution log', {
-      path: testInfo.outputPath('execution.log'),
-      contentType: 'text/plain',
-    });
-  }
-},
+      await testInfo.attach('Execution log', {
+        path: testInfo.outputPath('execution.log'),
+        contentType: 'text/plain',
+      });
+    }
+  },
 });
 export const {
   Given,
