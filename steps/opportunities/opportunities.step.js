@@ -152,7 +152,7 @@ Given('user is on the import opportunities page', async ({page}) => {
 
 When('user clicks choose file', async ({page}) => {
   const opportunitiesPage = new OpportunitiesPage(page);
-  const filePath = '/Users/lalithaa/Downloads/Opportunities.csv';
+  const filePath = './Data/Opportunities.csv';
   await opportunitiesPage.clickChooseFile(filePath);
 });
 
@@ -170,4 +170,3 @@ Then('It throws an error that {string}', async ({page}, arg) => {
   const opportunitiesPage = new OpportunitiesPage(page);
    await opportunitiesPage.checkImportErrorMessage(arg);
 });
-//Users/lalithaa/Downloads/Opportunities.csv
