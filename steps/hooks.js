@@ -63,14 +63,20 @@ BeforeScenario({ tags:'@importAccount'}, async ({ page }) => {
   console.log('Current URL:', page.url());
 });
 
+BeforeScenario(
+  { tags: '@Contacts or @contact' },
+  async ({ page }) => {
+    await page.goto(process.env.BASE_URL || 'https://suite8demo.suiteondemand.com/#/home');
+    await page.waitForLoadState('domcontentloaded');
+    console.log('Current URL:', page.url());
+  }
+);
 
 BeforeScenario(
   { tags: '@createContact' },
   async ({ page }) => {
-    if (!process.env.createContact_URL) {
-    throw new Error('createContact_URL is missing.');
-  }
     await page.goto(process.env.createContact_URL);
+    await page.waitForLoadState('domcontentloaded');
     console.log('Current URL:', page.url());
   }
 );
@@ -80,5 +86,20 @@ AfterScenario(
   async ({ page }) => {
     await page.frameLocator('iframe').locator('#undo').click();
     console.log('Cleanup after TC017');
+  }
+);
+
+BeforeScenario(
+  { tags: '@createopportunity or @importopportunity or @viewopportunity' },
+  async ({ page }) => {
+
+    if (!process.env.BASE_URL) {
+      throw new Error('BASE_URL is missing.');
+    }
+
+    await page.goto(process.env.BASE_URL);
+    await page.waitForURL(/\/home\/?$/, { timeout: 30000 });
+
+    console.log('Current URL:', page.url());
   }
 );
