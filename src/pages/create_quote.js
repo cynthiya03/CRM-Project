@@ -2,7 +2,9 @@ export class CreateQuotePage{
 
     constructor(page){
         this.page =page;
-        this.createQuoteSubMenu = page.getByRole('link', { name: 'Create Quote' });;
+
+        this.quotesMenu = page.locator('a').filter({ hasText: /^Quotes$/ });      
+        this.createQuoteSubMenu = page.getByRole('link', { name: 'Create Quote' });
         this.titleofPage = page.locator('iframe').contentFrame().getByText('CREATE', { exact: true });
         this.overviewButton =page.locator('iframe').contentFrame().getByRole('button', { name: '− Overview' });
         this.overviewSection =page.locator('iframe').contentFrame().getByText('Overview');
@@ -60,6 +62,12 @@ export class CreateQuotePage{
         this.mandatoryFieldQuoteStage =page.locator('iframe').contentFrame().getByText('Quote Stage:*');
         this.errorMessage = page.locator('iframe').contentFrame().getByText('Missing required field: Title');
     }
+
+        async openCreateQuotePage() {
+        await this.quotesMenu.hover();                 
+        await this.createQuoteSubMenu.click();
+        await expect(this.titleofPage).toBeVisible();
+}
 
         async clickOnCreateQuoteSubMenu(){
             await this.createQuoteSubMenu.click();

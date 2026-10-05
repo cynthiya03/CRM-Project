@@ -1,5 +1,5 @@
 // Generated from: features/Documents/create_document.feature
-import { test } from "../../../src/fixtures/pageFixture.js";
+import { test } from "playwright-bdd";
 
 test.describe('Create Document', () => {
 
@@ -38,8 +38,6 @@ test.describe('Create Document', () => {
 });
 
 // == technical section ==
-
-test.beforeEach('BeforeEach Hooks', ({ $runScenarioHooks, loginPage }) => $runScenarioHooks('before', { loginPage }));
 
 test.use({
   $test: [({}, use) => use(test), { scope: 'test', box: true }],

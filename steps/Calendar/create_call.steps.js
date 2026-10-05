@@ -52,4 +52,3 @@ Then('the system should discard all unsaved entries And the user should be redir
   // Step: Then the system should discard all unsaved entries And the user should be redirected back to the Calls dashboard view
   // From: features/create_call.feature:23:1
 });
-

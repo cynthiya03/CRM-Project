@@ -20,4 +20,3 @@ Scenario:Cancel out of the task creation workflow
 Given the user is logged into the applicationAnd the user navigates to the Ceate Task page
 When the user enters text into the Subject field And the user clicks the Cancel button
 Then No data should be saved
-

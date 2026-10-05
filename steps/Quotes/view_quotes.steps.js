@@ -7,7 +7,9 @@ import { Given, When, Then, BeforeScenario} from '../../src/fixtures/pageFixture
 
 
 Given('User is in the View Quotes page', async ({viewquotePage}) => {
-  await expect(viewquotePage.titleofPage).toBeVisible();
+  //await expect(viewquotePage.quotesMenu).toBeVisible();
+  //await createquotePage.quotesMenu.hover();
+  await viewquotePage.openViewQuotesPage();
 });
 
 When('the user clicks on the quote title link', async ({viewquotePage}) => {

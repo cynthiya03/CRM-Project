@@ -3,180 +3,102 @@ import { test } from "../../../src/fixtures/pageFixture.js";
 
 test.describe('Testing account features in CRM application', () => {
 
-  test('verify user able to navigate to home page', { tag: ['@accountScenario', '@verifyuserabletonavigatetohomepage', '@TC001'] }, async ({ Given, When, Then }) => { 
-    await Given('User logged into the CRM application'); 
-    await When('User view the top navigation menu'); 
-    await Then('User should be redirected to Home page'); 
+  test('Verify create Account field is Displayed', { tag: ['@accountScenario', '@AccountfieldisDisplayed', '@TC001'] }, async ({ Given, When, Then, homePage, page }) => { 
+    await Given('User Logged into CRM application', null, { page }); 
+    await When('user click the Accounts tab', null, { homePage }); 
+    await Then('User should see create Account field', null, { homePage }); 
   });
 
-  test('Verify Account tab is displayed', { tag: ['@accountScenario', '@AccounttabDisplay', '@TC002'] }, async ({ Given, When, Then }) => { 
-    await Given('User Logged into CRM application'); 
-    await When('user mouse hover the "Account" tab'); 
-    await Then('User should see create Account'); 
+  test('Verify View Accounts field is Displayed', { tag: ['@accountScenario', '@AccountfieldisDisplayed', '@TC002'] }, async ({ Given, When, Then, homePage, page }) => { 
+    await Given('User Logged into CRM application', null, { page }); 
+    await When('user click the Accounts tab', null, { homePage }); 
+    await Then('User should see view Accounts field', null, { homePage }); 
   });
 
-  test('Verify create Account field is Displayed', { tag: ['@accountScenario', '@AccountfieldisDisplayed', '@TC003'] }, async ({ Given, When, Then }) => { 
-    await Given('User Logged into CRM'); 
-    await When('user mouse hover the "Account" tab'); 
-    await Then('User should see view Accounts'); 
+  test('Verify import Accounts field is Displayed', { tag: ['@accountScenario', '@AccountfieldisDisplayed', '@TC003'] }, async ({ Given, When, Then, homePage, page }) => { 
+    await Given('User Logged into CRM application', null, { page }); 
+    await When('user click the Accounts tab', null, { homePage }); 
+    await Then('User should see import Account', null, { homePage }); 
   });
 
-  test('Verify View Accounts field is Displayed', { tag: ['@accountScenario', '@VerifyViewAccountsfieldisDisplayed', '@TC004'] }, async ({ Given, When, Then }) => { 
-    await Given('User Logged into CRM'); 
-    await When('user mouse hover the "Account" tab'); 
-    await Then('User should see view Accounts field'); 
+  test('Verify user able to land on create account screen', { tag: ['@accountScenario', '@AccountfieldisDisplayed', '@TC004'] }, async ({ Given, When, Then, homePage, page }) => { 
+    await Given('User Logged into CRM application', null, { page }); 
+    await When('user click create Account field', null, { homePage }); 
+    await Then('User should be redirected to Create Account page', null, { homePage }); 
   });
 
-  test('Verify import Accounts field is Displayed', { tag: ['@accountScenario', '@VerifyimportAccountsfieldisDisplayed', '@TC005'] }, async ({ Given, When, Then }) => { 
-    await Given('User Logged into CRM'); 
-    await When('user mouse hover the "Account" tab'); 
-    await Then('User should see import Account'); 
-  });
-
-  test('Verify user able to land on create account screen', { tag: ['@accountScenario', '@createaccountscreen', '@TC006'] }, async ({ Given, When, Then }) => { 
-    await Given('User signed in application and mouse hover "Account"'); 
-    await When('user click create Account field'); 
-    await Then('User should be redirected to Create Account page'); 
-  });
-
-  test('Display the account creation form', { tag: ['@accountScenario', '@createaccount', '@TC007'] }, async ({ Given, When, Then, And }) => { 
-    await Given('User logged in application and click the Create Account screen'); 
-    await And('Create Account screen is open'); 
-    await When('User inspect the form'); 
-    await Then('User should see the Overview tab'); 
-    await And('User should see More Information'); 
-    await And('User should see Other tabs'); 
-    await And('User should see Name field'); 
-    await And('User should see Website field'); 
-    await And('User should see Office Phone'); 
-    await And('User should see Assigned To fields'); 
-    await And('User should see email'); 
-    await And('User should see billing address sections'); 
-    await And('User should see shipping address sections'); 
-  });
-
-  test('Verify mandatory fields display an asterisk', { tag: ['@accountScenario', '@Verifymandatoryfieldsdisplayanasterisk', '@TC008'] }, async ({ Given, When, Then }) => { 
+  test('Display the account creation form', { tag: ['@accountScenario', '@createaccount', '@TC005'] }, async ({ Given, When, Then, And, createAccount }) => { 
     await Given('User land on create Account page'); 
-    await When('User view the Name field label'); 
-    await Then('user should see asterisk "*" beside the Name label'); 
+    await When('User inspect the form', null, { createAccount }); 
+    await Then('User should see the Overview tab', null, { createAccount }); 
+    await And('User should see More Information', null, { createAccount }); 
+    await And('User should see Other tabs', null, { createAccount }); 
+    await And('User should see Name field', null, { createAccount }); 
+    await And('User should see Website field', null, { createAccount }); 
+    await And('User should see Office Phone', null, { createAccount }); 
+    await And('User should see Assigned To fields', null, { createAccount }); 
+    await And('User should see email', null, { createAccount }); 
+    await And('User should see billing address sections', null, { createAccount }); 
+    await And('User should see shipping address sections', null, { createAccount }); 
   });
 
-  test('Prevent saving without an account name', { tag: ['@accountScenario', '@Preventsavingwithoutanaccountname', '@TC009'] }, async ({ Given, When, Then, And }) => { 
+  test('Verify mandatory fields display an asterisk', { tag: ['@accountScenario', '@createaccount', '@TC006'] }, async ({ Given, When, Then, createAccount }) => { 
     await Given('User land on create Account page'); 
-    await And('name field is empty'); 
-    await When('User click Save'); 
-    await Then('User should see "Missing required field: Name"'); 
-    await And('Name should be highlighted as invalid'); 
+    await When('User view the Name field label', null, { createAccount }); 
+    await Then('user should see "*" beside the Name label', null, { createAccount }); 
   });
 
-  test('Reject an account name containing only spaces', { tag: ['@accountScenario', '@Rejectanaccountnamecontainingonlyspaces', '@TC010'] }, async ({ Given, When, Then, And }) => { 
+  test('Prevent saving without an account name', { tag: ['@accountScenario', '@createaccount', '@TC007'] }, async ({ Given, When, Then, And, createAccount }) => { 
     await Given('User land on create Account page'); 
-    await And('Create Account screen is open'); 
-    await When('User enter only spaces in Name'); 
-    await And('User click Save'); 
-    await Then('User should see "Missing required field: Name"'); 
+    await And('name field is empty', null, { createAccount }); 
+    await When('User click Save', null, { createAccount }); 
+    await Then('User should see "Missing required field: Name"', null, { createAccount }); 
+    await And('Name should be highlighted as invalid', null, { createAccount }); 
   });
 
-  test('Create an account with minimum required information', { tag: ['@accountScenario', '@Createanaccountwithminimumrequiredinformation', '@TC011'] }, async ({ Given, When, Then, And }) => { 
+  test('Create an account with only a name', { tag: ['@accountScenario', '@createaccount', '@TC008'] }, async ({ Given, When, Then, createAccount }) => { 
+    await Given('User enter only spaces in Name', null, { createAccount }); 
+    await When('User click Save', null, { createAccount }); 
+    await Then('User should see "Missing required field: Name"', null, { createAccount }); 
+  });
+
+  test('Create an account with minimum required information', { tag: ['@accountScenario', '@TC009', '@createaccount'] }, async ({ Given, When, Then, And, createAccount }) => { 
     await Given('User land on create Account page'); 
-    await When('User enter a unique account name'); 
-    await And('Leave optional fields empty'); 
-    await And('retain the default assignee'); 
-    await And('Click Save'); 
-    await Then('Exactly one account should be created'); 
+    await When('User enter a unique account name', null, { createAccount }); 
+    await And('User saves the account', null, { createAccount }); 
+    await And('User returns to the accounts list', null, { createAccount }); 
+    await Then('Exactly one account should be created', null, { createAccount }); 
   });
 
-  test('Save all visible account details', { tag: ['@accountScenario', '@Saveallvisibleaccountdetails', '@TC012'] }, async ({ Given, When, Then, And }) => { 
+  test('Fill out the account creation form', { tag: ['@accountScenario', '@createaccountform', '@TC010'] }, async ({ Given, When, Then, And, createAccount, viewAccount }) => { 
     await Given('User land on create Account page'); 
-    await And('Create Account screen is open'); 
-    await When('Pass unique value to all create account field'); 
-    await Then('All values should appear in their corresponding fields'); 
+    await When('User enter a unique account name', null, { createAccount }); 
+    await When('User fills in the account form with the following details:', {"dataTable":{"rows":[{"cells":[{"value":"Field"},{"value":"Value"}]},{"cells":[{"value":"Website"},{"value":"https://acme.com"}]},{"cells":[{"value":"Office Phone"},{"value":"555-0199"}]},{"cells":[{"value":"Assigned To"},{"value":"WillWestin"}]},{"cells":[{"value":"Billing Address"},{"value":"123 Main St, NY 10001"}]},{"cells":[{"value":"Shipping Address"},{"value":"123 Main St, NY 10001"}]}]}}, { createAccount }); 
+    await And('User submits the account creation form', null, { createAccount }); 
+    await Then('User should see the account created successfully', null, { createAccount, viewAccount }); 
   });
 
-  test.describe('Save and verify primary and secondary email addresses', () => {
-
-    test('Example #1', { tag: ['@accountScenario', '@validateEmailaddress', '@TC0013'] }, async ({ Given, When, Then, And }) => { 
-      await Given('the Create Account screen is open'); 
-      await And('the user has entered a unique account name'); 
-      await And('the user has entered "primary@example.com" in the first email row'); 
-      await When('the user clicks the add email button'); 
-      await And('the user enters "secondary@example.com" in the new row'); 
-      await And('the user clicks Save'); 
-      await And('the user reopens the account'); 
-      await Then('the first email row should contain "primary@example.com"'); 
-      await Then('the second email row should contain "secondary@example.com"'); 
-    });
-
-    test('Example #2', { tag: ['@accountScenario', '@validateEmailaddress', '@TC0013'] }, async ({ Given, When, Then, And }) => { 
-      await Given('the Create Account screen is open'); 
-      await And('the user has entered a unique account name'); 
-      await And('the user has entered "alice.smith@example.com" in the first email row'); 
-      await When('the user clicks the add email button'); 
-      await And('the user enters "" in the new row'); 
-      await And('the user clicks Save'); 
-      await And('the user reopens the account'); 
-      await Then('the first email row should contain "alice.smith@example.com"'); 
-      await Then('the second email row should contain ""'); 
-    });
-
-    test('Example #3', { tag: ['@accountScenario', '@validateEmailaddress', '@TC0013'] }, async ({ Given, When, Then, And }) => { 
-      await Given('the Create Account screen is open'); 
-      await And('the user has entered a unique account name'); 
-      await And('the user has entered "sales+primary@" in the first email row'); 
-      await When('the user clicks the add email button'); 
-      await And('the user enters "support+secondary@example.net" in the new row'); 
-      await And('the user clicks Save'); 
-      await And('the user reopens the account'); 
-      await Then('the first email row should contain "sales+primary@"'); 
-      await Then('the second email row should contain "support+secondary@example.net"'); 
-    });
-
-    test('Example #4', { tag: ['@accountScenario', '@validateEmailaddress', '@TC0013'] }, async ({ Given, When, Then, And }) => { 
-      await Given('the Create Account screen is open'); 
-      await And('the user has entered a unique account name'); 
-      await And('the user has entered "" in the first email row'); 
-      await When('the user clicks the add email button'); 
-      await And('the user enters "backup456@example.com" in the new row'); 
-      await And('the user clicks Save'); 
-      await And('the user reopens the account'); 
-      await Then('the first email row should contain ""'); 
-      await Then('the second email row should contain "backup456@example.com"'); 
-    });
-
-  });
-
-  test('Save Billing address information', { tag: ['@accountScenario', '@saveBillingAddress', '@TC0014'] }, async ({ Given, When, Then, And }) => { 
-    await Given('the Create Account screen is open'); 
-    await And('the user has entered a unique account name'); 
-    await When('the user enters the billing address details'); 
-    await And('the user saves the account'); 
-    await And('the user reopens the account'); 
-    await Then('the billing address values should match the entered values'); 
-  });
-
-  test('Save Shipping address information', { tag: ['@accountScenario', '@saveshippingaddress', '@TC0015'] }, async ({ Given, When, Then, And }) => { 
-    await Given('the Create Account screen is open'); 
-    await And('the user has entered a unique account name'); 
-    await When('the user enters the following shipping address:', {"dataTable":{"rows":[{"cells":[{"value":"Field"},{"value":"Value"}]},{"cells":[{"value":"Street"},{"value":"123 Main Street"}]},{"cells":[{"value":"Postal Code"},{"value":"02108"}]},{"cells":[{"value":"City"},{"value":"Boston"}]},{"cells":[{"value":"State"},{"value":"Massachusetts"}]},{"cells":[{"value":"Country"},{"value":"United States"}]}]}}); 
-    await And('the user clicks Save'); 
-    await And('the user reopens the account'); 
-    await Then('the shipping address should match the entered values'); 
-  });
-
-  test('confirming duplicate account policy', { tag: ['@accountScenario', '@confirmingduplicateaccountpolicy', '@TC016'] }, async ({ Given, When, Then, And }) => { 
+  test('Save Billing address information', { tag: ['@accountScenario', '@createaccount', '@saveBillingAddress', '@TC011'] }, async ({ Given, When, Then, And, createAccount }) => { 
     await Given('User land on create Account page'); 
-    await And('An account with the entered name already exists'); 
-    await And('Duplicate account names are prohibited'); 
-    await When('User enter that existing account name'); 
-    await And('User click Save'); 
-    await Then('User should see a duplicate account validation message'); 
+    await And('User enter a unique account name', null, { createAccount }); 
+    await When('the user enters the billing address details', null, { createAccount }); 
+    await And('the user saves the account', null, { createAccount }); 
+    await Then('the billing address values should match the entered values', null, { createAccount }); 
+  });
+
+  test('Save Shipping address information', { tag: ['@accountScenario', '@createaccount', '@saveshippingaddress', '@TC012'] }, async ({ Given, When, Then, And, createAccount }) => { 
+    await Given('User land on create Account page'); 
+    await And('User enter a unique account name', null, { createAccount }); 
+    await When('the user enters the following shipping address:', {"dataTable":{"rows":[{"cells":[{"value":"Field"},{"value":"Value"}]},{"cells":[{"value":"Street"},{"value":"987 Main Street"}]},{"cells":[{"value":"Postal Code"},{"value":"02108"}]},{"cells":[{"value":"City"},{"value":"Tampa"}]},{"cells":[{"value":"State"},{"value":"Florida"}]},{"cells":[{"value":"Country"},{"value":"United States"}]}]}}, { createAccount }); 
+    await And('the user saves the shipping address information', null, { createAccount }); 
+    await Then('the shipping address should match the entered values', null, { createAccount }); 
   });
 
 });
 
 // == technical section ==
 
-test.beforeEach('BeforeEach Hooks', ({ $runScenarioHooks, loginPage }) => $runScenarioHooks('before', { loginPage }));
+test.beforeEach('BeforeEach Hooks', ({ $runScenarioHooks, page }) => $runScenarioHooks('before', { page }));
 
 test.use({
   $test: [({}, use) => use(test), { scope: 'test', box: true }],
@@ -185,23 +107,16 @@ test.use({
 });
 
 const bddFileData = [ // bdd-data-start
-  {"pwTestLine":6,"pickleLine":6,"tags":["@accountScenario","@verifyuserabletonavigatetohomepage","@TC001"],"steps":[{"pwStepLine":7,"gherkinStepLine":7,"keywordType":"Context","textWithKeyword":"Given User logged into the CRM application","stepMatchArguments":[]},{"pwStepLine":8,"gherkinStepLine":8,"keywordType":"Action","textWithKeyword":"When User view the top navigation menu","stepMatchArguments":[]},{"pwStepLine":9,"gherkinStepLine":9,"keywordType":"Outcome","textWithKeyword":"Then User should be redirected to Home page","stepMatchArguments":[]}]},
-  {"pwTestLine":12,"pickleLine":12,"tags":["@accountScenario","@AccounttabDisplay","@TC002"],"steps":[{"pwStepLine":13,"gherkinStepLine":13,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM application","stepMatchArguments":[]},{"pwStepLine":14,"gherkinStepLine":14,"keywordType":"Action","textWithKeyword":"When user mouse hover the \"Account\" tab","stepMatchArguments":[{"group":{"start":21,"value":"\"Account\"","children":[{"start":22,"value":"Account","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":15,"gherkinStepLine":15,"keywordType":"Outcome","textWithKeyword":"Then User should see create Account","stepMatchArguments":[]}]},
-  {"pwTestLine":18,"pickleLine":18,"tags":["@accountScenario","@AccountfieldisDisplayed","@TC003"],"steps":[{"pwStepLine":19,"gherkinStepLine":19,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM","stepMatchArguments":[]},{"pwStepLine":20,"gherkinStepLine":20,"keywordType":"Action","textWithKeyword":"When user mouse hover the \"Account\" tab","stepMatchArguments":[{"group":{"start":21,"value":"\"Account\"","children":[{"start":22,"value":"Account","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":21,"gherkinStepLine":21,"keywordType":"Outcome","textWithKeyword":"Then User should see view Accounts","stepMatchArguments":[]}]},
-  {"pwTestLine":24,"pickleLine":24,"tags":["@accountScenario","@VerifyViewAccountsfieldisDisplayed","@TC004"],"steps":[{"pwStepLine":25,"gherkinStepLine":25,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM","stepMatchArguments":[]},{"pwStepLine":26,"gherkinStepLine":26,"keywordType":"Action","textWithKeyword":"When user mouse hover the \"Account\" tab","stepMatchArguments":[{"group":{"start":21,"value":"\"Account\"","children":[{"start":22,"value":"Account","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":27,"gherkinStepLine":27,"keywordType":"Outcome","textWithKeyword":"Then User should see view Accounts field","stepMatchArguments":[]}]},
-  {"pwTestLine":30,"pickleLine":30,"tags":["@accountScenario","@VerifyimportAccountsfieldisDisplayed","@TC005"],"steps":[{"pwStepLine":31,"gherkinStepLine":31,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM","stepMatchArguments":[]},{"pwStepLine":32,"gherkinStepLine":32,"keywordType":"Action","textWithKeyword":"When user mouse hover the \"Account\" tab","stepMatchArguments":[{"group":{"start":21,"value":"\"Account\"","children":[{"start":22,"value":"Account","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":33,"gherkinStepLine":33,"keywordType":"Outcome","textWithKeyword":"Then User should see import Account","stepMatchArguments":[]}]},
-  {"pwTestLine":36,"pickleLine":36,"tags":["@accountScenario","@createaccountscreen","@TC006"],"steps":[{"pwStepLine":37,"gherkinStepLine":37,"keywordType":"Context","textWithKeyword":"Given User signed in application and mouse hover \"Account\"","stepMatchArguments":[{"group":{"start":43,"value":"\"Account\"","children":[{"start":44,"value":"Account","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":38,"gherkinStepLine":38,"keywordType":"Action","textWithKeyword":"When user click create Account field","stepMatchArguments":[]},{"pwStepLine":39,"gherkinStepLine":39,"keywordType":"Outcome","textWithKeyword":"Then User should be redirected to Create Account page","stepMatchArguments":[]}]},
-  {"pwTestLine":42,"pickleLine":42,"tags":["@accountScenario","@createaccount","@TC007"],"steps":[{"pwStepLine":43,"gherkinStepLine":43,"keywordType":"Context","textWithKeyword":"Given User logged in application and click the Create Account screen","stepMatchArguments":[]},{"pwStepLine":44,"gherkinStepLine":44,"keywordType":"Context","textWithKeyword":"And Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":45,"gherkinStepLine":45,"keywordType":"Action","textWithKeyword":"When User inspect the form","stepMatchArguments":[]},{"pwStepLine":46,"gherkinStepLine":46,"keywordType":"Outcome","textWithKeyword":"Then User should see the Overview tab","stepMatchArguments":[]},{"pwStepLine":47,"gherkinStepLine":47,"keywordType":"Outcome","textWithKeyword":"And User should see More Information","stepMatchArguments":[]},{"pwStepLine":48,"gherkinStepLine":48,"keywordType":"Outcome","textWithKeyword":"And User should see Other tabs","stepMatchArguments":[]},{"pwStepLine":49,"gherkinStepLine":49,"keywordType":"Outcome","textWithKeyword":"And User should see Name field","stepMatchArguments":[]},{"pwStepLine":50,"gherkinStepLine":50,"keywordType":"Outcome","textWithKeyword":"And User should see Website field","stepMatchArguments":[]},{"pwStepLine":51,"gherkinStepLine":51,"keywordType":"Outcome","textWithKeyword":"And User should see Office Phone","stepMatchArguments":[]},{"pwStepLine":52,"gherkinStepLine":52,"keywordType":"Outcome","textWithKeyword":"And User should see Assigned To fields","stepMatchArguments":[]},{"pwStepLine":53,"gherkinStepLine":53,"keywordType":"Outcome","textWithKeyword":"And User should see email","stepMatchArguments":[]},{"pwStepLine":54,"gherkinStepLine":54,"keywordType":"Outcome","textWithKeyword":"And User should see billing address sections","stepMatchArguments":[]},{"pwStepLine":55,"gherkinStepLine":55,"keywordType":"Outcome","textWithKeyword":"And User should see shipping address sections","stepMatchArguments":[]}]},
-  {"pwTestLine":58,"pickleLine":58,"tags":["@accountScenario","@Verifymandatoryfieldsdisplayanasterisk","@TC008"],"steps":[{"pwStepLine":59,"gherkinStepLine":59,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":60,"gherkinStepLine":60,"keywordType":"Action","textWithKeyword":"When User view the Name field label","stepMatchArguments":[]},{"pwStepLine":61,"gherkinStepLine":61,"keywordType":"Outcome","textWithKeyword":"Then user should see asterisk \"*\" beside the Name label","stepMatchArguments":[{"group":{"start":25,"value":"\"*\"","children":[{"start":26,"value":"*","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
-  {"pwTestLine":64,"pickleLine":65,"tags":["@accountScenario","@Preventsavingwithoutanaccountname","@TC009"],"steps":[{"pwStepLine":65,"gherkinStepLine":66,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":66,"gherkinStepLine":67,"keywordType":"Context","textWithKeyword":"And name field is empty","stepMatchArguments":[]},{"pwStepLine":67,"gherkinStepLine":68,"keywordType":"Action","textWithKeyword":"When User click Save","stepMatchArguments":[]},{"pwStepLine":68,"gherkinStepLine":69,"keywordType":"Outcome","textWithKeyword":"Then User should see \"Missing required field: Name\"","stepMatchArguments":[{"group":{"start":16,"value":"\"Missing required field: Name\"","children":[{"start":17,"value":"Missing required field: Name","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":69,"gherkinStepLine":70,"keywordType":"Outcome","textWithKeyword":"And Name should be highlighted as invalid","stepMatchArguments":[]}]},
-  {"pwTestLine":72,"pickleLine":73,"tags":["@accountScenario","@Rejectanaccountnamecontainingonlyspaces","@TC010"],"steps":[{"pwStepLine":73,"gherkinStepLine":74,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":74,"gherkinStepLine":75,"keywordType":"Context","textWithKeyword":"And Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":75,"gherkinStepLine":76,"keywordType":"Action","textWithKeyword":"When User enter only spaces in Name","stepMatchArguments":[]},{"pwStepLine":76,"gherkinStepLine":77,"keywordType":"Action","textWithKeyword":"And User click Save","stepMatchArguments":[]},{"pwStepLine":77,"gherkinStepLine":78,"keywordType":"Outcome","textWithKeyword":"Then User should see \"Missing required field: Name\"","stepMatchArguments":[{"group":{"start":16,"value":"\"Missing required field: Name\"","children":[{"start":17,"value":"Missing required field: Name","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
-  {"pwTestLine":80,"pickleLine":81,"tags":["@accountScenario","@Createanaccountwithminimumrequiredinformation","@TC011"],"steps":[{"pwStepLine":81,"gherkinStepLine":82,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":82,"gherkinStepLine":83,"keywordType":"Action","textWithKeyword":"When User enter a unique account name","stepMatchArguments":[]},{"pwStepLine":83,"gherkinStepLine":84,"keywordType":"Action","textWithKeyword":"And Leave optional fields empty","stepMatchArguments":[]},{"pwStepLine":84,"gherkinStepLine":85,"keywordType":"Action","textWithKeyword":"And retain the default assignee","stepMatchArguments":[]},{"pwStepLine":85,"gherkinStepLine":86,"keywordType":"Action","textWithKeyword":"And Click Save","stepMatchArguments":[]},{"pwStepLine":86,"gherkinStepLine":87,"keywordType":"Outcome","textWithKeyword":"Then Exactly one account should be created","stepMatchArguments":[]}]},
-  {"pwTestLine":89,"pickleLine":91,"tags":["@accountScenario","@Saveallvisibleaccountdetails","@TC012"],"steps":[{"pwStepLine":90,"gherkinStepLine":92,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":91,"gherkinStepLine":93,"keywordType":"Context","textWithKeyword":"And Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":92,"gherkinStepLine":94,"keywordType":"Action","textWithKeyword":"When Pass unique value to all create account field","stepMatchArguments":[]},{"pwStepLine":93,"gherkinStepLine":95,"keywordType":"Outcome","textWithKeyword":"Then All values should appear in their corresponding fields","stepMatchArguments":[]}]},
-  {"pwTestLine":98,"pickleLine":111,"tags":["@accountScenario","@validateEmailaddress","@TC0013"],"steps":[{"pwStepLine":99,"gherkinStepLine":99,"keywordType":"Context","textWithKeyword":"Given the Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":100,"gherkinStepLine":100,"keywordType":"Context","textWithKeyword":"And the user has entered a unique account name","stepMatchArguments":[]},{"pwStepLine":101,"gherkinStepLine":101,"keywordType":"Context","textWithKeyword":"And the user has entered \"primary@example.com\" in the first email row","stepMatchArguments":[{"group":{"start":21,"value":"\"primary@example.com\"","children":[{"start":22,"value":"primary@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":102,"gherkinStepLine":102,"keywordType":"Action","textWithKeyword":"When the user clicks the add email button","stepMatchArguments":[]},{"pwStepLine":103,"gherkinStepLine":103,"keywordType":"Action","textWithKeyword":"And the user enters \"secondary@example.com\" in the new row","stepMatchArguments":[{"group":{"start":16,"value":"\"secondary@example.com\"","children":[{"start":17,"value":"secondary@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":104,"gherkinStepLine":104,"keywordType":"Action","textWithKeyword":"And the user clicks Save","stepMatchArguments":[]},{"pwStepLine":105,"gherkinStepLine":105,"keywordType":"Action","textWithKeyword":"And the user reopens the account","stepMatchArguments":[]},{"pwStepLine":106,"gherkinStepLine":106,"keywordType":"Outcome","textWithKeyword":"Then the first email row should contain \"primary@example.com\"","stepMatchArguments":[{"group":{"start":35,"value":"\"primary@example.com\"","children":[{"start":36,"value":"primary@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":107,"gherkinStepLine":107,"keywordType":"Outcome","textWithKeyword":"Then the second email row should contain \"secondary@example.com\"","stepMatchArguments":[{"group":{"start":36,"value":"\"secondary@example.com\"","children":[{"start":37,"value":"secondary@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
-  {"pwTestLine":110,"pickleLine":112,"tags":["@accountScenario","@validateEmailaddress","@TC0013"],"steps":[{"pwStepLine":111,"gherkinStepLine":99,"keywordType":"Context","textWithKeyword":"Given the Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":112,"gherkinStepLine":100,"keywordType":"Context","textWithKeyword":"And the user has entered a unique account name","stepMatchArguments":[]},{"pwStepLine":113,"gherkinStepLine":101,"keywordType":"Context","textWithKeyword":"And the user has entered \"alice.smith@example.com\" in the first email row","stepMatchArguments":[{"group":{"start":21,"value":"\"alice.smith@example.com\"","children":[{"start":22,"value":"alice.smith@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":114,"gherkinStepLine":102,"keywordType":"Action","textWithKeyword":"When the user clicks the add email button","stepMatchArguments":[]},{"pwStepLine":115,"gherkinStepLine":103,"keywordType":"Action","textWithKeyword":"And the user enters \"\" in the new row","stepMatchArguments":[{"group":{"start":16,"value":"\"\"","children":[{"start":17,"value":"","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":116,"gherkinStepLine":104,"keywordType":"Action","textWithKeyword":"And the user clicks Save","stepMatchArguments":[]},{"pwStepLine":117,"gherkinStepLine":105,"keywordType":"Action","textWithKeyword":"And the user reopens the account","stepMatchArguments":[]},{"pwStepLine":118,"gherkinStepLine":106,"keywordType":"Outcome","textWithKeyword":"Then the first email row should contain \"alice.smith@example.com\"","stepMatchArguments":[{"group":{"start":35,"value":"\"alice.smith@example.com\"","children":[{"start":36,"value":"alice.smith@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":119,"gherkinStepLine":107,"keywordType":"Outcome","textWithKeyword":"Then the second email row should contain \"\"","stepMatchArguments":[{"group":{"start":36,"value":"\"\"","children":[{"start":37,"value":"","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
-  {"pwTestLine":122,"pickleLine":113,"tags":["@accountScenario","@validateEmailaddress","@TC0013"],"steps":[{"pwStepLine":123,"gherkinStepLine":99,"keywordType":"Context","textWithKeyword":"Given the Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":124,"gherkinStepLine":100,"keywordType":"Context","textWithKeyword":"And the user has entered a unique account name","stepMatchArguments":[]},{"pwStepLine":125,"gherkinStepLine":101,"keywordType":"Context","textWithKeyword":"And the user has entered \"sales+primary@\" in the first email row","stepMatchArguments":[{"group":{"start":21,"value":"\"sales+primary@\"","children":[{"start":22,"value":"sales+primary@","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":126,"gherkinStepLine":102,"keywordType":"Action","textWithKeyword":"When the user clicks the add email button","stepMatchArguments":[]},{"pwStepLine":127,"gherkinStepLine":103,"keywordType":"Action","textWithKeyword":"And the user enters \"support+secondary@example.net\" in the new row","stepMatchArguments":[{"group":{"start":16,"value":"\"support+secondary@example.net\"","children":[{"start":17,"value":"support+secondary@example.net","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":128,"gherkinStepLine":104,"keywordType":"Action","textWithKeyword":"And the user clicks Save","stepMatchArguments":[]},{"pwStepLine":129,"gherkinStepLine":105,"keywordType":"Action","textWithKeyword":"And the user reopens the account","stepMatchArguments":[]},{"pwStepLine":130,"gherkinStepLine":106,"keywordType":"Outcome","textWithKeyword":"Then the first email row should contain \"sales+primary@\"","stepMatchArguments":[{"group":{"start":35,"value":"\"sales+primary@\"","children":[{"start":36,"value":"sales+primary@","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":131,"gherkinStepLine":107,"keywordType":"Outcome","textWithKeyword":"Then the second email row should contain \"support+secondary@example.net\"","stepMatchArguments":[{"group":{"start":36,"value":"\"support+secondary@example.net\"","children":[{"start":37,"value":"support+secondary@example.net","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
-  {"pwTestLine":134,"pickleLine":114,"tags":["@accountScenario","@validateEmailaddress","@TC0013"],"steps":[{"pwStepLine":135,"gherkinStepLine":99,"keywordType":"Context","textWithKeyword":"Given the Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":136,"gherkinStepLine":100,"keywordType":"Context","textWithKeyword":"And the user has entered a unique account name","stepMatchArguments":[]},{"pwStepLine":137,"gherkinStepLine":101,"keywordType":"Context","textWithKeyword":"And the user has entered \"\" in the first email row","stepMatchArguments":[{"group":{"start":21,"value":"\"\"","children":[{"start":22,"value":"","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":138,"gherkinStepLine":102,"keywordType":"Action","textWithKeyword":"When the user clicks the add email button","stepMatchArguments":[]},{"pwStepLine":139,"gherkinStepLine":103,"keywordType":"Action","textWithKeyword":"And the user enters \"backup456@example.com\" in the new row","stepMatchArguments":[{"group":{"start":16,"value":"\"backup456@example.com\"","children":[{"start":17,"value":"backup456@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":140,"gherkinStepLine":104,"keywordType":"Action","textWithKeyword":"And the user clicks Save","stepMatchArguments":[]},{"pwStepLine":141,"gherkinStepLine":105,"keywordType":"Action","textWithKeyword":"And the user reopens the account","stepMatchArguments":[]},{"pwStepLine":142,"gherkinStepLine":106,"keywordType":"Outcome","textWithKeyword":"Then the first email row should contain \"\"","stepMatchArguments":[{"group":{"start":35,"value":"\"\"","children":[{"start":36,"value":"","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":143,"gherkinStepLine":107,"keywordType":"Outcome","textWithKeyword":"Then the second email row should contain \"backup456@example.com\"","stepMatchArguments":[{"group":{"start":36,"value":"\"backup456@example.com\"","children":[{"start":37,"value":"backup456@example.com","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
-  {"pwTestLine":148,"pickleLine":118,"tags":["@accountScenario","@saveBillingAddress","@TC0014"],"steps":[{"pwStepLine":149,"gherkinStepLine":119,"keywordType":"Context","textWithKeyword":"Given the Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":150,"gherkinStepLine":120,"keywordType":"Context","textWithKeyword":"And the user has entered a unique account name","stepMatchArguments":[]},{"pwStepLine":151,"gherkinStepLine":121,"keywordType":"Action","textWithKeyword":"When the user enters the billing address details","stepMatchArguments":[]},{"pwStepLine":152,"gherkinStepLine":122,"keywordType":"Action","textWithKeyword":"And the user saves the account","stepMatchArguments":[]},{"pwStepLine":153,"gherkinStepLine":123,"keywordType":"Action","textWithKeyword":"And the user reopens the account","stepMatchArguments":[]},{"pwStepLine":154,"gherkinStepLine":124,"keywordType":"Outcome","textWithKeyword":"Then the billing address values should match the entered values","stepMatchArguments":[]}]},
-  {"pwTestLine":157,"pickleLine":127,"tags":["@accountScenario","@saveshippingaddress","@TC0015"],"steps":[{"pwStepLine":158,"gherkinStepLine":128,"keywordType":"Context","textWithKeyword":"Given the Create Account screen is open","stepMatchArguments":[]},{"pwStepLine":159,"gherkinStepLine":129,"keywordType":"Context","textWithKeyword":"And the user has entered a unique account name","stepMatchArguments":[]},{"pwStepLine":160,"gherkinStepLine":130,"keywordType":"Action","textWithKeyword":"When the user enters the following shipping address:","stepMatchArguments":[]},{"pwStepLine":161,"gherkinStepLine":137,"keywordType":"Action","textWithKeyword":"And the user clicks Save","stepMatchArguments":[]},{"pwStepLine":162,"gherkinStepLine":138,"keywordType":"Action","textWithKeyword":"And the user reopens the account","stepMatchArguments":[]},{"pwStepLine":163,"gherkinStepLine":139,"keywordType":"Outcome","textWithKeyword":"Then the shipping address should match the entered values","stepMatchArguments":[]}]},
-  {"pwTestLine":166,"pickleLine":143,"tags":["@accountScenario","@confirmingduplicateaccountpolicy","@TC016"],"steps":[{"pwStepLine":167,"gherkinStepLine":144,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":168,"gherkinStepLine":145,"keywordType":"Context","textWithKeyword":"And An account with the entered name already exists","stepMatchArguments":[]},{"pwStepLine":169,"gherkinStepLine":146,"keywordType":"Context","textWithKeyword":"And Duplicate account names are prohibited","stepMatchArguments":[]},{"pwStepLine":170,"gherkinStepLine":147,"keywordType":"Action","textWithKeyword":"When User enter that existing account name","stepMatchArguments":[]},{"pwStepLine":171,"gherkinStepLine":148,"keywordType":"Action","textWithKeyword":"And User click Save","stepMatchArguments":[]},{"pwStepLine":172,"gherkinStepLine":149,"keywordType":"Outcome","textWithKeyword":"Then User should see a duplicate account validation message","stepMatchArguments":[]}]},
+  {"pwTestLine":6,"pickleLine":7,"tags":["@accountScenario","@AccountfieldisDisplayed","@TC001"],"steps":[{"pwStepLine":7,"gherkinStepLine":8,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM application","stepMatchArguments":[]},{"pwStepLine":8,"gherkinStepLine":9,"keywordType":"Action","textWithKeyword":"When user click the Accounts tab","stepMatchArguments":[]},{"pwStepLine":9,"gherkinStepLine":10,"keywordType":"Outcome","textWithKeyword":"Then User should see create Account field","stepMatchArguments":[]}]},
+  {"pwTestLine":12,"pickleLine":13,"tags":["@accountScenario","@AccountfieldisDisplayed","@TC002"],"steps":[{"pwStepLine":13,"gherkinStepLine":14,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM application","stepMatchArguments":[]},{"pwStepLine":14,"gherkinStepLine":15,"keywordType":"Action","textWithKeyword":"When user click the Accounts tab","stepMatchArguments":[]},{"pwStepLine":15,"gherkinStepLine":16,"keywordType":"Outcome","textWithKeyword":"Then User should see view Accounts field","stepMatchArguments":[]}]},
+  {"pwTestLine":18,"pickleLine":19,"tags":["@accountScenario","@AccountfieldisDisplayed","@TC003"],"steps":[{"pwStepLine":19,"gherkinStepLine":20,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM application","stepMatchArguments":[]},{"pwStepLine":20,"gherkinStepLine":21,"keywordType":"Action","textWithKeyword":"When user click the Accounts tab","stepMatchArguments":[]},{"pwStepLine":21,"gherkinStepLine":22,"keywordType":"Outcome","textWithKeyword":"Then User should see import Account","stepMatchArguments":[]}]},
+  {"pwTestLine":24,"pickleLine":25,"tags":["@accountScenario","@AccountfieldisDisplayed","@TC004"],"steps":[{"pwStepLine":25,"gherkinStepLine":26,"keywordType":"Context","textWithKeyword":"Given User Logged into CRM application","stepMatchArguments":[]},{"pwStepLine":26,"gherkinStepLine":27,"keywordType":"Action","textWithKeyword":"When user click create Account field","stepMatchArguments":[]},{"pwStepLine":27,"gherkinStepLine":28,"keywordType":"Outcome","textWithKeyword":"Then User should be redirected to Create Account page","stepMatchArguments":[]}]},
+  {"pwTestLine":30,"pickleLine":32,"tags":["@accountScenario","@createaccount","@TC005"],"steps":[{"pwStepLine":31,"gherkinStepLine":33,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":32,"gherkinStepLine":34,"keywordType":"Action","textWithKeyword":"When User inspect the form","stepMatchArguments":[]},{"pwStepLine":33,"gherkinStepLine":35,"keywordType":"Outcome","textWithKeyword":"Then User should see the Overview tab","stepMatchArguments":[]},{"pwStepLine":34,"gherkinStepLine":36,"keywordType":"Outcome","textWithKeyword":"And User should see More Information","stepMatchArguments":[]},{"pwStepLine":35,"gherkinStepLine":37,"keywordType":"Outcome","textWithKeyword":"And User should see Other tabs","stepMatchArguments":[]},{"pwStepLine":36,"gherkinStepLine":38,"keywordType":"Outcome","textWithKeyword":"And User should see Name field","stepMatchArguments":[]},{"pwStepLine":37,"gherkinStepLine":39,"keywordType":"Outcome","textWithKeyword":"And User should see Website field","stepMatchArguments":[]},{"pwStepLine":38,"gherkinStepLine":40,"keywordType":"Outcome","textWithKeyword":"And User should see Office Phone","stepMatchArguments":[]},{"pwStepLine":39,"gherkinStepLine":41,"keywordType":"Outcome","textWithKeyword":"And User should see Assigned To fields","stepMatchArguments":[]},{"pwStepLine":40,"gherkinStepLine":42,"keywordType":"Outcome","textWithKeyword":"And User should see email","stepMatchArguments":[]},{"pwStepLine":41,"gherkinStepLine":43,"keywordType":"Outcome","textWithKeyword":"And User should see billing address sections","stepMatchArguments":[]},{"pwStepLine":42,"gherkinStepLine":44,"keywordType":"Outcome","textWithKeyword":"And User should see shipping address sections","stepMatchArguments":[]}]},
+  {"pwTestLine":45,"pickleLine":47,"tags":["@accountScenario","@createaccount","@TC006"],"steps":[{"pwStepLine":46,"gherkinStepLine":48,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":47,"gherkinStepLine":49,"keywordType":"Action","textWithKeyword":"When User view the Name field label","stepMatchArguments":[]},{"pwStepLine":48,"gherkinStepLine":50,"keywordType":"Outcome","textWithKeyword":"Then user should see \"*\" beside the Name label","stepMatchArguments":[{"group":{"start":16,"value":"\"*\"","children":[{"start":17,"value":"*","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
+  {"pwTestLine":51,"pickleLine":53,"tags":["@accountScenario","@createaccount","@TC007"],"steps":[{"pwStepLine":52,"gherkinStepLine":54,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":53,"gherkinStepLine":55,"keywordType":"Context","textWithKeyword":"And name field is empty","stepMatchArguments":[]},{"pwStepLine":54,"gherkinStepLine":56,"keywordType":"Action","textWithKeyword":"When User click Save","stepMatchArguments":[]},{"pwStepLine":55,"gherkinStepLine":57,"keywordType":"Outcome","textWithKeyword":"Then User should see \"Missing required field: Name\"","stepMatchArguments":[{"group":{"start":16,"value":"\"Missing required field: Name\"","children":[{"start":17,"value":"Missing required field: Name","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]},{"pwStepLine":56,"gherkinStepLine":58,"keywordType":"Outcome","textWithKeyword":"And Name should be highlighted as invalid","stepMatchArguments":[]}]},
+  {"pwTestLine":59,"pickleLine":61,"tags":["@accountScenario","@createaccount","@TC008"],"steps":[{"pwStepLine":60,"gherkinStepLine":62,"keywordType":"Context","textWithKeyword":"Given User enter only spaces in Name","stepMatchArguments":[]},{"pwStepLine":61,"gherkinStepLine":63,"keywordType":"Action","textWithKeyword":"When User click Save","stepMatchArguments":[]},{"pwStepLine":62,"gherkinStepLine":64,"keywordType":"Outcome","textWithKeyword":"Then User should see \"Missing required field: Name\"","stepMatchArguments":[{"group":{"start":16,"value":"\"Missing required field: Name\"","children":[{"start":17,"value":"Missing required field: Name","children":[{}]},{"children":[{}]}]},"parameterTypeName":"string"}]}]},
+  {"pwTestLine":65,"pickleLine":68,"tags":["@accountScenario","@TC009","@createaccount"],"steps":[{"pwStepLine":66,"gherkinStepLine":69,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":67,"gherkinStepLine":70,"keywordType":"Action","textWithKeyword":"When User enter a unique account name","stepMatchArguments":[]},{"pwStepLine":68,"gherkinStepLine":71,"keywordType":"Action","textWithKeyword":"And User saves the account","stepMatchArguments":[]},{"pwStepLine":69,"gherkinStepLine":72,"keywordType":"Action","textWithKeyword":"And User returns to the accounts list","stepMatchArguments":[]},{"pwStepLine":70,"gherkinStepLine":73,"keywordType":"Outcome","textWithKeyword":"Then Exactly one account should be created","stepMatchArguments":[]}]},
+  {"pwTestLine":73,"pickleLine":77,"tags":["@accountScenario","@createaccountform","@TC010"],"steps":[{"pwStepLine":74,"gherkinStepLine":78,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":75,"gherkinStepLine":79,"keywordType":"Action","textWithKeyword":"When User enter a unique account name","stepMatchArguments":[]},{"pwStepLine":76,"gherkinStepLine":80,"keywordType":"Action","textWithKeyword":"When User fills in the account form with the following details:","stepMatchArguments":[]},{"pwStepLine":77,"gherkinStepLine":87,"keywordType":"Action","textWithKeyword":"And User submits the account creation form","stepMatchArguments":[]},{"pwStepLine":78,"gherkinStepLine":88,"keywordType":"Outcome","textWithKeyword":"Then User should see the account created successfully","stepMatchArguments":[]}]},
+  {"pwTestLine":81,"pickleLine":92,"tags":["@accountScenario","@createaccount","@saveBillingAddress","@TC011"],"steps":[{"pwStepLine":82,"gherkinStepLine":93,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":83,"gherkinStepLine":94,"keywordType":"Context","textWithKeyword":"And User enter a unique account name","stepMatchArguments":[]},{"pwStepLine":84,"gherkinStepLine":95,"keywordType":"Action","textWithKeyword":"When the user enters the billing address details","stepMatchArguments":[]},{"pwStepLine":85,"gherkinStepLine":96,"keywordType":"Action","textWithKeyword":"And the user saves the account","stepMatchArguments":[]},{"pwStepLine":86,"gherkinStepLine":97,"keywordType":"Outcome","textWithKeyword":"Then the billing address values should match the entered values","stepMatchArguments":[]}]},
+  {"pwTestLine":89,"pickleLine":100,"tags":["@accountScenario","@createaccount","@saveshippingaddress","@TC012"],"steps":[{"pwStepLine":90,"gherkinStepLine":101,"keywordType":"Context","textWithKeyword":"Given User land on create Account page","stepMatchArguments":[]},{"pwStepLine":91,"gherkinStepLine":102,"keywordType":"Context","textWithKeyword":"And User enter a unique account name","stepMatchArguments":[]},{"pwStepLine":92,"gherkinStepLine":103,"keywordType":"Action","textWithKeyword":"When the user enters the following shipping address:","stepMatchArguments":[]},{"pwStepLine":93,"gherkinStepLine":110,"keywordType":"Action","textWithKeyword":"And the user saves the shipping address information","stepMatchArguments":[]},{"pwStepLine":94,"gherkinStepLine":111,"keywordType":"Outcome","textWithKeyword":"Then the shipping address should match the entered values","stepMatchArguments":[]}]},
 ]; // bdd-data-end

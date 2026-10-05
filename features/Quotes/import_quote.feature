@@ -21,4 +21,3 @@ Scenario:Attempt to proceed without selecting a file
 Given User is in the Import page
 When no file has been selected in the Select file picker, the user clicks the Next button
 Then the system should display a validation error message indicating a file is requiredAnd the user should remain on Step one
-

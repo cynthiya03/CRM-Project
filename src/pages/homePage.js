@@ -11,6 +11,7 @@ export class HomePage extends BasePage {
     this.view_accounts = page.getByRole('link', { name: 'View Accounts' });
     this.import_accounts = page.getByRole('link', { name: 'Import Accounts' });
     this.createAccountTitle = page.getByText('Create', { exact: true }).first();
+    this.contactstab = page.getByText('Contacts', { exact: true }).first()
     
   }
 
@@ -20,8 +21,5 @@ async accountclick() {
   await this.Accountpage.click();
 }
 
-  async verifyVisible(locator) {
-    await expect(locator).toBeVisible({ timeout: 15000 });
-  }
   
 }

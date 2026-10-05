@@ -20,6 +20,16 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
 
+    env:
+      BASE_URL: ${{ secrets.BASE_URL }}
+      TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+      TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+      ACCOUNTS_URL: ${{ vars.ACCOUNTS_URL }}
+      createAccount_URL: ${{ vars.createAccount_URL }}
+      viewAccount_URL: ${{ vars.viewAccount_URL}}
+      importAccount_URL: ${{ vars.importAccount_URL}}
+
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -33,11 +43,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browser(s)
-        run: npx playwright install --with-deps chromium
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - name: Generate BDD tests
         run: npx bddgen
+
+      
 
       - name: Run Playwright tests
         run: npx playwright test --reporter=line,html

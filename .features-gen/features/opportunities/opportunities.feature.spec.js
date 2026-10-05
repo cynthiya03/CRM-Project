@@ -1,5 +1,5 @@
 // Generated from: features/opportunities/opportunities.feature
-import { test } from "../../../src/fixtures/pageFixture.js";
+import { test } from "playwright-bdd";
 
 test.describe('testing opportunities feature in CRM application', () => {
 
@@ -70,8 +70,6 @@ test.describe('testing opportunities feature in CRM application', () => {
 });
 
 // == technical section ==
-
-test.beforeEach('BeforeEach Hooks', ({ $runScenarioHooks, loginPage }) => $runScenarioHooks('before', { loginPage }));
 
 test.use({
   $test: [({}, use) => use(test), { scope: 'test', box: true }],

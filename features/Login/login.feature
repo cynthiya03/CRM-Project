@@ -13,5 +13,3 @@ Feature: verify CRM login using Excel data
       | TC003_invalid_username |
       | TC004_empty_username   |
       | TC005_empty_password   |
-
-      

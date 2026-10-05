@@ -5,6 +5,7 @@ import { Account } from '../pages/Account/create_account.js';
 import {viewaccount} from '../pages/Account/view_account.js';
 import { importaccount} from '../pages/Account/import_account.js';
 import { once } from 'node:events';
+import { ContactPage } from '../pages/contactpage.js';
 import { createTestLogger } from '../utils/logger.js';
 import {CreateQuotePage} from '../pages/create_quote.js';
 import { ViewQuotePage } from '../pages/view_quote.js';
@@ -12,8 +13,19 @@ import { ImportQuotePage } from '../pages/import_quote.js';
 import { CreateTaskPage } from '../pages/create_task.js';
 
 
-
 export const test = base.extend({
+  storageState: async ({ browserName }, use, testInfo) => {
+  const startLoggedOut =
+    testInfo.tags.includes('@login') ||
+    testInfo.project.name.startsWith('setup-');
+
+  await use(
+    startLoggedOut
+      ? { cookies: [], origins: [] }
+      : `playwright/.auth/${browserName}.json`
+  );
+},
+
   loginPage: async ({ page }, use) => {
     const loginPage = new LoginPage(page);
     await use(loginPage);
@@ -36,23 +48,28 @@ export const test = base.extend({
     const ImportAccount = new importaccount(page);
     await use(ImportAccount);
   },
-  createquotePage: async ({ page }, use) => {
-    const createquotePage = new CreateQuotePage(page);
-    await use(CreateQuotePage);
+  contactPage: async ({ page }, use) => {
+    const contactPage = new ContactPage(page);
+    await use(contactPage);
   },
+  createquotePage: async ({ page }, use) => {
+  const createquotePage = new CreateQuotePage(page);
+  await use(createquotePage);
+},
+  
   viewquotePage : async ({ page }, use) => {
     const viewquotePage = new ViewQuotePage(page);
-    await use(ViewQuotePage);
+    await use(viewquotePage);
 
   },
   importquotePage : async ({ page }, use) => {
     const importquotePage = new ImportQuotePage(page);
-    await use(ImportQuotePage);
+    await use(importquotePage);
   },  
 
   createtaskPage : async ({ page }, use) => {
     const createtaskPage = new CreateTaskPage(page);
-    await use(CreateTaskPage);
+    await use(createtaskPage);
   },  
 
 
@@ -85,5 +102,3 @@ export const {
   BeforeScenario,
   AfterScenario,
 } = createBdd(test);
-export { expect } from '@playwright/test';
-
