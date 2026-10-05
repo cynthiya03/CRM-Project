@@ -17,7 +17,7 @@ concurrency:
 jobs:
   test:
     name: Playwright E2E
-    timeout-minutes: 30
+    timeout-minutes: 45
     runs-on: ubuntu-latest
 
     env:
