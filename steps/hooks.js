@@ -93,3 +93,8 @@ BeforeScenario({  tags: '@ImportQuote' }, async ({ page }) => {
   await page.waitForLoadState('domcontentloaded');
   console.log('Current URL:', page.url());
 });
+BeforeScenario({  tags: '@CreateTask' }, async ({ page }) => {
+  await page.goto(process.env.ACCOUNTS_URL);          // home page URL, e.g. .../#/home
+  await page.waitForLoadState('domcontentloaded');
+  console.log('Current URL:', page.url());
+});

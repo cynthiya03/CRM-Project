@@ -16,8 +16,7 @@ When('the user enters necessary details and clicks on Save button', async ({crea
 });
 
 Then('the task should be successfully created', async ({}) => {
-  // Step: Then the task should be successfully created
-  // From: features/Calendar/create_task.feature:8:1
+ await expect(createtaskPage.verifyTaskSaved());
 });
 
 Given('the user is logged into the applicationAnd the user navigates to the Ceate Task page', async ({createtaskPage}) => {

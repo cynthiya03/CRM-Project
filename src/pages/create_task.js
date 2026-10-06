@@ -3,10 +3,13 @@ export class CreateTaskPage{
     constructor(page)
     {
         this.page =page;
+        this.currentSubject = null;
+        this.calendarMenu = page.locator('a').filter({ hasText: /^Calendar$/ });
         this.createtaskSubmenu =page.getByRole('link', { name: 'Create Task' });
-        this.titleofPage =page.getByText('Create', { exact: true });
+        this.titleofPage = page.getByText('Create', { exact: true }).first();
         this.saveButton = page.getByRole('button', { name: 'Save' });
         this.cancelButton =page.getByRole('button', { name: 'Cancel' });
+        this.pagedisplayedonSave =page.locator('scrm-base-record-header').getByText('meeting with william');
 
         // Task Overview fields
         this.subjectField = page.getByRole('tabpanel', { name: 'TASK OVERVIEW' }).locator('input[type="text"]').first();
@@ -28,6 +31,7 @@ export class CreateTaskPage{
 
     // ---- navigation ----
     async openCreateTaskPage() {
+        await this.calendarMenu.hover();
         await this.createtaskSubmenu.click();
         await expect(this.titleofPage).toBeVisible();
         await expect(this.subjectField).toBeVisible();
@@ -90,9 +94,11 @@ export class CreateTaskPage{
 
     // ---- verifications ----
     async verifyTaskSaved() {
-        await expect(this.saveButton).toBeHidden();                              // left the edit form
-        await expect(this.page.getByText(this.currentSubject).first()).toBeVisible();   // detail view shows the subject
-    }
+    await expect(this.saveButton).toBeHidden();                 // left the edit form
+    await expect(
+        this.page.locator('scrm-base-record-header').getByText(this.currentSubject)
+    ).toBeVisible();                                           // detail view header shows the subject
+}
 
     async verifyMandatoryErrorDisplayed() {
         await expect(this.requiredError).toBeVisible();
@@ -102,6 +108,9 @@ export class CreateTaskPage{
     async verifyNothingSaved() {
         await expect(this.saveButton).toBeHidden();
         await expect(this.page.getByText(this.currentSubject)).toHaveCount(0);
+    }
+    async verifyTaskSaved(){
+        await expect(this.pagedisplayedonSave).toBeVisible();
     }
 }
 
