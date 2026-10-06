@@ -103,3 +103,4 @@ export const {
   AfterScenario,
 } = createBdd(test);
 
+export { expect } from '@playwright/test';
