@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 export class CreateTaskPage{
 
     constructor(page)
@@ -21,9 +22,8 @@ export class CreateTaskPage{
 
         // Account (type dropdown + record) and Contact
         this.accountDropdown = page.locator('scrm-group-field select');
-        this.accountRecord = page.locator('#pn_id_1').getByRole('combobox', { name: 'Select an item' });
-        this.contact = page.locator('#pn_id_3').getByRole('combobox', { name: 'Select an item' });
-
+        this.accountRecord = page.getByRole('combobox', { name: 'Select an item' }).first();
+        this.contact = page.getByRole('combobox', { name: 'Select an item' }).nth(1);
         // Validation message 
         this.requiredError = page.getByText('Missing required field: Subject');
         this.errorforPriority =page.getByText('Missing required field: Priority');
@@ -43,8 +43,8 @@ export class CreateTaskPage{
 
     // ---- generic helpers ----
     async selectFromDropdown(dropdown, optionText) {
-        await dropdown.click();
-        await this.page.getByRole('option', { name: optionText, exact: true }).click();
+    await dropdown.selectOption(optionText);   
+
     }
 
     async selectRelatedRecord(field, recordName) {
@@ -109,9 +109,7 @@ export class CreateTaskPage{
         await expect(this.saveButton).toBeHidden();
         await expect(this.page.getByText(this.currentSubject)).toHaveCount(0);
     }
-    async verifyTaskSaved(){
-        await expect(this.pagedisplayedonSave).toBeVisible();
-    }
+    
 }
 
 
