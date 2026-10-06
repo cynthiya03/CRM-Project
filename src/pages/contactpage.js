@@ -1,110 +1,143 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './Basepage.js';
+import { ExcelHelper } from '../utils/ExcelHelper.js';
 
 export class ContactPage extends BasePage {
   constructor(page) {
     super(page);
-    this.page = page;
-
-
+    
 this.contact = page.getByText('Contacts', { exact: true }).first();
 this.createContactfield = page.getByRole('link', { name: 'Create Contact' }).first();
-
-
-this.createContactTitle =  page.getByText('Create', { exact: true })
+this.createContactTitle =  page.getByText('Create', { exact: true }).first();
 this.overview = page.getByRole('tab', { name: 'OVERVIEW' })
 this.moreinfo =  page.getByRole('tab', { name: 'MORE INFORMATION'})
 this.other = page.getByRole('tab', { name: 'OTHER' });
-this.overview =  page.getByRole('tab', { name: 'OVERVIEW' })
-this.mr = page.locator('select');
-this.firstname =  page.getByRole('textbox').nth(1)
-this.lastname = page.getByRole('textbox').nth(2)
-this.officephone = page.getByRole('textbox').nth(3)
+this.requiredIndicator = page.getByText('*', { exact: true });
+ this.LastName = page.getByRole('textbox').nth(2);
+ this.errorMessage = page.getByText('Missing required field: Last Name', { exact: true }).first(); 
+ this.firstNameField = page.locator('.form-control.form-control-sm').first();
+this.createdcontact = page.locator('.dynamic-label');
+this.saveButton = page.getByText('Save', { exact: true }).first();
+this.dropdownLocator = page.locator('.custom-select.custom-select-sm');
+this.salutation = page.locator('select').filter({has: page.locator('option[value="Mrs."]'),});
+this.accountName1 =page.getByRole('combobox', { name: 'Select an item' })
+this.accountNameInput = page.locator('.p-inputtext.p-component');
+this.searchButton = page.locator('.p-dropdown-items-wrapper');
+this.accountOption = page.getByRole('combobox', { name: 'Bay Funding Co' });
+this.officePhone = page.getByRole('textbox').nth(3)
+this.jobTitle = page.getByRole('textbox').nth(5)
+this.accountName = page.getByRole('combobox', { name: 'Select an item' })
+this.emailAddress = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-email_address > div > .d-flex > .flex-grow-1 > .form-control')
+this.primaryAddressStreet = page.locator('scrm-group-field').filter({ hasText: 'Primary Address Street' }).locator('textarea')
+this.primaryAddressPostalCode = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-primary_address_postalcode > div > .d-flex > .flex-grow-1 > .form-control')
+this.primaryAddressCity = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-primary_address_city > div > .d-flex > .flex-grow-1 > .form-control')
+this.primaryAddressState = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-primary_address_state > div > .d-flex > .flex-grow-1 > .form-control')
+this.primaryAddressCountry = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-primary_address_country > div > .d-flex > .flex-grow-1 > .form-control')
+this.description = page.locator('textarea').nth(2)
+this.mobile = page.getByRole('textbox').nth(4)
+this.department = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-department > div > .d-flex > .flex-grow-1 > .form-control')
+this.alternateAddressStreet = page.locator('scrm-group-field').filter({ hasText: 'Alternate Address Street' }).locator('textarea')
+this.alternateAddressPostalCode = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-alt_address_postalcode > div > .d-flex > .flex-grow-1 > .form-control')
+this.alternateAddressCity = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-alt_address_city > div > .d-flex > .flex-grow-1 > .form-control')
+this.alternateAddressState = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-alt_address_state > div > .d-flex > .flex-grow-1 > .form-control')
+this.alternateAddressCountry = page.locator('.dynamic-field.dynamic-field-mode-edit.dynamic-field-name-alt_address_country > div > .d-flex > .flex-grow-1 > .form-control')
+this.bulkAction = page.locator('scrm-table-header').getByRole('button', { name: 'Bulk Action' })
+this.delete = page.locator('a').filter({ hasText: 'Delete' }).nth(1)
+this.proceed = page.getByRole('button', { name: 'Proceed' })
+this.deleteSuccess = page.getByText('Record(s) deleted')
 
-    this.contactFromVCardLink = page.getByRole('link', { name: /Create Contact from vCard/i }).first();
-    this.importContactLink = page.getByRole('link', { name: /Import Contact/i }).first();
-    this.viewContactsLink = page.getByRole('link', { name: /View Contacts/i }).first();
-    
-    this.lastNameLabel = page.getByText('Last Name', { exact: true }).first();
-    this.requiredIndicator = page.locator('span.required, .required, text=*').first();
-    this.lastNameField = page.locator('input[placeholder*="Last Name"], input[name*="last_name"], textarea[name*="last_name"]').first();
-    this.firstNameField = page.locator('input[placeholder*="First Name"], input[name*="first_name"]').first();
-    this.emailField = page.locator('input[type="email"], input[name*="email"]').first();
-    this.assignedToField = page.getByRole('combobox').first();
-    this.saveButton = page.getByRole('button', { name: /^Save$/i }).first();
-    this.errorMessage = page.locator('text=Missing required field: Last Name, text=Missing required field: Name, .alert-danger, .error').first();
-    this.uploadInput = page.locator('input[type="file"]').first();
-    this.contactListToolbar = page.locator('button, [role="button"]').filter({ hasText: /Select All|Filter|Column|Bulk Action|Next|Previous/i }).first();
+this.contactFields = {
+  'firstname': this.firstNameField,
+  'unique lastname': this.LastName,
+  'office phone': this.officePhone,
+  'job title': this.jobTitle,
+  'Email address': this.emailAddress,
+
+  'primary address street': this.primaryAddressStreet,
+  'primary address postal code': this.primaryAddressPostalCode,
+  'Primary Address City': this.primaryAddressCity,
+  'Primary Address State': this.primaryAddressState,
+  'Primary Address Country': this.primaryAddressCountry,
+
+  'DESCRIPTION': this.description,
+  'MOBILE': this.mobile,
+  'DEPARTMENT': this.department,
+
+  'Alternate Address Street': this.alternateAddressStreet,
+  'Alternate Address Postal Code': this.alternateAddressPostalCode,
+  'Alternate Address City': this.alternateAddressCity,
+  'Alternate Address State': this.alternateAddressState,
+  'Alternate Address Country': this.alternateAddressCountry,
+};
   }
 
+
+async fillContactDetails(data) {
+    await this.fillFields(this.contactFields, data);
+  }
+
+  async verifyContactDetails(data) {
+    await this.verifyFields(this.contactFields, data);
+  }
+
+async filluniquelastName() {
+  const number = Math.floor(1000 + Math.random() * 9000);
+  this.createdLastName = `Ninja_${number}`;
+ await this.fillField(this.LastName, this.createdLastName);
+}
+
+
+  async fillFIRSTName() {
+    await this.firstNameField.fill('Numpy');
+  }
 
   async openCreateContact() {
     await this.createContactfield.click();
   }
 
-  async openCreateContactFromVCard() {
-    await this.contactFromVCardLink.click();
-  }
+ async openCreateContactFromVCard() {
+     await this.contactFromVCardLink.click();
+   }
 
-  async openImportContact() {
-    await this.importContactLink.click();
-  }
+   async openImportContact() {
+     await this.importContactLink.click();
+   }
 
-  async openContactList() {
-    await this.viewContactsLink.click();
-  }
-
-  async fillLastName(value) {
-    await this.lastNameField.fill(value);
-  }
-
-  async fillContactForm({
-    firstName = 'Test',
-    lastName = 'Contact',
-    email = 'primary@example.com',
-  } = {}) {
-    if (await this.firstNameField.count()) {
-      await this.firstNameField.fill(firstName);
-    }
-    if (await this.lastNameField.count()) {
-      await this.lastNameField.fill(lastName);
-    }
-    if (await this.emailField.count()) {
-      await this.emailField.fill(email);
-    }
-  }
-
-  async clickSave() {
-    await this.saveButton.click();
-  }
-
-  async fillAddress(data = {}) {
-    if (!data || Object.keys(data).length === 0) {
-      return;
-    }
-
-    const street = data.Street || data.street;
-    const postalCode = data['Postal Code'] || data.postalCode;
-    const city = data.City || data.city;
-    const state = data.State || data.state;
-    const country = data.Country || data.country;
-
-    const inputs = [
-      { locator: this.page.locator('textarea, input').filter({ hasText: /Street|street/i }).first(), value: street },
-      { locator: this.page.locator('input').filter({ hasText: /Postal|postal|Zip/i }).first(), value: postalCode },
-      { locator: this.page.locator('input').filter({ hasText: /City|city/i }).first(), value: city },
-      { locator: this.page.locator('input').filter({ hasText: /State|state/i }).first(), value: state },
-      { locator: this.page.locator('input').filter({ hasText: /Country|country/i }).first(), value: country },
-    ];
-
-    for (const entry of inputs) {
-      if (entry.value) {
-        await entry.locator.fill(entry.value);
-      }
-    }
-  }
+   async openContactList() {
+     await this.viewContactsLink.click();
+   }
 
   async expectRequiredIndicator(expectedSymbol = '*') {
     await expect(this.requiredIndicator).toHaveText(expectedSymbol);
   }
+
+async selectDropdown(locator, value) {
+  await locator.selectOption({ value });
+  await expect(locator).toHaveValue(value);
 }
+
+async searchDropdown(inputLocator, searchText) {
+    await this.accountName1.click();
+   //await inputLocator.fill(searchText);
+   await inputLocator.fill('');
+  await inputLocator.pressSequentially(searchText, { delay: 100 });
+  }
+async selectDropdownResult(optionLocator) {
+  await optionLocator.click();
+}
+async fillContactDetails(data) {
+  await this.fillFields(this.contactFields, data);
+}
+
+async verifyContactDetails(data) {
+  await this.verifyFields(this.contactFields, data);
+}
+
+async openContactsList() {
+  await this.page.goto('#/contacts/index?return_module=Contacts&return_action=DetailView');
+  
+}
+
+
+}
+

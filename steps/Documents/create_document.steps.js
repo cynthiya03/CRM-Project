@@ -1,30 +1,36 @@
-import { createBdd } from 'playwright-bdd';
+import { When, Then } from '../../src/fixtures/pageFixture.js';
 
-const { Given, When, Then } = createBdd();
-
-Then('the dropdown should display "Create Document" as an option', async ({}) => {
-  // Step: Then the dropdown should display "Create Document" as an option
-  // From: features\Documents\create_document.feature:9:5
+When('user clicks on the Documents option in the menu bar', async ({ documentPage, logger }) => {
+  logger.info('Opening the Documents menu');
+  await documentPage.openDocumentsMenu();
 });
 
-Then('user should be redirected to the create document page', async ({}) => {
-  // Step: Then user should be redirected to the create document page
-  // From: features\Documents\create_document.feature:13:5
+Then('the dropdown should display {string} as an option', async ({ documentPage, logger }, option) => {
+  logger.info(`Verifying dropdown displays option: ${option}`);
+  await documentPage.expectMenuOption(option);
 });
 
-When('user navigates to the create document page and fills in the following fields', async ({}, dataTable) => {
-  // Step: When user navigates to the create document page and fills in the following fields
-  // From: features\Documents\create_document.feature:16:5
-  const formData = dataTable.hashes();
-  console.log('Document form data:', formData);
+Then('user should be redirected to the create document page', async ({ documentPage ,logger}) => {
+  logger.info('Navigating to the create document page');
+  await documentPage.openCreateDocument();
 });
 
-When('user clicks the save button', async ({}) => {
-  // Step: And user clicks the save button
-  // From: features\Documents\create_document.feature:28:5
+When('user navigates to the create document page and fills in the following fields', async ({ documentPage, logger }, dataTable) => {
+  logger.info('Navigating to the create document page');
+  await documentPage.openDocumentsMenu();
+  await documentPage.openCreateDocument();
+  const fields = dataTable.hashes();
+  logger.info(`Filling document form with fields: ${JSON.stringify(fields)}`);
+  await documentPage.fillDocument(fields);
 });
 
-Then('new document should be created successfully', async ({}) => {
-  // Step: Then new document should be created successfully
-  // From: features\Documents\create_document.feature:29:5
+When('user clicks the save button', async ({ documentPage, logger }) => {
+  logger.info('Clicking the save button');
+  await documentPage.save();
 });
+
+Then('new document should be created successfully', async ({ documentPage, logger }) => {
+  logger.info('Verifying document was created successfully');
+  await documentPage.expectDocumentCreated('Sample Document');
+});
+

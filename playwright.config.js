@@ -36,11 +36,11 @@ export default defineConfig({
   reporter: 'html',
 
   use: {
-    baseURL: process.env.BASE_URL,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'on-first-retry',
-  },
+  baseURL: process.env.BASE_URL,
+  screenshot: 'only-on-failure',
+  video: 'retain-on-failure',
+  trace: 'on-first-retry',
+},
 
   projects: browserProfiles.flatMap(({ name, device }) => [
     {
@@ -49,6 +49,7 @@ export default defineConfig({
       testMatch: /auth\.setup\.js$/,
       use: {
         ...devices[device],
+        
         storageState: { cookies: [], origins: [] },
       },
     },

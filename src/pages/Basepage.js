@@ -10,12 +10,13 @@ export class BasePage {
   }
 
   async hoverTab(locator) {
-    await locator.hover({ timeout: 15000 });
+    await expect(locator).toBeVisible();
+    await locator.hover();
   }
 
 
  async verifyVisible(locator){
-    await expect(locator).toBeVisible({ timeout: 60000 });
+    await expect(locator).toBeVisible();
     
   }
 
@@ -34,4 +35,25 @@ async openAccount(uniqueName) {
   }).click();
 }
 
+
+async fillFields(fieldMap, data) {
+  for (const [column, locator] of Object.entries(fieldMap)) {
+    if (!Object.hasOwn(data, column)) {
+      throw new Error(`Excel column not found: ${column}`);
+    }
+
+    await locator.fill(String(data[column] ?? ''));
+  }
+}
+
+async verifyFields(fieldMap, data) {
+  for (const [column, locator] of Object.entries(fieldMap)) {
+    if (!Object.hasOwn(data, column)) {
+      throw new Error(`Excel column not found: ${column}`);
+    }
+
+    await expect(locator, `Verify field: ${column}`)
+      .toHaveValue(String(data[column] ?? ''));
+  }
+}
 }
