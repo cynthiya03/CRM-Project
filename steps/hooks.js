@@ -3,6 +3,20 @@ import {
   AfterScenario,
 } from '../src/fixtures/pageFixture.js';
 
+BeforeScenario(
+  { tags: '@documentScenario or @moreScenario' },
+  async ({ page, loginPage }) => {
+    await page.goto(process.env.BASE_URL);
+
+    // Falls back to a fresh login if the saved session has expired.
+    const loginForm = page.getByRole('textbox', { name: 'Username' });
+    if (await loginForm.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await loginPage.dologin(process.env.TEST_USERNAME, process.env.TEST_PASSWORD);
+    }
+    console.log('Current URL:', page.url());
+  }
+);
+
 
 // Runs before every scenario in the tagged feature.
 BeforeScenario(
