@@ -13,7 +13,7 @@ Given the user is logged into the applicationAnd the user navigates to the Ceate
 When the user enter necessary details, and the user links accounts record name using the relationship selectionfield and links contact record name using contact selection and clicks Save button
 Then the task record should be saved
 
-@Validate mandatory fields @TC503
+@Validatemandatoryfields @TC503
 Scenario:Validate mandatory fields prevent form submission
 Given the user is logged into the applicationAnd the user navigates to the Ceate Task page
 When the user leaves the Subject field completely blank And the user leaves the Priority dropdown unselected And the user clicks the Save button
