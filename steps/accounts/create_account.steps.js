@@ -209,8 +209,3 @@ Then(
     await createAccount.verifyShippingAddress();
   },
 );
-
-
-
-
-
