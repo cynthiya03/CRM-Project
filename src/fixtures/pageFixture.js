@@ -8,6 +8,7 @@ import { importaccount} from '../pages/Account/import_account.js';
 import { ContactPage } from '../pages/contactpage.js';
 import { once } from 'node:events';
 import { createTestLogger } from '../utils/logger.js';
+import LeadsPage from '../pages/leads.js';
 
 
 export const test = base.extend({
@@ -51,6 +52,10 @@ export const test = base.extend({
   contactPage: async ({ page, logger }, use) => {
     const contactPage = new ContactPage(page);
     await use(contactPage);
+  },
+  leadsPage: async ({ page }, use) => {
+  const leadsPage = new LeadsPage(page);
+  await use(leadsPage);
   },
   logger: async ({}, use, testInfo) => {
     const logger = createTestLogger(testInfo);

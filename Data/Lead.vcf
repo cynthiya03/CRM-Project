@@ -1,0 +1,10 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Sam Adam
+N:Adam;Sam;;;
+ORG:Test Company
+TITLE:QA Tester
+TEL;TYPE=CELL:9999977777
+EMAIL:sam.adam@example.com
+URL:https://example.com
+END:VCARD
