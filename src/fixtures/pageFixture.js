@@ -12,6 +12,7 @@ import { ViewQuotePage } from '../pages/view_quote.js';
 import { ImportQuotePage } from '../pages/import_quote.js';
 import { CreateTaskPage } from '../pages/create_task.js';
 import LeadsPage from '../pages/leads.js';
+import { DocumentsPage } from '../pages/DocumentsPage.js';
 
 export const test = base.extend({
   storageState: async ({ browserName }, use, testInfo) => {
@@ -75,6 +76,12 @@ export const test = base.extend({
   const leadsPage = new LeadsPage(page);
   await use(leadsPage);
   },
+
+documentPage: async ({ page }, use) => {
+    const documentPage = new DocumentsPage(page);
+    await use(documentPage);
+  },
+  
 
 logger: async ({}, use, testInfo) => {
   const logger = createTestLogger(testInfo);
