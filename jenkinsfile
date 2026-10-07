@@ -6,6 +6,15 @@ pipeline {
     }
 
     stages {
+
+        stage('Check Environment') {
+            steps {
+                echo "Test Environment: ${env.TEST_ENV}"
+                bat 'node --version'
+                bat 'npm --version'
+            }
+        }
+
         stage('Install dependencies') {
             steps {
                 bat 'npm ci'
