@@ -83,3 +83,9 @@ Background:
   Given user is on the leads page 
   When user lands on import leads page
   Then user should see steps for import file 
+
+@importleads @TC114
+ Scenario: Verify whether it throws an error for not uploading a file
+ Given user is on the import leads page
+ When user clicks next without uploading a file
+ Then user should see the missing-file validation error "Missing required fields: Select a file to upload"
