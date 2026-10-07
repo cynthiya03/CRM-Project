@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { BasePage } from './Basepage.js';
-import { ExcelHelper } from '../utils/ExcelHelper.js';
+
 
 export class ContactPage extends BasePage {
   constructor(page) {
@@ -95,15 +95,7 @@ async filluniquelastName() {
     await this.createContactfield.click();
   }
 
- async openCreateContactFromVCard() {
-     await this.contactFromVCardLink.click();
-   }
-
-   async openImportContact() {
-     await this.importContactLink.click();
-   }
-
-   async openContactList() {
+  async openContactList() {
      await this.viewContactsLink.click();
    }
 
@@ -118,7 +110,6 @@ async selectDropdown(locator, value) {
 
 async searchDropdown(inputLocator, searchText) {
     await this.accountName1.click();
-   //await inputLocator.fill(searchText);
    await inputLocator.fill('');
   await inputLocator.pressSequentially(searchText, { delay: 100 });
   }
@@ -137,7 +128,5 @@ async openContactsList() {
   await this.page.goto('#/contacts/index?return_module=Contacts&return_action=DetailView');
   
 }
-
-
 }
 

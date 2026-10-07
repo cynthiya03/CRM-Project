@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+
+    options {
+        disableConcurrentBuilds()
+    }
+
+    stages {
+
+        stage('Check Environment') {
+            steps {
+                echo "Test Environment: ${env.TEST_ENV}"
+                bat 'node --version'
+                bat 'npm --version'
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                bat 'npm ci'
+                bat 'npx playwright install'
+                bat 'allure --version'
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                bat 'npm run clean:allure'
+                bat 'npx playwright test'
+            }
+
+            post {
+                always {
+                    allure allureVersion: '3',
+                           results: [[path: 'allure-results']]
+                }
+            }
+        }
+    }
+}

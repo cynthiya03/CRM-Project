@@ -5,7 +5,10 @@
   "type": "module",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "clean:allure": "node scripts/clean-allure.cjs",
+    "test": "npm run clean:allure && npx playwright test"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

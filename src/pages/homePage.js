@@ -17,7 +17,7 @@ export class HomePage extends BasePage {
 
 
 async accountclick() {
-  await expect(this.Accountpage).toBeVisible({ timeout: 15000 });
+  await expect(this.Accountpage).toBeVisible();
   await this.Accountpage.click();
 }
 
