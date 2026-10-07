@@ -4,10 +4,15 @@ import { HomePage } from '../pages/homePage.js';
 import { Account } from '../pages/Account/create_account.js';
 import {viewaccount} from '../pages/Account/view_account.js';
 import { importaccount} from '../pages/Account/import_account.js';
-import { ContactPage } from '../pages/contactpage.js';
 import { once } from 'node:events';
+import { ContactPage } from '../pages/contactpage.js';
 import { createTestLogger } from '../utils/logger.js';
-
+import {CreateQuotePage} from '../pages/create_quote.js';
+import { ViewQuotePage } from '../pages/view_quote.js';
+import { ImportQuotePage } from '../pages/import_quote.js';
+import { CreateTaskPage } from '../pages/create_task.js';
+import LeadsPage from '../pages/leads.js';
+import { DocumentsPage } from '../pages/DocumentsPage.js';
 
 export const test = base.extend({
   storageState: async ({ browserName }, use, testInfo) => {
@@ -31,7 +36,8 @@ export const test = base.extend({
     const homePage = new HomePage(page);
     await use(homePage);
   },
-  createAccount: async ({ page,  logger }, use) => {
+  
+  createAccount: async ({ page }, use) => {
     const createAccount = new Account(page);
     await use(createAccount);
   },
@@ -39,15 +45,43 @@ export const test = base.extend({
     const viewAccount = new viewaccount(page, logger);
     await use(viewAccount);
   },
-   ImportAccount: async ({ page, logger }, use) => {
+   ImportAccount: async ({ page }, use) => {
     const ImportAccount = new importaccount(page);
     await use(ImportAccount);
   },
-  contactPage: async ({ page, logger }, use) => {
+  contactPage: async ({ page }, use) => {
     const contactPage = new ContactPage(page);
     await use(contactPage);
   },
+  createquotePage: async ({ page }, use) => {
+  const createquotePage = new CreateQuotePage(page);
+  await use(createquotePage);
+},
+  
+  viewquotePage : async ({ page }, use) => {
+    const viewquotePage = new ViewQuotePage(page);
+    await use(viewquotePage);
 
+  },
+  importquotePage : async ({ page }, use) => {
+    const importquotePage = new ImportQuotePage(page);
+    await use(importquotePage);
+  },  
+
+  createtaskPage : async ({ page }, use) => {
+    const createtaskPage = new CreateTaskPage(page);
+    await use(createtaskPage);
+  },  
+  leadsPage: async ({ page }, use) => {
+  const leadsPage = new LeadsPage(page);
+  await use(leadsPage);
+  },
+
+documentPage: async ({ page }, use) => {
+    const documentPage = new DocumentsPage(page);
+    await use(documentPage);
+  },
+  
 
 logger: async ({}, use, testInfo) => {
   const logger = createTestLogger(testInfo);
@@ -78,4 +112,5 @@ export const {
   BeforeScenario,
   AfterScenario,
 } = createBdd(test);
+
 export { expect } from '@playwright/test';

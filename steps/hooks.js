@@ -3,10 +3,24 @@ import {
   AfterScenario,
 } from '../src/fixtures/pageFixture.js';
 
+BeforeScenario(
+  { tags: '@documentScenario or @moreScenario' },
+  async ({ page, loginPage }) => {
+    await page.goto(process.env.BASE_URL);
+
+    // Falls back to a fresh login if the saved session has expired.
+    const loginForm = page.getByRole('textbox', { name: 'Username' });
+    if (await loginForm.isVisible({ timeout: 5000 }).catch(() => false)) {
+      await loginPage.dologin(process.env.TEST_USERNAME, process.env.TEST_PASSWORD);
+    }
+    console.log('Current URL:', page.url());
+  }
+);
+
 
 // Runs before every scenario in the tagged feature.
 BeforeScenario(
-  { tags: '@AccountfieldisDisplayed or @AccountNavigation or @ContactsNavigation' },
+  { tags: '@AccountfieldisDisplayed or @AccountNavigation or @ContactsNavigation'},
   async ({ page }) => {
    if (!process.env.ACCOUNTS_URL) {
       throw new Error('ACCOUNTS_URL is missing.');
@@ -49,14 +63,20 @@ BeforeScenario({ tags:'@importAccount'}, async ({ page }) => {
   console.log('Current URL:', page.url());
 });
 
+BeforeScenario(
+  { tags: '@Contacts or @contact' },
+  async ({ page }) => {
+    await page.goto(process.env.BASE_URL || 'https://suite8demo.suiteondemand.com/#/home');
+    await page.waitForLoadState('domcontentloaded');
+    console.log('Current URL:', page.url());
+  }
+);
 
 BeforeScenario(
   { tags: '@createContact' },
   async ({ page }) => {
-    if (!process.env.createContact_URL) {
-    throw new Error('createContact_URL is missing.');
-  }
     await page.goto(process.env.createContact_URL);
+    await page.waitForLoadState('domcontentloaded');
     console.log('Current URL:', page.url());
   }
 );
@@ -66,5 +86,53 @@ AfterScenario(
   async ({ page }) => {
     await page.frameLocator('iframe').locator('#undo').click();
     console.log('Cleanup after TC017');
+  }
+);
+
+BeforeScenario({  tags: '@CreateQuote' }, async ({ page }) => {
+  await page.goto(process.env.ACCOUNTS_URL);          
+  await page.waitForLoadState('domcontentloaded');
+  console.log('Current URL:', page.url());
+});
+
+
+BeforeScenario({  tags: '@ViewQuote' }, async ({ page }) => {
+  await page.goto(process.env.ACCOUNTS_URL);          
+  await page.waitForLoadState('domcontentloaded');
+  console.log('Current URL:', page.url());
+});
+
+BeforeScenario({  tags: '@ImportQuote' }, async ({ page }) => {
+  await page.goto(process.env.ACCOUNTS_URL);         
+  await page.waitForLoadState('domcontentloaded');
+  console.log('Current URL:', page.url());
+});
+BeforeScenario({  tags: '@CreateTask' }, async ({ page }) => {
+  await page.goto(process.env.ACCOUNTS_URL);          
+  await page.waitForLoadState('domcontentloaded');
+  console.log('Current URL:', page.url());
+});
+BeforeScenario(
+  { tags: '@createopportunity or @importopportunity or @viewopportunity' },
+  async ({ page }) => {
+
+    if (!process.env.BASE_URL) {
+      throw new Error('BASE_URL is missing.');
+    }
+
+    await page.goto(process.env.BASE_URL);
+    await page.waitForURL(/\/home\/?$/, { timeout: 30000 });
+
+    console.log('Current URL:', page.url());
+  }
+);
+
+BeforeScenario(
+  { tags: '@leads or @lead or @createlead or @viewleads or @importleads' },
+  async ({ page }) => {
+    await page.goto(process.env.BASE_URL);
+    await page.waitForURL(/\/home\/?$/, { timeout: 30000 });
+
+    console.log('Current URL:', page.url());
   }
 );
