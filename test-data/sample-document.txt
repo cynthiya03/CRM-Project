@@ -1,1 +1,0 @@
-Sample document for SuiteCRM document creation tests.
