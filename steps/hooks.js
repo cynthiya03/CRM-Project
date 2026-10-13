@@ -121,7 +121,7 @@ BeforeScenario(
     }
 
     await page.goto(process.env.BASE_URL);
-    await page.waitForURL(/\/home\/?$/, { timeout: 30000 });
+    await page.waitForURL(/\/home\/?$/);
 
     console.log('Current URL:', page.url());
   }
@@ -131,7 +131,7 @@ BeforeScenario(
   { tags: '@leads or @lead or @createlead or @viewleads or @importleads' },
   async ({ page }) => {
     await page.goto(process.env.BASE_URL);
-    await page.waitForURL(/\/home\/?$/, { timeout: 30000 });
+    await page.waitForURL(/\/home\/?$/);
 
     console.log('Current URL:', page.url());
   }
